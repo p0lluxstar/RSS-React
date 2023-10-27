@@ -1,9 +1,20 @@
-import { Component } from 'react';
+import React from 'react';
 import styles from './Main.module.css';
 
-class Main extends Component {
+interface Props {
+  namePokemon: string;
+}
+
+class Main extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
   render() {
-    return <main className={styles.main}>Main</main>;
+    return (
+      <main className={styles.main}>
+        <div>{this.props.namePokemon}</div>
+      </main>
+    );
   }
 }
 
