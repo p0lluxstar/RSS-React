@@ -1,0 +1,25 @@
+.main {
+  display: flex;
+}
+
+.pokemon {
+  margin: 10px;
+}
+
+.pokemon img {
+  width: 200px;
+  height: 200px;
+}
+
+.pokemon p {
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.errName {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 36px;
+  text-align: center;
+}
