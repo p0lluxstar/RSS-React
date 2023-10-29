@@ -46,7 +46,7 @@ class Header extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    (this.placeholder = 'Enter pokemon name'),
+    (this.placeholder = 'Enter pokemon name. Example: Pikachu'),
       (this.state = {
         inputValue: '',
         dataPokemon: [
@@ -64,93 +64,117 @@ class Header extends React.Component<Props, State> {
   }
 
   fetchFirstPageLoad() {
-    const newArr: Array<{
-      pokemonName: string;
-      pokemonType: string;
-      urlImg: string;
-      err: boolean;
-    }> = [];
-    fetch(`https://pokeapi.co/api/v2/pokemon/`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data: manyPokemons) => {
-        data.results.forEach((e) => {
-          fetch(e.url)
-            .then((response) => {
-              return response.json();
-            })
-            .then((data: DataPokemon) =>
-              newArr.push({
-                pokemonName: data.name,
-                pokemonType: data.types[0].type.name,
-                urlImg: data.sprites.other.dream_world.front_default,
-                err: false,
-              })
-            );
-        });
-        const arrManyPokmon = () => {
-          console.log(newArr);
+    this.setState({
+      inputValue: `${localStorage.getItem('lastSearch')}`,
+    });
+    if (localStorage.getItem('lastSearch')) {
+      fetch(
+        `https://pokeapi.co/api/v2/pokemon/${localStorage.getItem(
+          'lastSearch'
+        )}`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data: DataPokemon) => {
           this.setState({
             dataPokemon: [
               {
-                namePokemon: newArr[0].pokemonName,
-                urlImg: newArr[0].urlImg,
-                typePokemon: newArr[0].pokemonType,
-                err: false,
-              },
-              {
-                namePokemon: newArr[1].pokemonName,
-                urlImg: newArr[1].urlImg,
-                typePokemon: newArr[1].pokemonType,
-                err: false,
-              },
-              {
-                namePokemon: newArr[2].pokemonName,
-                urlImg: newArr[2].urlImg,
-                typePokemon: newArr[2].pokemonType,
+                namePokemon: data.name,
+                urlImg: data.sprites.other.dream_world.front_default,
+                typePokemon: data.types[0].type.name,
                 err: false,
               },
             ],
           });
-        };
-        setTimeout(arrManyPokmon, 300);
-      })
-      .catch(() => {});
+        })
+        .catch(() => {
+          this.setState({
+            dataPokemon: [
+              {
+                namePokemon: '',
+                typePokemon: '',
+                urlImg: '',
+                err: true,
+              },
+            ],
+          });
+        });
+    } else {
+      const newArr: Array<{
+        namePokemon: string;
+        typePokemon: string;
+        urlImg: string;
+        err: boolean;
+      }> = [];
+      fetch(`https://pokeapi.co/api/v2/pokemon/`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data: manyPokemons) => {
+          data.results.forEach((e) => {
+            fetch(e.url)
+              .then((response) => {
+                return response.json();
+              })
+              .then((data: DataPokemon) =>
+                newArr.push({
+                  namePokemon: data.name,
+                  typePokemon: data.types[0].type.name,
+                  urlImg: data.sprites.other.dream_world.front_default,
+                  err: false,
+                })
+              );
+          });
+          const arrManyPokemon = () => {
+            this.setState({
+              dataPokemon: newArr,
+            });
+          };
+          setTimeout(arrManyPokemon, 300);
+        })
+        .catch(() => {});
+    }
   }
 
   fetchSearch() {
-    this.placeholder = 'Enter pokemon name';
-    fetch(
-      `https://pokeapi.co/api/v2/pokemon/${this.state.inputValue.toLowerCase()}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data: DataPokemon) => {
-        this.setState({
-          dataPokemon: [
-            {
-              namePokemon: data.name,
-              urlImg: data.sprites.other.dream_world.front_default,
-              typePokemon: data.types[0].type.name,
-              err: false,
-            },
-          ],
+    if (this.state.inputValue === '') {
+      localStorage.setItem('lastSearch', '');
+      this.fetchFirstPageLoad();
+    } else {
+      this.placeholder = 'Enter pokemon name. Example: Pikachu';
+      localStorage.setItem('lastSearch', this.state.inputValue);
+      fetch(
+        `https://pokeapi.co/api/v2/pokemon/${this.state.inputValue.toLowerCase()}`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data: DataPokemon) => {
+          this.setState({
+            dataPokemon: [
+              {
+                namePokemon: data.name,
+                urlImg: data.sprites.other.dream_world.front_default,
+                typePokemon: data.types[0].type.name,
+                err: false,
+              },
+            ],
+          });
+        })
+        .catch(() => {
+          this.setState({
+            dataPokemon: [
+              {
+                namePokemon: '',
+                typePokemon: '',
+                urlImg: '',
+                err: true,
+              },
+            ],
+          });
         });
-      })
-      .catch(() => {
-        this.setState({
-          dataPokemon: [
-            {
-              namePokemon: '',
-              typePokemon: '',
-              urlImg: '',
-              err: true,
-            },
-          ],
-        });
-      });
+    }
   }
 
   render() {

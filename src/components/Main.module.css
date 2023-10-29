@@ -1,9 +1,18 @@
 .main {
   display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
 }
 
 .pokemon {
+  width: 220px;
+  padding: 10px;
+  border-radius: 5px;
   margin: 10px;
+  text-align: center;
+  box-shadow:
+    2px 5px 15px 0px #0b325e,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 
 .pokemon img {

@@ -34,21 +34,15 @@ class Main extends React.Component<Props> {
     } else {
       return (
         <>
-          <div className={styles.pokemon}>
-            <p>Name pokemon: {this.props.dataArray[0].namePokemon}</p>
-            <p>Type pokemon: {this.props.dataArray[0].typePokemon}</p>
-            <img src={this.props.dataArray[0].urlImg} />
-          </div>
-          <div className={styles.pokemon}>
-            <p>Name pokemon: {this.props.dataArray[1].namePokemon}</p>
-            <p>Type pokemon: {this.props.dataArray[1].typePokemon}</p>
-            <img src={this.props.dataArray[1].urlImg} />
-          </div>
-          <div className={styles.pokemon}>
-            <p>Name pokemon: {this.props.dataArray[2].namePokemon}</p>
-            <p>Type pokemon: {this.props.dataArray[2].typePokemon}</p>
-            <img src={this.props.dataArray[2].urlImg} />
-          </div>
+          {this.props.dataArray.map((e, index) => {
+            return (
+              <div className={styles.pokemon} key={index}>
+                <p>Name pokemon: {e.namePokemon}</p>
+                <p>Type pokemon: {e.typePokemon}</p>
+                <img src={e.urlImg} />
+              </div>
+            );
+          })}
         </>
       );
     }
