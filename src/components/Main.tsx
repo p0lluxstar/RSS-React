@@ -20,9 +20,6 @@ class Main extends React.Component<Props> {
       return (
         <p className={styles.errName}>There is no Pokimon with that name!</p>
       );
-    }
-    if (this.props.dataArray[0].namePokemon === '') {
-      return <p className={styles.errName}>Loading...</p>;
     } else if (this.props.dataArray.length === 1) {
       return (
         <div className={styles.pokemon}>

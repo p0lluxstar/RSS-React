@@ -43,3 +43,9 @@ button {
 button:hover {
   opacity: 0.9;
 }
+
+.loading {
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+}

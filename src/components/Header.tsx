@@ -12,6 +12,7 @@ interface State {
     urlImg: string;
     err: boolean;
   }>;
+  isLoading: boolean;
 }
 
 interface manyPokemons {
@@ -57,6 +58,7 @@ class Header extends React.Component<Props, State> {
             err: false,
           },
         ],
+        isLoading: false,
       });
     this.fetchFirstPageLoad = this.fetchFirstPageLoad.bind(this);
     setTimeout(this.fetchFirstPageLoad, 100);
@@ -86,6 +88,7 @@ class Header extends React.Component<Props, State> {
                 err: false,
               },
             ],
+            isLoading: true,
           });
         })
         .catch(() => {
@@ -98,6 +101,7 @@ class Header extends React.Component<Props, State> {
                 err: true,
               },
             ],
+            isLoading: true,
           });
         });
     } else {
@@ -129,6 +133,7 @@ class Header extends React.Component<Props, State> {
           const arrManyPokemon = () => {
             this.setState({
               dataPokemon: newArr,
+              isLoading: true,
             });
           };
           setTimeout(arrManyPokemon, 300);
@@ -138,6 +143,9 @@ class Header extends React.Component<Props, State> {
   }
 
   fetchSearch() {
+    this.setState({
+      isLoading: false,
+    });
     if (this.state.inputValue === '') {
       localStorage.setItem('lastSearch', '');
       this.fetchFirstPageLoad();
@@ -160,6 +168,7 @@ class Header extends React.Component<Props, State> {
                 err: false,
               },
             ],
+            isLoading: true,
           });
         })
         .catch(() => {
@@ -172,6 +181,7 @@ class Header extends React.Component<Props, State> {
                 err: true,
               },
             ],
+            isLoading: true,
           });
         });
     }
@@ -190,7 +200,9 @@ class Header extends React.Component<Props, State> {
           ></input>
           <button onClick={this.fetchSearch}>Search</button>
         </header>
-        <Main dataArray={this.state.dataPokemon} />
+
+        {!this.state.isLoading && <p className={styles.loading}>Loading...</p>}
+        {this.state.isLoading && <Main dataArray={this.state.dataPokemon} />}
       </>
     );
   }
