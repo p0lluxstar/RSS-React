@@ -1,46 +1,7 @@
 import React from 'react';
 import styles from './Header.module.css';
 import Main from './Main';
-
-interface Props {}
-
-interface State {
-  inputValue: string;
-  dataPokemon: Array<{
-    namePokemon: string;
-    typePokemon: string;
-    urlImg: string;
-    err: boolean;
-  }>;
-  isLoading: boolean;
-}
-
-interface manyPokemons {
-  results: [
-    {
-      name: string;
-      url: string;
-    },
-  ];
-}
-
-interface DataPokemon {
-  name: string;
-  types: [
-    {
-      type: {
-        name: string;
-      };
-    },
-  ];
-  sprites: {
-    other: {
-      dream_world: {
-        front_default: string;
-      };
-    };
-  };
-}
+import { Props, State, getManyPokemons, getPokemon } from '../types/interfaces';
 
 class Header extends React.Component<Props, State> {
   placeholder: string;
@@ -78,7 +39,7 @@ class Header extends React.Component<Props, State> {
         .then((response) => {
           return response.json();
         })
-        .then((data: DataPokemon) => {
+        .then((data: getPokemon) => {
           this.setState({
             dataPokemon: [
               {
@@ -115,13 +76,13 @@ class Header extends React.Component<Props, State> {
         .then((response) => {
           return response.json();
         })
-        .then((data: manyPokemons) => {
+        .then((data: getManyPokemons) => {
           data.results.forEach((e) => {
             fetch(e.url)
               .then((response) => {
                 return response.json();
               })
-              .then((data: DataPokemon) =>
+              .then((data: getPokemon) =>
                 newArr.push({
                   namePokemon: data.name,
                   typePokemon: data.types[0].type.name,
@@ -158,7 +119,7 @@ class Header extends React.Component<Props, State> {
         .then((response) => {
           return response.json();
         })
-        .then((data: DataPokemon) => {
+        .then((data: getPokemon) => {
           this.setState({
             dataPokemon: [
               {
@@ -202,7 +163,7 @@ class Header extends React.Component<Props, State> {
         </header>
 
         {!this.state.isLoading && <p className={styles.loading}>Loading...</p>}
-        {this.state.isLoading && <Main dataArray={this.state.dataPokemon} />}
+        {this.state.isLoading && <Main dataPokemon={this.state.dataPokemon} />}
       </>
     );
   }

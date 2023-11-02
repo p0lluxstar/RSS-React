@@ -1,37 +1,29 @@
 import React from 'react';
 import styles from './Main.module.css';
+import { DataPokemon } from '../types/interfaces';
 
-interface Props {
-  dataArray: Array<{
-    namePokemon: string;
-    typePokemon: string;
-    urlImg: string;
-    err: boolean;
-  }>;
-}
-
-class Main extends React.Component<Props> {
-  constructor(props: Props) {
+class Main extends React.Component<DataPokemon> {
+  constructor(props: DataPokemon) {
     super(props);
   }
 
   showPokemon() {
-    if (this.props.dataArray[0].err) {
+    if (this.props.dataPokemon[0].err) {
       return (
         <p className={styles.errName}>There is no Pokimon with that name!</p>
       );
-    } else if (this.props.dataArray.length === 1) {
+    } else if (this.props.dataPokemon.length === 1) {
       return (
         <div className={styles.pokemon}>
-          <p>Name pokemon: {this.props.dataArray[0].namePokemon}</p>
-          <p>Type pokemon: {this.props.dataArray[0].typePokemon}</p>
-          <img src={this.props.dataArray[0].urlImg} />
+          <p>Name pokemon: {this.props.dataPokemon[0].namePokemon}</p>
+          <p>Type pokemon: {this.props.dataPokemon[0].typePokemon}</p>
+          <img src={this.props.dataPokemon[0].urlImg} />
         </div>
       );
     } else {
       return (
         <>
-          {this.props.dataArray.map((e, index) => {
+          {this.props.dataPokemon.map((e, index) => {
             return (
               <div className={styles.pokemon} key={index}>
                 <p>Name pokemon: {e.namePokemon}</p>
