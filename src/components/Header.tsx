@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Header.module.css';
 import Main from './Main';
+import Loader from './loader';
 import { Props, State, getManyPokemons, getPokemon } from '../types/interfaces';
 
 class Header extends React.Component<Props, State> {
@@ -11,14 +12,7 @@ class Header extends React.Component<Props, State> {
     (this.placeholder = 'Enter pokemon name. Example: Pikachu'),
       (this.state = {
         inputValue: '',
-        dataPokemon: [
-          {
-            namePokemon: '',
-            typePokemon: '',
-            urlImg: '',
-            err: false,
-          },
-        ],
+        dataPokemon: [],
         isLoading: false,
       });
     this.fetchFirstPageLoad = this.fetchFirstPageLoad.bind(this);
@@ -40,6 +34,7 @@ class Header extends React.Component<Props, State> {
           return response.json();
         })
         .then((data: getPokemon) => {
+          console.log('data', data);
           this.setState({
             dataPokemon: [
               {
@@ -162,7 +157,7 @@ class Header extends React.Component<Props, State> {
           <button onClick={this.fetchSearch}>Search</button>
         </header>
 
-        {!this.state.isLoading && <p className={styles.loading}>Loading...</p>}
+        {!this.state.isLoading && <Loader />}
         {this.state.isLoading && <Main dataPokemon={this.state.dataPokemon} />}
       </>
     );
