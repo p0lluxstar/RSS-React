@@ -34,7 +34,6 @@ class Header extends React.Component<Props, State> {
           return response.json();
         })
         .then((data: getPokemon) => {
-          console.log('data', data);
           this.setState({
             dataPokemon: [
               {
