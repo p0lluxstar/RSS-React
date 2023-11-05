@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import Main from './Main';
+import Pagination from './Pagination';
 import Loader from './loader';
 import { getManyPokemons, getPokemon, DataPokemon } from '../types/interfaces';
+
+const offsetPokemon = 0;
 
 const Header = () => {
   const [inputValue, setInputValue] = useState('');
@@ -12,10 +15,10 @@ const Header = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchFirstPageLoad();
+    getPokemon();
   }, []);
 
-  function fetchFirstPageLoad() {
+  function getPokemon() {
     const valueInputFromLocalStorage = localStorage.getItem('lastSearch');
 
     if (!valueInputFromLocalStorage) {
@@ -25,7 +28,9 @@ const Header = () => {
         urlImg: string;
         err: boolean;
       }> = [];
-      fetch(`https://pokeapi.co/api/v2/pokemon/`)
+      fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offsetPokemon}`
+      )
         .then((response) => {
           return response.json();
         })
@@ -52,7 +57,6 @@ const Header = () => {
         })
         .catch(() => {});
     } else {
-      console.log('else');
       setInputValue(valueInputFromLocalStorage);
       fetch(`https://pokeapi.co/api/v2/pokemon/${valueInputFromLocalStorage}`)
         .then((response) => {
@@ -87,11 +91,11 @@ const Header = () => {
     }
   }
 
-  function fetchSearch() {
+  function getPokemonSearch() {
     setIsLoading(false);
     if (inputValue === '') {
       localStorage.setItem('lastSearch', '');
-      fetchFirstPageLoad();
+      getPokemon();
     } else {
       localStorage.setItem('lastSearch', inputValue);
       fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue.toLowerCase()}`)
@@ -137,11 +141,16 @@ const Header = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         ></input>
-        <button onClick={fetchSearch}>Search</button>
+        <button onClick={getPokemonSearch}>Search</button>
       </header>
 
       {!isLoading && <Loader />}
-      {isLoading && <Main dataPokemon={dataPokemon.dataPokemon} />}
+      {isLoading && (
+        <>
+          <Pagination />
+          <Main dataPokemon={dataPokemon.dataPokemon} />
+        </>
+      )}
     </>
   );
 };
