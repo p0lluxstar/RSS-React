@@ -3,34 +3,30 @@ import styles from './Header.module.css';
 import Main from './Main';
 import Pagination from './Pagination';
 import Loader from './loader';
-import { getManyPokemons, getPokemon, DataPokemon } from '../types/interfaces';
+import {
+  getManyPokemons,
+  getPokemon,
+  DataPokemonNewArr,
+} from '../types/interfaces';
 
+const currentAllPokemons = 100;
 const offsetPokemon = 0;
 
-const Header = () => {
+export const Header = () => {
   const [inputValue, setInputValue] = useState('');
-  const [dataPokemon, setDataPokemon] = useState<DataPokemon>({
-    dataPokemon: [],
-  });
+  const [dataPokemon, setDataPokemon] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getPokemon();
+    getPokemon(offsetPokemon);
   }, []);
 
-  function getPokemon() {
+  function getPokemon(off: number) {
     const valueInputFromLocalStorage = localStorage.getItem('lastSearch');
+    const newArr: DataPokemonNewArr = { dataPokemon: [] };
 
     if (!valueInputFromLocalStorage) {
-      const newArr: Array<{
-        namePokemon: string;
-        typePokemon: string;
-        urlImg: string;
-        err: boolean;
-      }> = [];
-      fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offsetPokemon}`
-      )
+      fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${off}`)
         .then((response) => {
           return response.json();
         })
@@ -41,7 +37,7 @@ const Header = () => {
                 return response.json();
               })
               .then((data: getPokemon) =>
-                newArr.push({
+                newArr.dataPokemon.push({
                   namePokemon: data.name,
                   typePokemon: data.types[0].type.name,
                   urlImg: data.sprites.other.dream_world.front_default,
@@ -50,10 +46,10 @@ const Header = () => {
               );
           });
           const arrManyPokemon = () => {
-            setDataPokemon({ dataPokemon: newArr });
+            setDataPokemon(newArr.dataPokemon);
             setIsLoading(true);
           };
-          setTimeout(arrManyPokemon, 300);
+          setTimeout(arrManyPokemon, 500);
         })
         .catch(() => {});
     } else {
@@ -63,29 +59,18 @@ const Header = () => {
           return response.json();
         })
         .then((data: getPokemon) => {
-          setDataPokemon({
-            dataPokemon: [
-              {
-                namePokemon: data.name,
-                urlImg: data.sprites.other.dream_world.front_default,
-                typePokemon: data.types[0].type.name,
-                err: false,
-              },
-            ],
-          });
+          setDataPokemon([
+            {
+              namePokemon: data.name,
+              urlImg: data.sprites.other.dream_world.front_default,
+              typePokemon: data.types[0].type.name,
+              err: false,
+            },
+          ]);
           setIsLoading(true);
         })
         .catch(() => {
-          setDataPokemon({
-            dataPokemon: [
-              {
-                namePokemon: '',
-                typePokemon: '',
-                urlImg: '',
-                err: true,
-              },
-            ],
-          });
+          setDataPokemon([{}]);
           setIsLoading(true);
         });
     }
@@ -95,7 +80,7 @@ const Header = () => {
     setIsLoading(false);
     if (inputValue === '') {
       localStorage.setItem('lastSearch', '');
-      getPokemon();
+      getPokemon(offsetPokemon);
     } else {
       localStorage.setItem('lastSearch', inputValue);
       fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue.toLowerCase()}`)
@@ -103,32 +88,25 @@ const Header = () => {
           return response.json();
         })
         .then((data: getPokemon) => {
-          setDataPokemon({
-            dataPokemon: [
-              {
-                namePokemon: data.name,
-                urlImg: data.sprites.other.dream_world.front_default,
-                typePokemon: data.types[0].type.name,
-                err: false,
-              },
-            ],
-          });
+          setDataPokemon([
+            {
+              namePokemon: data.name,
+              urlImg: data.sprites.other.dream_world.front_default,
+              typePokemon: data.types[0].type.name,
+              err: false,
+            },
+          ]);
           setIsLoading(true);
         })
         .catch(() => {
-          setDataPokemon({
-            dataPokemon: [
-              {
-                namePokemon: '',
-                typePokemon: '',
-                urlImg: '',
-                err: true,
-              },
-            ],
-          });
+          setDataPokemon([{}]);
           setIsLoading(true);
         });
     }
+  }
+
+  function clickOnItemPagination(numItemPagination: number) {
+    getPokemon(numItemPagination);
   }
 
   return (
@@ -147,8 +125,11 @@ const Header = () => {
       {!isLoading && <Loader />}
       {isLoading && (
         <>
-          <Pagination />
-          <Main dataPokemon={dataPokemon.dataPokemon} />
+          <Pagination
+            currentAllPokemons={currentAllPokemons}
+            clickOnItemPagination={clickOnItemPagination}
+          />
+          <Main dataPokemon={dataPokemon} />
         </>
       )}
     </>

@@ -1,9 +1,20 @@
 import styles from './Main.module.css';
-import { DataPokemon } from '../types/interfaces';
 
-const Main = (props: DataPokemon) => {
+interface Props {
+  dataPokemon: Array<{
+    namePokemon?: string;
+    typePokemon?: string;
+    urlImg?: string;
+    err?: boolean;
+  }>;
+}
+
+const Main = (props: Props) => {
   function showPokemon() {
-    if (props.dataPokemon[0].err) {
+    if (
+      props.dataPokemon.length === 1 &&
+      props.dataPokemon[0].namePokemon === undefined
+    ) {
       return (
         <p className={styles.errName}>There is no Pokimon with that name!</p>
       );

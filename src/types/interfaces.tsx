@@ -6,6 +6,10 @@ export interface State extends DataPokemon {
 }
 
 export interface DataPokemon {
+  dataPokemon: Array<object>;
+}
+
+export interface DataPokemonNewArr {
   dataPokemon: Array<{
     namePokemon: string;
     typePokemon: string;
