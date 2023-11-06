@@ -9,24 +9,28 @@ import {
   DataPokemonNewArr,
 } from '../types/interfaces';
 
-const currentAllPokemons = 100;
-const offsetPokemon = 0;
-
 export const Header = () => {
+  const defaulCurrentAllPokemons = 200;
+  const offsetPokemon = 0;
+
   const [inputValue, setInputValue] = useState('');
   const [dataPokemon, setDataPokemon] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentAllPokemons, setCurrentAllPokemons] = useState(
+    defaulCurrentAllPokemons
+  );
 
   useEffect(() => {
     getPokemon(offsetPokemon);
   }, []);
 
-  function getPokemon(off: number) {
+  function getPokemon(offset: number) {
     const valueInputFromLocalStorage = localStorage.getItem('lastSearch');
     const newArr: DataPokemonNewArr = { dataPokemon: [] };
 
     if (!valueInputFromLocalStorage) {
-      fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${off}`)
+      setCurrentAllPokemons(defaulCurrentAllPokemons);
+      fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`)
         .then((response) => {
           return response.json();
         })
@@ -54,6 +58,7 @@ export const Header = () => {
         .catch(() => {});
     } else {
       setInputValue(valueInputFromLocalStorage);
+      setCurrentAllPokemons(1);
       fetch(`https://pokeapi.co/api/v2/pokemon/${valueInputFromLocalStorage}`)
         .then((response) => {
           return response.json();
@@ -82,6 +87,7 @@ export const Header = () => {
       localStorage.setItem('lastSearch', '');
       getPokemon(offsetPokemon);
     } else {
+      setCurrentAllPokemons(1);
       localStorage.setItem('lastSearch', inputValue);
       fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue.toLowerCase()}`)
         .then((response) => {
@@ -125,10 +131,13 @@ export const Header = () => {
       {!isLoading && <Loader />}
       {isLoading && (
         <>
-          <Pagination
-            currentAllPokemons={currentAllPokemons}
-            clickOnItemPagination={clickOnItemPagination}
-          />
+          {!(Object.keys(dataPokemon[0]).length === 0) && (
+            <Pagination
+              currentAllPokemons={currentAllPokemons}
+              clickOnItemPagination={clickOnItemPagination}
+            />
+          )}
+
           <Main dataPokemon={dataPokemon} />
         </>
       )}

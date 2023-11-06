@@ -17,10 +17,10 @@
   cursor: pointer;
 }
 
-.pagination span {
-  cursor: pointer;
+.pagination a:hover {
+  color: red;
 }
 
-.pagination .active {
-  background: #f8d613;
+.pagination span {
+  cursor: pointer;
 }

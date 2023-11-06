@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './Pagination.module.css';
+import './Pagination.css';
 
 interface Current {
   currentAllPokemons: number;
@@ -27,11 +28,16 @@ const Pagination = (props: Current) => {
   function creatItemPagination() {
     return (
       <>
-        {currentPages.map((e) => {
+        {currentPages.map((numPage) => {
           return (
-            <Link to={`/${e}`} onClick={countingItemPagination}>
-              {e}
-            </Link>
+            <NavLink
+              to={`/${numPage}`}
+              key={numPage}
+              onClick={countingItemPagination}
+              end
+            >
+              {numPage}
+            </NavLink>
           );
         })}
       </>
