@@ -1,3 +1,8 @@
 .active {
-  color: red;
+  color: white;
+  background: #61a1d7 !important;
+}
+
+.active:hover {
+  opacity: 1 !important;
 }
