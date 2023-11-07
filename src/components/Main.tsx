@@ -132,10 +132,11 @@ export const Header = () => {
   }
 
   const params = useParams();
-  localStorage.setItem('numPaginationPage', `${Number(params.numPage)}`);
+  localStorage.setItem('numPaginationPage', `${Number(params.numPagination)}`);
   if (
-    Number(params.numPage) > defaulCurrentAllPokemons / currnPokemoOnPage ||
-    Number.isNaN(Number(params.numPage))
+    Number(params.numPagination) >
+      defaulCurrentAllPokemons / currnPokemoOnPage ||
+    Number.isNaN(Number(params.numPagination))
   ) {
     return <NotFoundPage />;
   }

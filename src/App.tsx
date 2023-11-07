@@ -8,7 +8,8 @@ const App = () => {
       <>
         <Routes>
           <Route path="/" element={<Navigate to="/1" />}></Route>
-          <Route path="/:numPage" element={<Main />} />
+          <Route path="/index.html" element={<Navigate to="/1" />}></Route>
+          <Route path="/:numPagination" element={<Main />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </>
