@@ -1,7 +1,11 @@
 import styles from './loader.module.css';
 
 const Loader = () => {
-  return <p className={styles.loading}>Loading...</p>;
+  return (
+    <div className={styles.loading}>
+      <img src="src/assets/loading.gif" />
+    </div>
+  );
 };
 
 export default Loader;
