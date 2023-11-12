@@ -11,11 +11,11 @@ import {
 import { useParams } from 'react-router';
 import NotFoundPage from './NotFoundPage';
 import SearchValueContext from '../contexts/SearchValueContext';
+import QuantityPokemoOnPageContext from '../contexts/QuantityPokemoOnPageContext';
 
 export const Header = () => {
   const defaulCurrentAllPokemons = 200;
   const offsetPokemon = 0;
-  const currnPokemoOnPage = 20;
 
   const [inputValue, setInputValue] = useState('');
   const [dataPokemon, setDataPokemon] = useState([{}]);
@@ -24,6 +24,7 @@ export const Header = () => {
     defaulCurrentAllPokemons
   );
 
+  const QuantityPokemoOnPage = useContext(QuantityPokemoOnPageContext);
   const { searchValue } = useContext(SearchValueContext);
 
   useEffect(() => {
@@ -32,7 +33,6 @@ export const Header = () => {
 
   function getPokemon(offsetPokemon: number) {
     setIsLoading(false);
-    /* const valueInputFromLocalStorage = localStorage.getItem('searchValue'); */
     const numPaginationPageFromLocalStorage =
       localStorage.getItem('numPaginationPage');
     const newArr: DataPokemonNewArr = { dataPokemon: [] };
@@ -41,8 +41,8 @@ export const Header = () => {
       localStorage.setItem('numPaginationPage', `1`);
     } else {
       offsetPokemon =
-        Number(numPaginationPageFromLocalStorage) * currnPokemoOnPage -
-        currnPokemoOnPage;
+        Number(numPaginationPageFromLocalStorage) * QuantityPokemoOnPage -
+        QuantityPokemoOnPage;
     }
 
     if (!searchValue) {
@@ -138,7 +138,7 @@ export const Header = () => {
   localStorage.setItem('numPaginationPage', `${Number(params.numPagination)}`);
   if (
     Number(params.numPagination) >
-      defaulCurrentAllPokemons / currnPokemoOnPage ||
+      defaulCurrentAllPokemons / QuantityPokemoOnPage ||
     Number.isNaN(Number(params.numPagination))
   ) {
     return <NotFoundPage />;
