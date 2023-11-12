@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styles from './Main.module.css';
 import Pokemons from './Pokemons';
 import Pagination from './Pagination';
@@ -10,6 +10,7 @@ import {
 } from '../types/interfaces';
 import { useParams } from 'react-router';
 import NotFoundPage from './NotFoundPage';
+import SearchValueContext from '../contexts/SearchValueContext';
 
 export const Header = () => {
   const defaulCurrentAllPokemons = 200;
@@ -23,13 +24,15 @@ export const Header = () => {
     defaulCurrentAllPokemons
   );
 
+  const { searchValue } = useContext(SearchValueContext);
+
   useEffect(() => {
     getPokemon(offsetPokemon);
   }, []);
 
   function getPokemon(offsetPokemon: number) {
     setIsLoading(false);
-    const valueInputFromLocalStorage = localStorage.getItem('lastSearch');
+    /* const valueInputFromLocalStorage = localStorage.getItem('searchValue'); */
     const numPaginationPageFromLocalStorage =
       localStorage.getItem('numPaginationPage');
     const newArr: DataPokemonNewArr = { dataPokemon: [] };
@@ -42,7 +45,7 @@ export const Header = () => {
         currnPokemoOnPage;
     }
 
-    if (!valueInputFromLocalStorage) {
+    if (!searchValue) {
       setCurrentAllPokemons(defaulCurrentAllPokemons);
       fetch(
         `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offsetPokemon}`
@@ -69,13 +72,13 @@ export const Header = () => {
             setDataPokemon(newArr.dataPokemon);
             setIsLoading(true);
           };
-          setTimeout(arrManyPokemon, 500);
+          setTimeout(arrManyPokemon, 1200);
         })
         .catch(() => {});
     } else {
-      setInputValue(valueInputFromLocalStorage);
+      setInputValue(searchValue);
       setCurrentAllPokemons(1);
-      fetch(`https://pokeapi.co/api/v2/pokemon/${valueInputFromLocalStorage}`)
+      fetch(`https://pokeapi.co/api/v2/pokemon/${searchValue}`)
         .then((response) => {
           return response.json();
         })
@@ -100,11 +103,11 @@ export const Header = () => {
   function getPokemonSearch() {
     setIsLoading(false);
     if (inputValue === '') {
-      localStorage.setItem('lastSearch', '');
+      localStorage.setItem('searchValue', '');
       getPokemon(offsetPokemon);
     } else {
       setCurrentAllPokemons(1);
-      localStorage.setItem('lastSearch', inputValue);
+      localStorage.setItem('searchValue', inputValue);
       fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue.toLowerCase()}`)
         .then((response) => {
           return response.json();
