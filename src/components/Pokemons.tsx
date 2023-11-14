@@ -1,15 +1,7 @@
 import styles from './Pokemons.module.css';
+import { DataPokemonArr } from '../types/interfaces';
 
-interface Props {
-  dataPokemon: Array<{
-    namePokemon?: string;
-    typePokemon?: string;
-    urlImg?: string;
-    err?: boolean;
-  }>;
-}
-
-const Pokemons = (props: Props) => {
+const Pokemons = (props: DataPokemonArr) => {
   function showPokemon() {
     if (
       props.dataPokemon.length === 1 &&

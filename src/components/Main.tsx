@@ -6,7 +6,7 @@ import Loader from './loader';
 import {
   getManyPokemons,
   getPokemon,
-  DataPokemonNewArr,
+  DataPokemonArr,
 } from '../types/interfaces';
 import { useParams } from 'react-router';
 import NotFoundPage from './NotFoundPage';
@@ -35,7 +35,7 @@ export const Header = () => {
     setIsLoading(false);
     const numPaginationPageFromLocalStorage =
       localStorage.getItem('numPaginationPage');
-    const newArr: DataPokemonNewArr = { dataPokemon: [] };
+    const newArr: DataPokemonArr = { dataPokemon: [] };
 
     if (!numPaginationPageFromLocalStorage) {
       localStorage.setItem('numPaginationPage', `1`);

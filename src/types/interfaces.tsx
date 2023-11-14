@@ -9,12 +9,12 @@ export interface DataPokemon {
   dataPokemon: Array<object>;
 }
 
-export interface DataPokemonNewArr {
+export interface DataPokemonArr {
   dataPokemon: Array<{
-    namePokemon: string;
-    typePokemon: string;
-    urlImg: string;
-    err: boolean;
+    namePokemon?: string;
+    typePokemon?: string;
+    urlImg?: string;
+    err?: boolean;
   }>;
 }
 

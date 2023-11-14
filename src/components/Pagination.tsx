@@ -47,8 +47,6 @@ const Pagination = (props: Current) => {
               </NavLink>
             );
           })}
-
-        {}
       </>
     );
   }
