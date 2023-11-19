@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Main.module.css';
 import Pokemons from './Pokemons';
 import Pagination from './Pagination';
@@ -10,8 +10,9 @@ import {
 } from '../types/interfaces';
 import { useParams } from 'react-router';
 import NotFoundPage from './NotFoundPage';
-import SearchValueContext from '../contexts/SearchValueContext';
-import QuantityPokemoOnPageContext from '../contexts/QuantityPokemoOnPageContext';
+import { useDispatch } from 'react-redux';
+import { searchValueActions } from '../redux/slices/SearchValueSlice';
+import { quantityPokemoOnPageActions } from '../redux/slices/QuantityItemsOnPageSlice';
 
 export const Header = () => {
   const defaulCurrentAllPokemons = 200;
@@ -24,8 +25,15 @@ export const Header = () => {
     defaulCurrentAllPokemons
   );
 
-  const QuantityPokemoOnPage = useContext(QuantityPokemoOnPageContext);
-  const { searchValue } = useContext(SearchValueContext);
+  const dispatchFunction = useDispatch();
+  const searchValueLocalStorage = dispatchFunction(
+    searchValueActions.getValueSearchLocalStorage(
+      localStorage.getItem('searchValue')
+    )
+  );
+  const quantityPokemoOnPage = dispatchFunction(
+    quantityPokemoOnPageActions.defaultQuantityItemsOnPage(20)
+  );
 
   useEffect(() => {
     getPokemon(offsetPokemon);
@@ -35,17 +43,18 @@ export const Header = () => {
     setIsLoading(false);
     const numPaginationPageFromLocalStorage =
       localStorage.getItem('numPaginationPage');
-    const newArr: DataPokemonArr = { dataPokemon: [] };
 
     if (!numPaginationPageFromLocalStorage) {
       localStorage.setItem('numPaginationPage', `1`);
     } else {
       offsetPokemon =
-        Number(numPaginationPageFromLocalStorage) * QuantityPokemoOnPage -
-        QuantityPokemoOnPage;
+        Number(numPaginationPageFromLocalStorage) *
+          quantityPokemoOnPage.payload -
+        quantityPokemoOnPage.payload;
     }
 
-    if (!searchValue) {
+    if (localStorage.getItem('searchValue') === '') {
+      const newArr: DataPokemonArr = { dataPokemon: [] };
       setCurrentAllPokemons(defaulCurrentAllPokemons);
       fetch(
         `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offsetPokemon}`
@@ -76,9 +85,11 @@ export const Header = () => {
         })
         .catch(() => {});
     } else {
-      setInputValue(searchValue);
+      setInputValue(searchValueLocalStorage.payload);
       setCurrentAllPokemons(1);
-      fetch(`https://pokeapi.co/api/v2/pokemon/${searchValue}`)
+      fetch(
+        `https://pokeapi.co/api/v2/pokemon/${searchValueLocalStorage.payload}`
+      )
         .then((response) => {
           return response.json();
         })
@@ -103,11 +114,13 @@ export const Header = () => {
   function getPokemonSearch() {
     setIsLoading(false);
     if (inputValue === '') {
-      localStorage.setItem('searchValue', '');
+      dispatchFunction(searchValueActions.setValueSearchLocalStorage(''));
       getPokemon(offsetPokemon);
     } else {
       setCurrentAllPokemons(1);
-      localStorage.setItem('searchValue', inputValue);
+      dispatchFunction(
+        searchValueActions.setValueSearchLocalStorage(inputValue)
+      );
       fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue.toLowerCase()}`)
         .then((response) => {
           return response.json();
@@ -138,7 +151,7 @@ export const Header = () => {
   localStorage.setItem('numPaginationPage', `${Number(params.numPagination)}`);
   if (
     Number(params.numPagination) >
-      defaulCurrentAllPokemons / QuantityPokemoOnPage ||
+      defaulCurrentAllPokemons / quantityPokemoOnPage.payload ||
     Number.isNaN(Number(params.numPagination))
   ) {
     return <NotFoundPage />;
