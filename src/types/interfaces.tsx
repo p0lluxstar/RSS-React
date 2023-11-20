@@ -44,3 +44,13 @@ export interface getPokemon {
     };
   };
 }
+
+export interface StoreReducer {
+  searchValue: {
+    value: string;
+  };
+  quantityPokemoOnPage: {
+    value: number;
+  };
+  loading: boolean;
+}

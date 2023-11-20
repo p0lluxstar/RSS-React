@@ -7,23 +7,27 @@ import {
   getManyPokemons,
   getPokemon,
   DataPokemonArr,
+  StoreReducer,
 } from '../types/interfaces';
 import { useParams } from 'react-router';
 import NotFoundPage from './NotFoundPage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { searchValueActions } from '../redux/slices/SearchValueSlice';
 import { quantityPokemoOnPageActions } from '../redux/slices/QuantityItemsOnPageSlice';
+import { loadingActions } from '../redux/slices/LoadingSlice';
 
-export const Header = () => {
+export const Main = () => {
   const defaulCurrentAllPokemons = 200;
   const offsetPokemon = 0;
 
   const [inputValue, setInputValue] = useState('');
   const [dataPokemon, setDataPokemon] = useState([{}]);
-  const [isLoading, setIsLoading] = useState(false);
   const [currentAllPokemons, setCurrentAllPokemons] = useState(
     defaulCurrentAllPokemons
   );
+
+  const isLoading = useSelector((state: StoreReducer) => state.loading);
+  /* const isLoading = useSelector((state:StoreReducer) => state.loading) */
 
   const dispatchFunction = useDispatch();
   const searchValueLocalStorage = dispatchFunction(
@@ -40,10 +44,9 @@ export const Header = () => {
   }, []);
 
   function getPokemon(offsetPokemon: number) {
-    setIsLoading(false);
+    dispatchFunction(loadingActions.isLoading(false));
     const numPaginationPageFromLocalStorage =
       localStorage.getItem('numPaginationPage');
-
     if (!numPaginationPageFromLocalStorage) {
       localStorage.setItem('numPaginationPage', `1`);
     } else {
@@ -79,7 +82,7 @@ export const Header = () => {
           });
           const arrManyPokemon = () => {
             setDataPokemon(newArr.dataPokemon);
-            setIsLoading(true);
+            dispatchFunction(loadingActions.isLoading(true));
           };
           setTimeout(arrManyPokemon, 1200);
         })
@@ -102,17 +105,17 @@ export const Header = () => {
               err: false,
             },
           ]);
-          setIsLoading(true);
+          dispatchFunction(loadingActions.isLoading(true));
         })
         .catch(() => {
           setDataPokemon([{}]);
-          setIsLoading(true);
+          dispatchFunction(loadingActions.isLoading(true));
         });
     }
   }
 
   function getPokemonSearch() {
-    setIsLoading(false);
+    dispatchFunction(loadingActions.isLoading(false));
     if (inputValue === '') {
       dispatchFunction(searchValueActions.setValueSearchLocalStorage(''));
       getPokemon(offsetPokemon);
@@ -134,11 +137,11 @@ export const Header = () => {
               err: false,
             },
           ]);
-          setIsLoading(true);
+          dispatchFunction(loadingActions.isLoading(true));
         })
         .catch(() => {
           setDataPokemon([{}]);
-          setIsLoading(true);
+          dispatchFunction(loadingActions.isLoading(true));
         });
     }
   }
@@ -186,4 +189,4 @@ export const Header = () => {
   );
 };
 
-export default Header;
+export default Main;

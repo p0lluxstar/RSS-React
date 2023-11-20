@@ -1,16 +1,19 @@
 import styles from './Pokemons.module.css';
-import { DataPokemonArr } from '../types/interfaces';
+import { DataPokemonArr, StoreReducer } from '../types/interfaces';
+import { useSelector } from 'react-redux';
 
 const Pokemons = (props: DataPokemonArr) => {
+  const serchValue = useSelector((state: StoreReducer) => state.searchValue);
   function showPokemon() {
     if (
       props.dataPokemon.length === 1 &&
-      props.dataPokemon[0].namePokemon === undefined
+      props.dataPokemon[0].namePokemon === undefined &&
+      serchValue.value.length > 0
     ) {
       return (
         <p className={styles.errName}>There is no Pokimon with that name!</p>
       );
-    } else if (props.dataPokemon.length === 1) {
+    } else if (props.dataPokemon.length === 1 && serchValue.value.length > 0) {
       return (
         <div className={styles.pokemon}>
           <p>Name pokemon: {props.dataPokemon[0].namePokemon}</p>
