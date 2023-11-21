@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchValueActions } from '../redux/slices/SearchValueSlice';
 import { quantityPokemoOnPageActions } from '../redux/slices/QuantityItemsOnPageSlice';
 import { loadingActions } from '../redux/slices/LoadingSlice';
+import { useGetPokemonQuery } from '../redux/slices/apiSlice';
 
 export const Main = () => {
   const defaulCurrentAllPokemons = 200;
@@ -39,11 +40,17 @@ export const Main = () => {
     quantityPokemoOnPageActions.defaultQuantityItemsOnPage(20)
   );
 
+  const { data: getDataPokemon, isError } = useGetPokemonQuery(inputValue);
+
+  /* console.log('dataPokemon', dataPokemon)
+  console.log('pokemon', getDataPokemon);*/
+
   useEffect(() => {
     getPokemon(offsetPokemon);
   }, []);
 
   function getPokemon(offsetPokemon: number) {
+    dispatchFunction(searchValueActions.setValueSearchLocalStorage(''));
     dispatchFunction(loadingActions.isLoading(false));
     const numPaginationPageFromLocalStorage =
       localStorage.getItem('numPaginationPage');
@@ -115,34 +122,33 @@ export const Main = () => {
   }
 
   function getPokemonSearch() {
-    dispatchFunction(loadingActions.isLoading(false));
-    if (inputValue === '') {
-      dispatchFunction(searchValueActions.setValueSearchLocalStorage(''));
-      getPokemon(offsetPokemon);
+    if (!isError) {
+      dispatchFunction(loadingActions.isLoading(false));
+      if (inputValue === '') {
+        dispatchFunction(searchValueActions.setValueSearchLocalStorage(''));
+        getPokemon(offsetPokemon);
+      } else {
+        setCurrentAllPokemons(1);
+        dispatchFunction(
+          searchValueActions.setValueSearchLocalStorage(inputValue)
+        );
+        const dataPokemon: getPokemon = getDataPokemon;
+        setDataPokemon([
+          {
+            namePokemon: dataPokemon.name,
+            urlImg: dataPokemon.sprites.other.dream_world.front_default,
+            typePokemon: dataPokemon.types[0].type.name,
+            err: false,
+          },
+        ]);
+        dispatchFunction(loadingActions.isLoading(true));
+      }
     } else {
-      setCurrentAllPokemons(1);
       dispatchFunction(
         searchValueActions.setValueSearchLocalStorage(inputValue)
       );
-      fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue.toLowerCase()}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data: getPokemon) => {
-          setDataPokemon([
-            {
-              namePokemon: data.name,
-              urlImg: data.sprites.other.dream_world.front_default,
-              typePokemon: data.types[0].type.name,
-              err: false,
-            },
-          ]);
-          dispatchFunction(loadingActions.isLoading(true));
-        })
-        .catch(() => {
-          setDataPokemon([{}]);
-          dispatchFunction(loadingActions.isLoading(true));
-        });
+      setDataPokemon([{}]);
+      dispatchFunction(loadingActions.isLoading(true));
     }
   }
 
@@ -159,7 +165,6 @@ export const Main = () => {
   ) {
     return <NotFoundPage />;
   }
-
   return (
     <>
       <header className={styles.header}>

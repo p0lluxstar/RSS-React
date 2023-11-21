@@ -6,33 +6,51 @@ const Pokemons = (props: DataPokemonArr) => {
   const serchValue = useSelector((state: StoreReducer) => state.searchValue);
   function showPokemon() {
     if (
-      props.dataPokemon.length === 1 &&
-      props.dataPokemon[0].namePokemon === undefined &&
+      props.dataPokemon[0].namePokemon != undefined &&
       serchValue.value.length > 0
     ) {
       return (
-        <p className={styles.errName}>There is no Pokimon with that name!</p>
-      );
-    } else if (props.dataPokemon.length === 1 && serchValue.value.length > 0) {
-      return (
         <div className={styles.pokemon}>
-          <p>Name pokemon: {props.dataPokemon[0].namePokemon}</p>
-          <p>Type pokemon: {props.dataPokemon[0].typePokemon}</p>
+          <p>
+            Pokemon name:{' '}
+            <span className={styles.name}>
+              {props.dataPokemon[0].namePokemon.toUpperCase()}
+            </span>
+          </p>
+          <p>
+            Pokemon type: <span></span>
+          </p>
           <img src={props.dataPokemon[0].urlImg} />
         </div>
       );
-    } else {
+    } else if (props.dataPokemon.length > 1) {
       return (
         <>
           {props.dataPokemon.map((e, index) => {
             return (
               <div className={styles.pokemon} key={index}>
-                <p>Name pokemon: {e.namePokemon}</p>
-                <p>Type pokemon: {e.typePokemon}</p>
+                <p>
+                  Pokemon name:{' '}
+                  <span className={styles.name}>
+                    {e.namePokemon?.toUpperCase()}
+                  </span>
+                </p>
+                <p>
+                  Pokemon type: <span>{e.typePokemon}</span>
+                </p>
                 <img src={e.urlImg} />
               </div>
             );
           })}
+        </>
+      );
+    } else if (
+      props.dataPokemon[0].namePokemon === undefined &&
+      serchValue.value.length > 0
+    ) {
+      return (
+        <>
+          <p className={styles.errName}>There is no Pokimon with that name!</p>
         </>
       );
     }
