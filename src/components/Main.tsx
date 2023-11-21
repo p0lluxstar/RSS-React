@@ -40,7 +40,9 @@ export const Main = () => {
     quantityPokemoOnPageActions.defaultQuantityItemsOnPage(20)
   );
 
-  const { data: getDataPokemon, isError } = useGetPokemonQuery(inputValue);
+  const { data: getDataPokemon, isError } = useGetPokemonQuery(
+    inputValue.toLowerCase()
+  );
 
   /* console.log('dataPokemon', dataPokemon)
   console.log('pokemon', getDataPokemon);*/
@@ -50,7 +52,6 @@ export const Main = () => {
   }, []);
 
   function getPokemon(offsetPokemon: number) {
-    dispatchFunction(searchValueActions.setValueSearchLocalStorage(''));
     dispatchFunction(loadingActions.isLoading(false));
     const numPaginationPageFromLocalStorage =
       localStorage.getItem('numPaginationPage');
@@ -122,6 +123,7 @@ export const Main = () => {
   }
 
   function getPokemonSearch() {
+    console.log(isError);
     if (!isError) {
       dispatchFunction(loadingActions.isLoading(false));
       if (inputValue === '') {
@@ -144,10 +146,11 @@ export const Main = () => {
         dispatchFunction(loadingActions.isLoading(true));
       }
     } else {
+      console.log('aaa');
+      setDataPokemon([{}]);
       dispatchFunction(
         searchValueActions.setValueSearchLocalStorage(inputValue)
       );
-      setDataPokemon([{}]);
       dispatchFunction(loadingActions.isLoading(true));
     }
   }
