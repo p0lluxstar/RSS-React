@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { searchValueReducer } from './slices/SearchValueSlice';
 import { quantityPokemoOnPageReducer } from './slices/QuantityItemsOnPageSlice';
 import { loadingReducer } from './slices/LoadingSlice';
+import { numPaginationPageReducer } from './slices/NumPaginationPageSLice';
 import { apiSlice } from './slices/apiSlice';
 
 const store = configureStore({
@@ -9,6 +10,7 @@ const store = configureStore({
     searchValue: searchValueReducer,
     quantityPokemoOnPage: quantityPokemoOnPageReducer,
     loading: loadingReducer,
+    numPaginationPage: numPaginationPageReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

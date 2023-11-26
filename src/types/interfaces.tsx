@@ -9,16 +9,16 @@ export interface DataPokemon {
   dataPokemon: Array<object>;
 }
 
-export interface DataPokemonArr {
+export interface ArrWithDataUrlPokemons {
   dataPokemon: Array<{
-    namePokemon?: string;
-    typePokemon?: string;
-    urlImg?: string;
-    err?: boolean;
+    namePokemon: string;
+    typePokemon: string;
+    urlImg: string;
+    err: boolean;
   }>;
 }
 
-export interface getManyPokemons {
+export interface GetManyPokemons {
   results: [
     {
       name: string;
@@ -27,7 +27,7 @@ export interface getManyPokemons {
   ];
 }
 
-export interface getPokemon {
+export interface GetOnePokemon {
   name: string;
   types: [
     {
@@ -53,4 +53,7 @@ export interface StoreReducer {
     value: number;
   };
   loading: boolean;
+  numPaginationPage: {
+    value: string;
+  };
 }

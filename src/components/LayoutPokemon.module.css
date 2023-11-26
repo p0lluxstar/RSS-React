@@ -1,9 +1,3 @@
-.pokemons {
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-}
-
 .pokemon {
   width: 220px;
   padding: 10px;
@@ -26,13 +20,7 @@
   font-size: 18px;
 }
 
-.errName {
-  width: 100%;
-  margin-top: 20px;
-  font-size: 36px;
-  text-align: center;
-}
-
 .name {
+  display: block;
   font-weight: 900;
 }

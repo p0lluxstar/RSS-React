@@ -1,6 +1,7 @@
-import { NavLink } from 'react-router-dom';
 import styles from './Pagination.module.css';
 import './Pagination.css';
+import { NavLink } from 'react-router-dom';
+import { DEFAULT_QUANTITY_OFFSET_POKEMONS } from '../const/const';
 
 interface Current {
   currentAllPokemons: number;
@@ -8,8 +9,8 @@ interface Current {
 }
 
 const Pagination = (props: Current) => {
-  const currnPokemoOnPage = 20;
-  const maxItemPaginatin = props.currentAllPokemons / currnPokemoOnPage;
+  const maxItemPaginatin =
+    props.currentAllPokemons / DEFAULT_QUANTITY_OFFSET_POKEMONS;
   const numPaginationPageFromLocalStorage = Number(
     localStorage.getItem('numPaginationPage')
   );
@@ -27,7 +28,7 @@ const Pagination = (props: Current) => {
     );
     localStorage.setItem('numPaginationPage', `${numItemPagePagination}`);
     props.clickOnItemPagination(
-      numItemPagePagination * currnPokemoOnPage - currnPokemoOnPage
+      (numItemPagePagination - 1) * DEFAULT_QUANTITY_OFFSET_POKEMONS
     );
   }
 
@@ -55,8 +56,11 @@ const Pagination = (props: Current) => {
     <>
       <div className={styles.pagination}>
         <div className={styles.current_element}>{`${
-          numPaginationPageFromLocalStorage * 20 - 19
-        } to ${numPaginationPageFromLocalStorage * 20}`}</div>
+          numPaginationPageFromLocalStorage * DEFAULT_QUANTITY_OFFSET_POKEMONS -
+          19
+        } to ${
+          numPaginationPageFromLocalStorage * DEFAULT_QUANTITY_OFFSET_POKEMONS
+        }`}</div>
         <div className={styles.pagination_item}>{creatItemPagination()}</div>
       </div>
     </>

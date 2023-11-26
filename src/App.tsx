@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Main from './components/Main';
+import MainLayout from './components/MainLayout';
 import NotFoundPage from './components/NotFoundPage';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -12,7 +12,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/1" />}></Route>
             <Route path="/index.html" element={<Navigate to="/1" />}></Route>
-            <Route path="/:numPagination" element={<Main />} />
+            <Route path="/:numPagination" element={<MainLayout />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Provider>

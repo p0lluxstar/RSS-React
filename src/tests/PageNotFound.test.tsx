@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import Main from '../components/Main';
+import Main from '../components/MainLayout';
 import { MemoryRouter } from 'react-router-dom';
 
 test('Test - PageNotFound', () => {

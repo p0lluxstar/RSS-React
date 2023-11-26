@@ -12,9 +12,6 @@ const searchValueSlice = createSlice({
       localStorage.setItem('searchValue', actions.payload);
       return { ...state, value: actions.payload };
     },
-    getValueSearchLocalStorage(state, actions) {
-      return { ...state, value: actions.payload };
-    },
   },
 });
 
