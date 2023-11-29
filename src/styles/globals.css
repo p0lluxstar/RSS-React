@@ -1,0 +1,206 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background: #adcbb5;
+  height: 100%;
+  font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/*MainLayout.module.css*/
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #62a77c;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+input[type='text'] {
+  margin: 10px;
+  display: block;
+  width: 50%;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.25rem;
+  outline-color: #62a77c;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+button {
+  background-color: #fff;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  color: #212529;
+  font-weight: 600;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  width: 120px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/*LayoutPokemon.module.css*/
+
+.pokemon {
+  width: 220px;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  text-align: center;
+  box-shadow:
+    2px 5px 15px 0px #0b325e,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+.pokemon img {
+  width: 200px;
+  height: 200px;
+}
+
+.pokemon p {
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.name {
+  display: block;
+  font-weight: 900;
+}
+
+/*loader.module.css*/
+.loading {
+  text-align: center;
+}
+
+.loading img {
+  width: 32px;
+}
+
+/*ManyPokemons.module.css*/
+.pokemons {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+
+/*NoNamePokemon.module.css*/
+.errName {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 36px;
+  text-align: center;
+}
+
+/*NotFoundPage.module.css*/
+.not_found {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.not_found span {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.not_found a {
+  background-color: #fff;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  color: #212529;
+  font-weight: 600;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  width: 120px;
+  text-decoration: none;
+}
+
+.not_found a:hover {
+  opacity: 0.9;
+}
+
+/*OnePokemon.module.css*/
+.pokemons {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+
+/*Pagination.css*/
+.active {
+  color: white !important;
+  background: #61a1d7 !important;
+}
+
+.active:hover {
+  opacity: 1 !important;
+}
+
+/*Pagination.module.css*/
+.pagination a {
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 7px;
+  border-radius: 3px;
+  background: #f7f7f7;
+  text-decoration: none;
+  padding: 5px 0px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 600;
+  color: black;
+}
+
+.pagination a:hover {
+  opacity: 0.7;
+}
+
+.pagination span {
+  cursor: pointer;
+}
+
+.pagination_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.current_element {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+}
