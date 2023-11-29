@@ -3,7 +3,6 @@ import ManyPokemons from '../components/ManyPokemons';
 import OnePokemon from '../components/OnePokemon';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
-
 import { useState } from 'react';
 
 export default function Page() {
