@@ -1,7 +1,7 @@
-import styles from './Pagination.module.css';
-import './Pagination.css';
-import { NavLink } from 'react-router-dom';
+/* import styles from './Pagination.module.css'; */
+/* import './Pagination.css'; */
 import { DEFAULT_QUANTITY_OFFSET_POKEMONS } from '../const/const';
+import Link from 'next/link';
 
 interface Current {
   currentAllPokemons: number;
@@ -20,33 +20,12 @@ const Pagination = (props: Current) => {
     currentPages.push(i + 1);
   }
 
-  function countingItemPagination(numItemPagination: {
-    currentTarget: { innerHTML: unknown };
-  }) {
-    const numItemPagePagination = Number(
-      numItemPagination.currentTarget.innerHTML
-    );
-    localStorage.setItem('numPaginationPage', `${numItemPagePagination}`);
-    props.clickOnItemPagination(
-      (numItemPagePagination - 1) * DEFAULT_QUANTITY_OFFSET_POKEMONS
-    );
-  }
-
   function creatItemPagination() {
     return (
       <>
         {!(currentPages.length === 1) &&
           currentPages.map((numPage) => {
-            return (
-              <NavLink
-                to={`/${numPage}`}
-                key={numPage}
-                onClick={countingItemPagination}
-                end
-              >
-                {numPage}
-              </NavLink>
-            );
+            return <Link href={`/${numPage}`}>{numPage}</Link>;
           })}
       </>
     );
@@ -54,14 +33,14 @@ const Pagination = (props: Current) => {
 
   return (
     <>
-      <div className={styles.pagination}>
-        <div className={styles.current_element}>{`${
+      <div className={'pagination'}>
+        <div className={'current_element'}>{`${
           numPaginationPageFromLocalStorage * DEFAULT_QUANTITY_OFFSET_POKEMONS -
           19
         } to ${
           numPaginationPageFromLocalStorage * DEFAULT_QUANTITY_OFFSET_POKEMONS
         }`}</div>
-        <div className={styles.pagination_item}>{creatItemPagination()}</div>
+        <div className={'pagination_item'}>{creatItemPagination()}</div>
       </div>
     </>
   );

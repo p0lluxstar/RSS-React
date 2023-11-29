@@ -9,7 +9,9 @@ const numPaginationPageSlice = createSlice({
   initialState,
   reducers: {
     setNumPagenstionPageLocalStorage(state, actions) {
-      localStorage.setItem('numPaginationPage', actions.payload);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('numPaginationPage', actions.payload);
+      }
       return { ...state, value: actions.payload };
     },
   },

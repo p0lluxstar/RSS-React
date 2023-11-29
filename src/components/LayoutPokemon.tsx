@@ -1,5 +1,5 @@
-import styles from './LayoutPokemon.module.css';
-
+/* import styles from './LayoutPokemon.module.css';
+ */
 interface Data {
   key: string;
   name: string;
@@ -9,10 +9,9 @@ interface Data {
 
 export const LayoutPokemon = (props: Data) => {
   return (
-    <div key={props.key} className={styles.pokemon}>
+    <div key={props.key} className={'pokemon'}>
       <p>
-        Pokemon name:{' '}
-        <span className={styles.name}>{props.name.toUpperCase()}</span>
+        Pokemon name: <span className={'name'}>{props.name.toUpperCase()}</span>
       </p>
       <p>
         Pokemon type: <span>{props.type}</span>

@@ -9,7 +9,9 @@ const searchValueSlice = createSlice({
   initialState,
   reducers: {
     setValueSearchLocalStorage(state, actions) {
-      localStorage.setItem('searchValue', actions.payload);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('searchValue', actions.payload);
+      }
       return { ...state, value: actions.payload };
     },
   },

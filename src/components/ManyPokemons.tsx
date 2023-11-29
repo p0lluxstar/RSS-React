@@ -1,52 +1,37 @@
-import styles from './ManyPokemons.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+/* import styles from './ManyPokemons.module.css'; */
 import { useEffect, useState } from 'react';
 import { useGetManyPokemonsQuery } from '../redux/slices/apiSlice';
 import {
-  StoreReducer,
   GetManyPokemons,
   GetOnePokemon,
   ArrWithDataUrlPokemons,
 } from '../types/interfaces';
-import { numPaginationPageActions } from '../redux/slices/NumPaginationPageSLice';
-import { searchValueActions } from '../redux/slices/SearchValueSlice';
-import Loader from './Loader';
+import Loader from './loader';
 import Pagination from './Pagination';
 import { LayoutPokemon } from './LayoutPokemon';
 import { DEFAULT_QUANTITY_ALL_POKEMONS } from '../const/const';
-import { DEFAULT_QUANTITY_OFFSET_POKEMONS } from '../const/const';
 
-const ManyPokemons = () => {
-  const numPaginationPage = useSelector(
-    (state: StoreReducer) => state.numPaginationPage.value
-  );
+interface NumPaginationPage {
+  numPaginationPage: number;
+}
 
-  const quantityOffsetPokemons =
-    DEFAULT_QUANTITY_OFFSET_POKEMONS * (Number(numPaginationPage) - 1);
-
-  const dispatchFunction = useDispatch();
-  dispatchFunction(
-    numPaginationPageActions.setNumPagenstionPageLocalStorage(
-      localStorage.getItem('numPaginationPage')
-    )
-  );
-
-  dispatchFunction(searchValueActions.setValueSearchLocalStorage(''));
-
+const ManyPokemons = (props: NumPaginationPage) => {
   const [arrayDataPokemons, setArrayDataPokemons] =
     useState<ArrWithDataUrlPokemons>({ dataPokemon: [] });
-  const [offsetQuantityPokemon, setOffsetQuantityPokemon] = useState(
-    quantityOffsetPokemons
+
+  const [, setOffsetQuantityPokemon] = useState(
+    props.numPaginationPage * 20 - 20
   );
+
   const { data: getDataManyPokemons, isFetching } = useGetManyPokemonsQuery(
-    offsetQuantityPokemon
+    props.numPaginationPage * 20 - 20
   );
 
   const getManyPokemons: GetManyPokemons = getDataManyPokemons;
 
   useEffect(() => {
     creatArrayDataPokemons();
-  }, [isFetching, offsetQuantityPokemon]);
+  }, [isFetching, props]);
 
   function creatArrayDataPokemons() {
     if (getManyPokemons) {
@@ -83,7 +68,7 @@ const ManyPokemons = () => {
 
   function showManyPokemons() {
     return (
-      <div className={styles.pokemons}>
+      <div className={'pokemons'}>
         {arrayDataPokemons.dataPokemon.map((item) => (
           <LayoutPokemon
             key={item.namePokemon}
@@ -98,8 +83,7 @@ const ManyPokemons = () => {
 
   return (
     <>
-      {isFetching && <Loader />}
-      {!isFetching && showManyPokemons()}
+      {isFetching && <Loader />} {!isFetching && showManyPokemons()}
       {!isFetching && (
         <Pagination
           currentAllPokemons={DEFAULT_QUANTITY_ALL_POKEMONS}

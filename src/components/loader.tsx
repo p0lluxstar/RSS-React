@@ -1,10 +1,11 @@
-import styles from './loader.module.css';
+/* import styles from './loader.module.css'; */
+import Image from 'next/image';
+import testImg from '../public/loading.gif';
 
 const Loader = () => {
   return (
-    <div className={styles.loading}>
-      {/* <img src="/assets/img/loading.gif" /> */}
-      <img src="src/assets/loading.gif" />
+    <div className={'loading'}>
+      <Image src={testImg} width={32} height={32} alt="Loading" />
     </div>
   );
 };

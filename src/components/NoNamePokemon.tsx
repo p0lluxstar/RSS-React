@@ -1,10 +1,10 @@
-import styles from './NoNamePokemon.module.css';
+/* import styles from './NoNamePokemon.module.css'; */
 
 const NoNamePokemon = () => {
   return (
     <>
       <div>
-        {<p className={styles.errName}>There is no Pokimon with that name!</p>}
+        {<p className={'errName'}>There is no Pokimon with that name!</p>}
       </div>
     </>
   );

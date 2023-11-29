@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import MainLayout from './components/MainLayout';
+import MainLayout from './components/Header';
 import NotFoundPage from './components/NotFoundPage';
 import { Provider } from 'react-redux';
 import store from './redux/store';

@@ -1,9 +1,9 @@
-import styles from './OnePokemon.module.css';
-import { useGetOnePokemonQuery } from '../redux/slices/apiSlice';
+/* import styles from './OnePokemon.module.css'; */
 import { GetOnePokemon, StoreReducer } from '../types/interfaces';
+import { useGetOnePokemonQuery } from '../redux/slices/apiSlice';
 import { useSelector } from 'react-redux';
 import NoNamePokemon from './NoNamePokemon';
-import Loader from './Loader';
+import Loader from './loader';
 import { LayoutPokemon } from './LayoutPokemon';
 
 const OnePokemon = () => {
@@ -19,16 +19,18 @@ const OnePokemon = () => {
 
   function showOnePokemon() {
     const data: GetOnePokemon = getDataOnePokemon;
-    return (
-      <div className={styles.pokemons}>
-        <LayoutPokemon
-          key={data.name}
-          name={data.name}
-          type={data.types[0].type.name}
-          imgUrl={data.sprites.other.dream_world.front_default}
-        />
-      </div>
-    );
+    if (getDataOnePokemon) {
+      return (
+        <div className={'pokemons'}>
+          <LayoutPokemon
+            key={data.name}
+            name={data.name}
+            type={data.types[0].type.name}
+            imgUrl={data.sprites.other.dream_world.front_default}
+          />
+        </div>
+      );
+    }
   }
 
   return (

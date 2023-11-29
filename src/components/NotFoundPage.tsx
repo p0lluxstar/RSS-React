@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import styles from './NotFoundPage.module.css';
+/* import styles from './NotFoundPage.module.css'; */
+import Link from 'next/link';
 
 const NotFoundPage = () => {
   return (
     <>
-      <div className={styles.not_found}>
+      <div className={'not_found'}>
         <span>Error 404. Page Not Found</span>
-        <Link to="/">Main page</Link>
+        <Link href="/">Main page</Link>
       </div>
     </>
   );
