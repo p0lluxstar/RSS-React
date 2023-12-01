@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background: #42627f;
+  margin-bottom: 20px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  border: 1px solid #ffffff;
+  padding: 7px;
+  border-radius: 3px;
+}
+
+a:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}

@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #adcbb5;
+  background: #86a5b7;
   height: 100%;
   font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
 }
@@ -13,4 +13,9 @@ body {
 #root {
   display: flex;
   flex-direction: column;
+}
+
+.active {
+  background: #ffffff;
+  color: #2d4e65;
 }
