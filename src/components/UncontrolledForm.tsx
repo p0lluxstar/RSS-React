@@ -1,18 +1,21 @@
 import styles from './UncontrolledForm.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
+import { LoginSchema } from '../utils/yup';
 
 const UncontrolledForm = () => {
-  const navigate = useNavigate();
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    const nameValue = { name: nameInputRef.current?.value };
 
-    const nameValue = nameInputRef.current?.value;
-
-    if (nameValue) {
+    try {
+      await LoginSchema.validate(nameValue);
       navigate('/');
+    } catch (validationError) {
+      alert(validationError);
     }
   };
 
@@ -21,8 +24,8 @@ const UncontrolledForm = () => {
       <h1>Uncontrolled Form</h1>
       <form className={styles.uf} onSubmit={handleSubmit}>
         <input type="text" ref={nameInputRef} placeholder="Name" />
-        <input type="number" name="age" placeholder="Age" />
-        <input type="text" name="email" placeholder="Email" />
+        <input type="number" placeholder="Age" />
+        <input type="text" placeholder="Email" />
         <div className={styles.btn}>
           <button type="submit">Submit</button>
         </div>
