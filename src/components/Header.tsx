@@ -1,10 +1,10 @@
-import style from './Header.module.css';
+import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
     <>
-      <header className={style.header}>
+      <header className={styles.header}>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/uncontrolled-form">Uncontrolled Form</NavLink>
         <NavLink to="/react-hook-form">React Hook Form</NavLink>

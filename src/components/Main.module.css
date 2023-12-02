@@ -1,0 +1,11 @@
+.main {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  color: #f3f3f3;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
