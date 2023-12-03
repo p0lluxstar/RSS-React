@@ -1,7 +1,9 @@
+import ReactHookForm from '../components/ReactHookForm';
+
 const ReactHookFormPage = () => {
   return (
     <>
-      <h1>React Hook Form</h1>
+      <ReactHookForm />
     </>
   );
 };
