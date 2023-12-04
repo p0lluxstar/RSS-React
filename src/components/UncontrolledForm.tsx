@@ -1,6 +1,6 @@
 import styles from './UncontrolledForm.module.css';
 import { useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { userDataUncontrolledFormAction } from '../redux/slices/UserUncontrolledFormSlice';
 import {
@@ -9,6 +9,7 @@ import {
   emailSchema,
   passwordSchema,
 } from '../utils/yup';
+import Image from './Image';
 
 const UncontrolledForm = () => {
   const [nameError, setNameError] = useState('');
@@ -33,26 +34,12 @@ const UncontrolledForm = () => {
   const navigate = useNavigate();
   const dispatchFunction = useDispatch();
 
-  const [file, setFile] = useState<object>();
-  const [previewUrl, setPreviewUrl] = useState<string>();
-
-  useEffect(() => {
-    if (!file) {
-      return;
+  const [value, setValue] = useState('');
+  const getImage = (value: string) => {
+    if (value) {
+      setValue(value);
     }
-
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        setPreviewUrl(reader.result);
-      }
-    };
-
-    if (typeof file === 'object') {
-      reader.readAsDataURL(file);
-    }
-  }, [file]);
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -120,7 +107,7 @@ const UncontrolledForm = () => {
           age: ageValue.age,
           email: emailValue.email,
           password: passwordValue.password,
-          img: previewUrl,
+          img: value,
         })
       );
       navigate('/');
@@ -142,17 +129,7 @@ const UncontrolledForm = () => {
         {passwordLevel && (
           <p className={styles['password-level']}>{passwordLevel}</p>
         )}
-        <input
-          type="file"
-          accept="images/*"
-          onChange={(e) => {
-            const file = e.target.files;
-            if (file) {
-              setFile(file[0]);
-            }
-          }}
-        />
-        {previewUrl && <img src={previewUrl} alt="Preview" />}
+        <Image onChange={getImage} />
         <div className={styles.btn}>
           <button type="submit">Submit</button>
         </div>
