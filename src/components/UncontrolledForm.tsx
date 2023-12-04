@@ -75,7 +75,7 @@ const UncontrolledForm = () => {
 
       if (passwordLength && passwordLength < 9) {
         setPasswordLevel('Password complexity - weak.');
-      } else if (passwordLength && passwordLength < 12) {
+      } else if (passwordLength && passwordLength <= 12) {
         setPasswordLevel('Password complexity - average.');
       } else {
         setPasswordLevel('Password complexity - high.');

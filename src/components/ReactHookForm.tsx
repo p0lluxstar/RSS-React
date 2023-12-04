@@ -12,6 +12,7 @@ const ReactHookForm = () => {
     register,
     formState: { errors, isValid },
     handleSubmit,
+    watch,
   } = useForm<DataForm>({
     mode: 'onChange',
     resolver: yupResolver(loginSchema),
@@ -32,6 +33,17 @@ const ReactHookForm = () => {
     navigate('/');
   };
 
+  let levelPassword = '';
+  const lengthPassword = watch(['password'])[0];
+
+  if (lengthPassword && lengthPassword.length < 9) {
+    levelPassword = 'Password complexity - weak.';
+  } else if (lengthPassword && lengthPassword.length <= 12) {
+    levelPassword = 'Password complexity - average.';
+  } else if (lengthPassword && lengthPassword.length > 12) {
+    levelPassword = 'Password complexity - high.';
+  }
+
   return (
     <>
       <h1>React Hook Form</h1>
@@ -49,6 +61,9 @@ const ReactHookForm = () => {
         />
         {errors.password && (
           <p className={styles.error}>{errors.password.message}</p>
+        )}
+        {!errors.password && lengthPassword && (
+          <p className={styles['password-level']}>{levelPassword}</p>
         )}
         <div className={styles.btn}>
           <button disabled={!isValid} type="submit">
