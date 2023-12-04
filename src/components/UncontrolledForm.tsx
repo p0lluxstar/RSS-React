@@ -117,7 +117,9 @@ const UncontrolledForm = () => {
         {isEnteredEmail && <p className={styles.error}>{emailError}</p>}
         <input type="password" ref={passwordInputRef} placeholder="Password" />
         {isEnteredPassword && <p className={styles.error}>{passwordError}</p>}
-        <p className={styles['password-level']}>{passwordLevel}</p>
+        {passwordLevel && (
+          <p className={styles['password-level']}>{passwordLevel}</p>
+        )}
         <div className={styles.btn}>
           <button type="submit">Submit</button>
         </div>

@@ -1,34 +1,13 @@
-import styles from './Home.module.css';
 import { useSelector } from 'react-redux';
-
-interface DataUncontrolled {
-  userDataUncontrolledForm: {
-    dataUser: {
-      name: string;
-      age: string;
-      email: string;
-      password: string;
-    };
-  };
-}
-
-interface DataHookForm {
-  userDataReactHookForm: {
-    dataUser: {
-      name: string;
-      age: string;
-      email: string;
-      password: string;
-    };
-  };
-}
+import DataUserOnPage from './DataUserOnPage';
+import { DataUncontrolledForm, DataReactHookForm } from '../types/interfaces';
 
 const Home = () => {
   const dataUserUncontrolledForm = useSelector(
-    (state: DataUncontrolled) => state.userDataUncontrolledForm
+    (state: DataUncontrolledForm) => state.userDataUncontrolledForm
   );
   const dataReactHookForm = useSelector(
-    (state: DataHookForm) => state.userDataReactHookForm
+    (state: DataReactHookForm) => state.userDataReactHookForm
   );
 
   return (
@@ -36,24 +15,24 @@ const Home = () => {
       <h1>Home</h1>
       {dataUserUncontrolledForm.dataUser.name != '' && (
         <>
-          <div className={styles['data-user']}>
-            <h3>User data from uncontrolled form</h3>
-            <p>Name: {dataUserUncontrolledForm.dataUser.name}</p>
-            <p>Age: {dataUserUncontrolledForm.dataUser.age}</p>
-            <p>Email: {dataUserUncontrolledForm.dataUser.email}</p>
-            <p>Password: {dataUserUncontrolledForm.dataUser.password}</p>
-          </div>
+          <DataUserOnPage
+            title="User data from uncontrolled form"
+            name={dataUserUncontrolledForm.dataUser.name}
+            age={dataUserUncontrolledForm.dataUser.age}
+            email={dataUserUncontrolledForm.dataUser.email}
+            password={dataUserUncontrolledForm.dataUser.password}
+          />
         </>
       )}
       {dataReactHookForm.dataUser.name != '' && (
         <>
-          <div className={styles['data-user']}>
-            <h3>User data from react hook form</h3>
-            <p>Name: {dataReactHookForm.dataUser.name}</p>
-            <p>Age: {dataReactHookForm.dataUser.age}</p>
-            <p>Email: {dataReactHookForm.dataUser.email}</p>
-            <p>Password: {dataReactHookForm.dataUser.password}</p>
-          </div>
+          <DataUserOnPage
+            title="User data from react hook form"
+            name={dataReactHookForm.dataUser.name}
+            age={dataReactHookForm.dataUser.age}
+            email={dataReactHookForm.dataUser.email}
+            password={dataReactHookForm.dataUser.password}
+          />
         </>
       )}
     </>
