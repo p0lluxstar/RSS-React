@@ -2,7 +2,6 @@ import styles from './DataUserOnPage.module.css';
 import { DataUserOnpage } from '../types/interfaces';
 
 const DataUserOnPage = (props: DataUserOnpage) => {
-  console.log(props);
   return (
     <>
       <div className={styles['data-user']}>

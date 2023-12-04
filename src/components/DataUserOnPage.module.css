@@ -6,7 +6,8 @@ p {
   margin: 2px 0px;
 }
 
-img {
+.data-user img {
+  margin-top: 2px;
   width: 300px;
   border-radius: 3px;
 }

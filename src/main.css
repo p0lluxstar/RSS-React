@@ -22,7 +22,7 @@ body {
 }
 
 input {
-  margin: 5px 5px 2px 5px;
+  margin: 5px 0px 2px 0px;
   display: block;
   height: calc(2.25rem + 2px);
   padding: 0.375rem 0.75rem;
@@ -68,4 +68,10 @@ button[disabled] {
 
 button[disabled]:hover {
   opacity: 1;
+}
+
+img {
+  margin-top: -5px;
+  width: 300px;
+  border-radius: 0 0 3px 3px;
 }
