@@ -1,7 +1,14 @@
 import styles from './UncontrolledForm.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
-import { nameSchema, ageSchema, emailSchema } from '../utils/yup';
+import { useDispatch } from 'react-redux';
+import { userDataUncontrolledFormAction } from '../redux/slices/UserUncontrolledFormSlice';
+import {
+  nameSchema,
+  ageSchema,
+  emailSchema,
+  passwordSchema,
+} from '../utils/yup';
 
 const UncontrolledForm = () => {
   const [nameError, setNameError] = useState('');
@@ -13,17 +20,25 @@ const UncontrolledForm = () => {
   const [emailError, setEmailError] = useState('');
   const [isEnteredEmail, setIsEnteredEmail] = useState(false);
 
+  const [passwordError, setPasswordError] = useState('');
+  const [isEnteredPassword, setIsEnteredPassword] = useState(false);
+
+  const [passwordLevel, setPasswordLevel] = useState('');
+
   const nameInputRef = useRef<HTMLInputElement>(null);
   const ageInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
+  const dispatchFunction = useDispatch();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const nameValue = { name: nameInputRef.current?.value };
     const ageValue = { age: ageInputRef.current?.value };
     const emailValue = { email: emailInputRef.current?.value };
+    const passwordValue = { password: passwordInputRef.current?.value };
 
     try {
       await nameSchema.validate(nameValue);
@@ -52,7 +67,40 @@ const UncontrolledForm = () => {
       emailValue.email = undefined;
     }
 
-    if (nameValue.name && ageValue.age && emailValue.email) {
+    try {
+      await passwordSchema.validate(passwordValue);
+      setIsEnteredPassword(false);
+
+      const passwordLength: number | undefined = passwordValue.password?.length;
+
+      if (passwordLength && passwordLength < 9) {
+        setPasswordLevel('Password complexity - weak.');
+      } else if (passwordLength && passwordLength < 12) {
+        setPasswordLevel('Password complexity - average.');
+      } else {
+        setPasswordLevel('Password complexity - high.');
+      }
+    } catch (validationError) {
+      setIsEnteredPassword(true);
+      setPasswordError((validationError as Error).message);
+      passwordValue.password = undefined;
+      setPasswordLevel('');
+    }
+
+    if (
+      nameValue.name &&
+      ageValue.age &&
+      emailValue.email &&
+      passwordValue.password
+    ) {
+      dispatchFunction(
+        userDataUncontrolledFormAction.addUser({
+          name: nameValue.name,
+          age: ageValue.age,
+          email: emailValue.email,
+          password: passwordValue.password,
+        })
+      );
       navigate('/');
     }
   };
@@ -67,6 +115,9 @@ const UncontrolledForm = () => {
         {isEnteredAge && <p className={styles.error}>{ageError}</p>}
         <input type="text" ref={emailInputRef} placeholder="Email" />
         {isEnteredEmail && <p className={styles.error}>{emailError}</p>}
+        <input type="password" ref={passwordInputRef} placeholder="Password" />
+        {isEnteredPassword && <p className={styles.error}>{passwordError}</p>}
+        <p className={styles['password-level']}>{passwordLevel}</p>
         <div className={styles.btn}>
           <button type="submit">Submit</button>
         </div>
