@@ -3,6 +3,7 @@ export interface DataForm {
   age: string;
   email: string;
   password: string;
+  img?: string;
 }
 
 export interface DataUserOnpage extends DataForm {

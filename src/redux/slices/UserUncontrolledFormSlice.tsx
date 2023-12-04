@@ -6,6 +6,7 @@ const initialState = {
     age: '',
     email: '',
     password: '',
+    img: '',
   },
 };
 

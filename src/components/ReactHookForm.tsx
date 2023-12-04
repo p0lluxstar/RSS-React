@@ -1,4 +1,5 @@
 import styles from './ReactHookForm.module.css';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { loginSchema } from '../utils/yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -28,10 +29,32 @@ const ReactHookForm = () => {
         age: data.age,
         email: data.email,
         password: data.password,
+        img: previewUrl,
       })
     );
     navigate('/');
   };
+
+  const [file, setFile] = useState<object>();
+  const [previewUrl, setPreviewUrl] = useState<string>();
+
+  useEffect(() => {
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      if (typeof reader.result === 'string') {
+        setPreviewUrl(reader.result);
+      }
+    };
+
+    if (typeof file === 'object') {
+      reader.readAsDataURL(file);
+    }
+  }, [file]);
 
   let levelPassword = '';
   const lengthPassword = watch(['password'])[0];
@@ -65,6 +88,17 @@ const ReactHookForm = () => {
         {!errors.password && lengthPassword && (
           <p className={styles['password-level']}>{levelPassword}</p>
         )}
+        <input
+          type="file"
+          accept="images/*"
+          onChange={(e) => {
+            const file = e.target.files;
+            if (file) {
+              setFile(file[0]);
+            }
+          }}
+        />
+        {previewUrl && <img src={previewUrl} alt="Preview" />}
         <div className={styles.btn}>
           <button disabled={!isValid} type="submit">
             Submit

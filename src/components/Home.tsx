@@ -21,6 +21,7 @@ const Home = () => {
             age={dataUserUncontrolledForm.dataUser.age}
             email={dataUserUncontrolledForm.dataUser.email}
             password={dataUserUncontrolledForm.dataUser.password}
+            img={dataUserUncontrolledForm.dataUser.img}
           />
         </>
       )}
@@ -32,6 +33,7 @@ const Home = () => {
             age={dataReactHookForm.dataUser.age}
             email={dataReactHookForm.dataUser.email}
             password={dataReactHookForm.dataUser.password}
+            img={dataReactHookForm.dataUser.img}
           />
         </>
       )}
