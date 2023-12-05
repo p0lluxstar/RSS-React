@@ -1,0 +1,17 @@
+.data-user {
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow:
+    0px 2px 15px 0px #0b325e,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+p {
+  margin: 2px 0px;
+}
+
+.data-user img {
+  margin-top: 2px;
+  width: 300px;
+  border-radius: 3px;
+}

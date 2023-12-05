@@ -1,0 +1,21 @@
+.uf {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.btn {
+  margin: 10px auto;
+}
+
+.error {
+  padding-left: 5px;
+  color: #c2060c;
+  font-size: 14px;
+}
+
+.password-level {
+  padding-left: 5px;
+  color: #164e24;
+  font-size: 14px;
+}
