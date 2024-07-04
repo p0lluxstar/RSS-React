@@ -1,10 +1,16 @@
 .main {
   display: flex;
-  flex-flow: wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 
-.pokemon {
+.cards {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  max-width: 1280px;
+}
+
+.card {
   width: 220px;
   padding: 10px;
   border-radius: 5px;
@@ -15,12 +21,12 @@
     5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 
-.pokemon img {
+.card img {
   width: 200px;
   height: 200px;
 }
 
-.pokemon p {
+.card p {
   margin: 5px;
   text-align: center;
   font-size: 18px;

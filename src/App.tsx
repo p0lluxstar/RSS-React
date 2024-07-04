@@ -1,13 +1,11 @@
 import { Component } from 'react';
-import Header from './components/Header';
-import Test from './components/Test';
+import Page from './components/Page';
 
 class App extends Component {
   render() {
     return (
       <>
-        <Header />
-        <Test />
+        <Page />
       </>
     );
   }

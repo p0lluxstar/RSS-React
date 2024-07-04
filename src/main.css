@@ -6,11 +6,5 @@
 
 body {
   background: #adcbb5;
-  height: 100%;
   font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
 }
