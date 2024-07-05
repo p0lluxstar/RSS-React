@@ -2,15 +2,15 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Loader from './loader';
-import Error from './Error';
 import { fetchSearch } from '../assets/utils/fetchSearch';
 import { generateRandomNum } from '../assets/utils/generateRandomNum';
 import { IDataFetch } from '../types/interfaces';
+import styles from './Page.module.css';
+import ErrorBoundary from './ErrorBoundary';
 
 interface State {
   dataFetch: IDataFetch[];
   isLoading: boolean;
-  isError: boolean;
   inputValue: string;
 }
 
@@ -20,8 +20,7 @@ class Page extends React.Component<object, State> {
     this.state = {
       dataFetch: [],
       isLoading: false,
-      isError: false,
-      inputValue: '',
+      inputValue: localStorage.getItem('inputValue') || '',
     };
   }
 
@@ -32,20 +31,29 @@ class Page extends React.Component<object, State> {
   fetchData = async () => {
     if (this.state.inputValue === '') {
       const numPage = generateRandomNum(1, 41);
-      fetchSearch(
+      const data = await fetchSearch(
         this.setLoading,
-        this.setError,
-        this.setData,
         `https://rickandmortyapi.com/api/character/?page=${numPage}`
       );
+      this.setData(data.results);
     } else {
-      fetchSearch(
+      const data = await fetchSearch(
         this.setLoading,
-        this.setError,
-        this.setData,
         `https://rickandmortyapi.com/api/character/?name=${this.state.inputValue}`
       );
+
+      this.setData(data.results);
     }
+    localStorage.setItem('inputValue', this.state.inputValue);
+  };
+
+  error = async () => {
+    const data = await fetchSearch(
+      this.setLoading,
+      `https://rickandmortyapi1.com`
+    );
+
+    this.setData(data.results);
   };
 
   setLoading = (loading: boolean) => {
@@ -56,12 +64,8 @@ class Page extends React.Component<object, State> {
     this.setState({ dataFetch: data });
   };
 
-  setError = (error: boolean) => {
-    this.setState({ isError: error });
-  };
-
   handleInputChange = (inputValue: string) => {
-    this.setState({ inputValue }); // обновляем состояние inputValue
+    this.setState({ inputValue });
   };
 
   render() {
@@ -74,11 +78,14 @@ class Page extends React.Component<object, State> {
         />
         {this.state.isLoading ? (
           <Loader />
-        ) : this.state.isError ? (
-          <Error />
         ) : (
-          <Main dataFetch={this.state.dataFetch} />
+          <ErrorBoundary>
+            <Main dataFetch={this.state.dataFetch} />
+          </ErrorBoundary>
         )}
+        <button className={styles.error} onClick={this.error}>
+          Error
+        </button>
       </>
     );
   }

@@ -1,24 +1,31 @@
-import { IDataFetch } from '../../types/interfaces';
-
 export const fetchSearch = async (
   setLoading: (loading: boolean) => void,
-  setError: (error: boolean) => void,
-  setData: (data: IDataFetch[]) => void,
   url: string
 ) => {
   setLoading(true);
-  setError(false);
 
   try {
     const response = await fetch(url);
+
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      if (response.status === 404) {
+        throw new Error('404: Not Found');
+      }
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
     const data = await response.json();
-    setData(data.results);
-  } catch (error) {
+    return data;
+  } catch (error: unknown) {
     console.error('Fetch error:', error);
-    setError(true);
+
+    if (error instanceof Error) {
+      if (error.message.startsWith('404')) {
+        return { results: [] };
+      }
+    }
+
+    return {};
   } finally {
     setLoading(false);
   }
