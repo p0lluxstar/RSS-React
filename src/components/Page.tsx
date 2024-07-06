@@ -5,6 +5,7 @@ import Loader from './loader';
 import { fetchSearch } from '../utils/fetchSearch';
 import { IDataFetch } from '../types/interfaces';
 import styles from '../styles/Page.module.css';
+import { generateRandomNum } from '../utils/generateRandomNum';
 
 interface State {
   dataFetch: IDataFetch[];
@@ -25,8 +26,21 @@ class Page extends React.Component<object, State> {
   }
 
   componentDidMount() {
-    this.fetchData();
+    const getInputValueFromLS = localStorage.getItem('inputValue');
+    getInputValueFromLS === '' ? this.fetchStart() : this.fetchData();
   }
+
+  fetchStart = async () => {
+    if (this.state.inputValue === '') {
+      const numPage = generateRandomNum(1, 41);
+      const data = await fetchSearch(
+        this.setLoading,
+        `https://rickandmortyapi.com/api/character/?page=${numPage}`
+      );
+      this.setInputError(false);
+      this.setData(data.results);
+    }
+  };
 
   fetchData = async (isSetInputError?: boolean) => {
     if (this.state.inputValue !== '') {
@@ -37,7 +51,7 @@ class Page extends React.Component<object, State> {
       this.setInputError(false);
       this.setData(data.results);
     } else if (isSetInputError) {
-      this.setInputError(true);
+      this.setInputError(true); // при клике на searc при пустом input подсвечивается input
     }
     localStorage.setItem('inputValue', this.state.inputValue);
   };

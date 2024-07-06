@@ -60,7 +60,22 @@ input[type='text'] {
   opacity: 0.9;
 }
 
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
 .inputError {
-  /* border: 2px solid rgb(230, 112, 112) !important; */
   background: #feb9b9 !important;
+  animation: shake 0.1s forwards;
 }

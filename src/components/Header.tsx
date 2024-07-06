@@ -14,7 +14,7 @@ class Header extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props);
 
-    this.placeholder = 'Enter name. Example: Rick';
+    this.placeholder = 'Enter name card. Example: Rick';
   }
 
   render() {

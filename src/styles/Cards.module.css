@@ -21,10 +21,18 @@
   height: 200px;
 }
 
-.card p {
+.cardName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 5px;
-  text-align: center;
+  height: 50px;
+  gap: 5px;
+}
+
+.cardName span {
   font-size: 18px;
+  font-weight: 600;
 }
 
 .message {

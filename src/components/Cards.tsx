@@ -20,7 +20,9 @@ class Cards extends React.Component<IProps> {
           {dataFetch.map((e, index) => (
             <div className={styles.card} key={index}>
               <img src={e.image} alt={e.name}></img>
-              <p>Name: {e.name}</p>
+              <div className={styles.cardName}>
+                <span>{e.name}</span>
+              </div>
             </div>
           ))}
         </div>
