@@ -1,17 +1,17 @@
 import React from 'react';
-import styles from './Header.module.css';
-import { Props } from '../types/interfaces';
+import styles from '../styles/Header.module.css';
 
-interface HeaderProps {
+interface IProps {
   fetchSearch: () => void;
   onInputChange: (inputValue: string) => void;
   inputValue: string;
+  isInputEmpty: boolean;
 }
 
-class Header extends React.Component<HeaderProps & Props> {
+class Header extends React.Component<IProps> {
   placeholder: string;
 
-  constructor(props: HeaderProps & Props) {
+  constructor(props: IProps) {
     super(props);
 
     this.placeholder = 'Enter name. Example: Rick';
@@ -21,16 +21,25 @@ class Header extends React.Component<HeaderProps & Props> {
     return (
       <>
         <header className={styles.header}>
-          <input
-            id="search"
-            type="text"
-            placeholder={this.placeholder}
-            value={this.props.inputValue}
-            onChange={(e) => {
-              this.props.onInputChange(e.target.value);
-            }}
-          ></input>
-          <button onClick={this.props.fetchSearch}>Search</button>
+          <div className={styles.search}>
+            <span className={styles.apiName}>rickandmortyapi.com</span>
+            <input
+              id="search"
+              type="text"
+              placeholder={this.placeholder}
+              value={this.props.inputValue}
+              onChange={(e) => {
+                this.props.onInputChange(e.target.value);
+              }}
+              className={this.props.isInputEmpty ? styles.inputError : ''}
+            ></input>
+            <button
+              className={styles.btnSearch}
+              onClick={this.props.fetchSearch}
+            >
+              Search
+            </button>
+          </div>
         </header>
       </>
     );

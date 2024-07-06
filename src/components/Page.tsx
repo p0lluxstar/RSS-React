@@ -2,16 +2,15 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Loader from './loader';
-import { fetchSearch } from '../assets/utils/fetchSearch';
-import { generateRandomNum } from '../assets/utils/generateRandomNum';
+import { fetchSearch } from '../utils/fetchSearch';
 import { IDataFetch } from '../types/interfaces';
-import styles from './Page.module.css';
-import ErrorBoundary from './ErrorBoundary';
+import styles from '../styles/Page.module.css';
 
 interface State {
   dataFetch: IDataFetch[];
   isLoading: boolean;
   inputValue: string;
+  isInputEmpty: boolean;
 }
 
 class Page extends React.Component<object, State> {
@@ -21,6 +20,7 @@ class Page extends React.Component<object, State> {
       dataFetch: [],
       isLoading: false,
       inputValue: localStorage.getItem('inputValue') || '',
+      isInputEmpty: false,
     };
   }
 
@@ -28,31 +28,25 @@ class Page extends React.Component<object, State> {
     this.fetchData();
   }
 
-  fetchData = async () => {
-    if (this.state.inputValue === '') {
-      const numPage = generateRandomNum(1, 41);
-      const data = await fetchSearch(
-        this.setLoading,
-        `https://rickandmortyapi.com/api/character/?page=${numPage}`
-      );
-      this.setData(data.results);
-    } else {
+  fetchData = async (isSetInputError?: boolean) => {
+    if (this.state.inputValue !== '') {
       const data = await fetchSearch(
         this.setLoading,
         `https://rickandmortyapi.com/api/character/?name=${this.state.inputValue}`
       );
-
+      this.setInputError(false);
       this.setData(data.results);
+    } else if (isSetInputError) {
+      this.setInputError(true);
     }
     localStorage.setItem('inputValue', this.state.inputValue);
   };
 
-  error = async () => {
+  errorBoundary = async () => {
     const data = await fetchSearch(
       this.setLoading,
       `https://rickandmortyapi1.com`
     );
-
     this.setData(data.results);
   };
 
@@ -64,7 +58,19 @@ class Page extends React.Component<object, State> {
     this.setState({ dataFetch: data });
   };
 
+  setInputError = (loading: boolean) => {
+    this.setState({ isInputEmpty: loading });
+  };
+
   handleInputChange = (inputValue: string) => {
+    if (inputValue.length === 0) {
+      this.setInputError(true);
+    }
+
+    if (inputValue.length > 0) {
+      this.setInputError(false);
+    }
+
     this.setState({ inputValue });
   };
 
@@ -75,16 +81,15 @@ class Page extends React.Component<object, State> {
           fetchSearch={this.fetchData}
           onInputChange={this.handleInputChange}
           inputValue={this.state.inputValue}
+          isInputEmpty={this.state.isInputEmpty}
         />
         {this.state.isLoading ? (
           <Loader />
         ) : (
-          <ErrorBoundary>
-            <Main dataFetch={this.state.dataFetch} />
-          </ErrorBoundary>
+          <Main dataFetch={this.state.dataFetch} />
         )}
-        <button className={styles.error} onClick={this.error}>
-          Error
+        <button className={styles.btnError} onClick={this.errorBoundary}>
+          Error Boundary
         </button>
       </>
     );

@@ -21,7 +21,7 @@ export const fetchSearch = async (
 
     if (error instanceof Error) {
       if (error.message.startsWith('404')) {
-        return { results: [] };
+        return { results: [{ name: '', image: '' }] };
       }
     }
 

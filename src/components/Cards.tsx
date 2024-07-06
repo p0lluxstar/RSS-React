@@ -1,25 +1,23 @@
 import React from 'react';
-import styles from './Main.module.css';
+import styles from '../styles/Cards.module.css';
+import { IDataFetch } from '../types/interfaces';
 
-interface DataFetch {
-  name: string;
-  image: string;
+interface IProps {
+  dataFetch: IDataFetch[];
 }
 
-interface CardsProps {
-  dataFetch: DataFetch[];
-}
-
-class Cards extends React.Component<CardsProps> {
-  constructor(props: CardsProps) {
-    super(props);
-  }
-
+class Cards extends React.Component<IProps> {
   render() {
-    if (this.props.dataFetch.length > 0) {
+    const { dataFetch } = this.props;
+
+    if (dataFetch.length === 0) {
+      return;
+    }
+
+    if (dataFetch[0].name != '') {
       return (
         <div className={styles.cards}>
-          {this.props.dataFetch.map((e, index) => (
+          {dataFetch.map((e, index) => (
             <div className={styles.card} key={index}>
               <img src={e.image} alt={e.name}></img>
               <p>Name: {e.name}</p>
@@ -28,7 +26,7 @@ class Cards extends React.Component<CardsProps> {
         </div>
       );
     } else {
-      return <p className={styles.messege}>There is no card with that name.</p>;
+      return <p className={styles.message}>There is no card with that name.</p>;
     }
   }
 }

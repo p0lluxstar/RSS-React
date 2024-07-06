@@ -1,18 +1,14 @@
 import React from 'react';
-import styles from './Main.module.css';
+import styles from '../styles/Main.module.css';
 import Cards from './Cards';
+import { IDataFetch } from '../types/interfaces';
 
-interface DataFetch {
-  name: string;
-  image: string;
+interface IProps {
+  dataFetch: IDataFetch[];
 }
 
-interface MainProps {
-  dataFetch: DataFetch[];
-}
-
-class Main extends React.Component<MainProps> {
-  constructor(props: MainProps) {
+class Main extends React.Component<IProps> {
+  constructor(props: IProps) {
     super(props);
   }
 
