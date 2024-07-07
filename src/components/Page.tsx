@@ -43,6 +43,7 @@ class Page extends React.Component<object, State> {
   };
 
   fetchData = async (isSetInputError?: boolean) => {
+    console.log(isSetInputError);
     if (this.state.inputValue !== '') {
       const data = await fetchSearch(
         this.setLoading,
@@ -50,8 +51,8 @@ class Page extends React.Component<object, State> {
       );
       this.setInputError(false);
       this.setData(data.results);
-    } else if (isSetInputError) {
-      this.setInputError(true); // при клике на searc при пустом input подсвечивается input
+    } else if (isSetInputError === undefined || isSetInputError) {
+      this.setInputError(true); // при клике на searc при пустом input или нажатии на enter подсвечивается input
     }
     localStorage.setItem('inputValue', this.state.inputValue);
   };
@@ -92,7 +93,7 @@ class Page extends React.Component<object, State> {
     return (
       <>
         <Header
-          fetchSearch={this.fetchData}
+          fetchSearch={this.fetchData} // Передаем функцию fetchData в Header
           onInputChange={this.handleInputChange}
           inputValue={this.state.inputValue}
           isInputEmpty={this.state.isInputEmpty}

@@ -26,7 +26,7 @@ class ErrorBoundary extends Component<IProps, IState> {
       return (
         <div className={styles.errorBoundary}>
           <p>Something went wrong...</p>
-          <a href="/">Refresh the page</a>
+          <a href="/">Reset</a>
         </div>
       );
     }

@@ -17,6 +17,12 @@ class Header extends React.Component<IProps> {
     this.placeholder = 'Enter name card. Example: Rick';
   }
 
+  handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      this.props.fetchSearch(); // Вызываем функцию fetchSearch из props
+    }
+  };
+
   render() {
     return (
       <>
@@ -31,8 +37,9 @@ class Header extends React.Component<IProps> {
               onChange={(e) => {
                 this.props.onInputChange(e.target.value);
               }}
+              onKeyDown={this.handleKeyPress}
               className={this.props.isInputEmpty ? styles.inputError : ''}
-            ></input>
+            />
             <button
               className={styles.btnSearch}
               onClick={this.props.fetchSearch}
