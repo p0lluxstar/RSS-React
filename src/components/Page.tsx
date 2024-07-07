@@ -27,22 +27,23 @@ class Page extends React.Component<object, State> {
 
   componentDidMount() {
     const getInputValueFromLS = localStorage.getItem('inputValue');
-    getInputValueFromLS === '' ? this.fetchStart() : this.fetchData();
+    console.log(getInputValueFromLS);
+    getInputValueFromLS === '' || getInputValueFromLS === null
+      ? this.fetchStart()
+      : this.fetchSearchData();
   }
 
   fetchStart = async () => {
-    if (this.state.inputValue === '') {
-      const numPage = generateRandomNum(1, 41);
-      const data = await fetchSearch(
-        this.setLoading,
-        `https://rickandmortyapi.com/api/character/?page=${numPage}`
-      );
-      this.setInputError(false);
-      this.setData(data.results);
-    }
+    const numPage = generateRandomNum(1, 41);
+    const data = await fetchSearch(
+      this.setLoading,
+      `https://rickandmortyapi.com/api/character/?page=${numPage}`
+    );
+    this.setInputError(false);
+    this.setData(data.results);
   };
 
-  fetchData = async (isSetInputError?: boolean) => {
+  fetchSearchData = async (isSetInputError?: boolean) => {
     console.log(isSetInputError);
     if (this.state.inputValue !== '') {
       const data = await fetchSearch(
@@ -93,7 +94,7 @@ class Page extends React.Component<object, State> {
     return (
       <>
         <Header
-          fetchSearch={this.fetchData} // Передаем функцию fetchData в Header
+          fetchSearchData={this.fetchSearchData} // Передаем функцию fetchSearchData в Header
           onInputChange={this.handleInputChange}
           inputValue={this.state.inputValue}
           isInputEmpty={this.state.isInputEmpty}

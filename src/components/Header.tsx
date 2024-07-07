@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/Header.module.css';
 
 interface IProps {
-  fetchSearch: () => void;
+  fetchSearchData: () => void;
   onInputChange: (inputValue: string) => void;
   inputValue: string;
   isInputEmpty: boolean;
@@ -19,7 +19,7 @@ class Header extends React.Component<IProps> {
 
   handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      this.props.fetchSearch(); // Вызываем функцию fetchSearch из props
+      this.props.fetchSearchData(); // Вызываем функцию fetchSearch из props
     }
   };
 
@@ -42,7 +42,7 @@ class Header extends React.Component<IProps> {
             />
             <button
               className={styles.btnSearch}
-              onClick={this.props.fetchSearch}
+              onClick={this.props.fetchSearchData}
             >
               Search
             </button>
