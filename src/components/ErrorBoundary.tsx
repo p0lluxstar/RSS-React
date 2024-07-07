@@ -21,7 +21,7 @@ class ErrorBoundary extends Component<IProps, IState> {
     console.error('ErrorBoundary caught an error', error, info);
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.hasError) {
       return (
         <div className={styles.errorBoundary}>

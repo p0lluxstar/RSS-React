@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from '../styles/Header.module.css';
 
 interface IProps {
@@ -8,49 +7,36 @@ interface IProps {
   isInputEmpty: boolean;
 }
 
-class Header extends React.Component<IProps> {
-  placeholder: string;
+const INPUT_PLACEHOLDER = 'Enter name card. Example: Rick';
 
-  constructor(props: IProps) {
-    super(props);
-
-    this.placeholder = 'Enter name card. Example: Rick';
-  }
-
-  handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+export default function Header(props: IProps): JSX.Element {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
-      this.props.fetchSearchData(); // Вызываем функцию fetchSearch из props
+      props.fetchSearchData();
     }
   };
 
-  render() {
-    return (
-      <>
-        <header className={styles.header}>
-          <div className={styles.search}>
-            <span className={styles.apiName}>rickandmortyapi.com</span>
-            <input
-              id="search"
-              type="text"
-              placeholder={this.placeholder}
-              value={this.props.inputValue}
-              onChange={(e) => {
-                this.props.onInputChange(e.target.value);
-              }}
-              onKeyDown={this.handleKeyPress}
-              className={this.props.isInputEmpty ? styles.inputError : ''}
-            />
-            <button
-              className={styles.btnSearch}
-              onClick={this.props.fetchSearchData}
-            >
-              Search
-            </button>
-          </div>
-        </header>
-      </>
-    );
-  }
+  return (
+    <>
+      <header className={styles.header}>
+        <div className={styles.search}>
+          <span className={styles.apiName}>rickandmortyapi.com</span>
+          <input
+            id="search"
+            type="text"
+            placeholder={INPUT_PLACEHOLDER}
+            value={props.inputValue}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+              props.onInputChange(e.target.value);
+            }}
+            onKeyDown={handleKeyPress}
+            className={props.isInputEmpty ? styles.inputError : ''}
+          />
+          <button className={styles.btnSearch} onClick={props.fetchSearchData}>
+            Search
+          </button>
+        </div>
+      </header>
+    </>
+  );
 }
-
-export default Header;

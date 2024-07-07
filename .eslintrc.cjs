@@ -32,6 +32,7 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-console': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'error',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },

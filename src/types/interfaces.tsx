@@ -1,6 +1,8 @@
 export interface Props {}
 
 export interface IDataFetch {
-  image: string;
-  name: string;
+  results: {
+    image: string;
+    name: string;
+  }[];
 }

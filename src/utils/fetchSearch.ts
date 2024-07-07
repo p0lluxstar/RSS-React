@@ -1,8 +1,10 @@
+import { IDataFetch } from '../types/interfaces';
+
 export const fetchSearch = async (
-  setLoading: (loading: boolean) => void,
+  setIsLoading: (loading: boolean) => void,
   url: string
-) => {
-  setLoading(true);
+): Promise<IDataFetch> => {
+  setIsLoading(true);
 
   try {
     const response = await fetch(url);
@@ -25,8 +27,8 @@ export const fetchSearch = async (
       }
     }
 
-    return {};
+    return { results: [{ name: 'err', image: 'err' }] };
   } finally {
-    setLoading(false);
+    setIsLoading(false);
   }
 };
