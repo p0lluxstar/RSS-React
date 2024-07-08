@@ -1,15 +1,12 @@
-import styles from '../styles/Main.module.css';
+import React from 'react';
 import Cards from './Cards';
 import { IDataFetch } from '../types/interfaces';
 
 interface IProps {
   dataFetch: IDataFetch;
+  onCardClick: (id: number) => void;
 }
 
-export default function Main(props: IProps): JSX.Element {
-  return (
-    <main className={styles.main}>
-      <Cards dataFetch={props.dataFetch} />
-    </main>
-  );
+export default function Main({ dataFetch, onCardClick }: IProps): JSX.Element {
+  return <Cards dataFetch={dataFetch} onCardClick={onCardClick} />;
 }

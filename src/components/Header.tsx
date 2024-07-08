@@ -4,7 +4,6 @@ interface IProps {
   fetchSearchData: () => void;
   onInputChange: (inputValue: string) => void;
   inputValue: string;
-  isInputEmpty: boolean;
 }
 
 const INPUT_PLACEHOLDER = 'Enter name card. Example: Rick';
@@ -30,7 +29,6 @@ export default function Header(props: IProps): JSX.Element {
               props.onInputChange(e.target.value);
             }}
             onKeyDown={handleKeyPress}
-            className={props.isInputEmpty ? styles.inputError : ''}
           />
           <button className={styles.btnSearch} onClick={props.fetchSearchData}>
             Search
