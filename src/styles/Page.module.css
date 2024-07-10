@@ -1,4 +1,4 @@
-.btnError {
+/* .btnError {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -10,4 +10,9 @@
 
 .btnError:hover {
   opacity: 0.9;
+} */
+
+.pageContainer {
+  display: flex;
+  justify-content: center;
 }

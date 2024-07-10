@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Header from './Header';
 import Pagination from './Pagination';
 import Main from './Main';
-import Loader from './loader';
 import CharacterDetails from './CharacterDetails';
 import { fetchData } from '../utils/fetchData';
-import { IDataFetch } from '../types/interfaces';
+import { ICharacter, IDataFetch } from '../types/interfaces';
 import { fetchDataCard } from '../utils/fetchDataCard';
+import styles from '../styles/Page.module.css';
+import Loader from './Loader';
 
 export default function Page(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
@@ -18,11 +19,15 @@ export default function Page(): JSX.Element {
     null
   );
 
+  const characterDetailsRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     const getInputValueFromLS = localStorage.getItem('inputValue');
-    getInputValueFromLS === '' || getInputValueFromLS === null
-      ? fetchPaginationData(1)
-      : fetchSearchData(getInputValueFromLS);
+    if (getInputValueFromLS === '' || getInputValueFromLS === null) {
+      fetchPaginationData(1);
+    } else {
+      fetchSearchData(getInputValueFromLS);
+    }
   }, []);
 
   const fetch = (): void => {
@@ -70,20 +75,33 @@ export default function Page(): JSX.Element {
     }
   };
 
+  const handleCloseDetails = (): void => {
+    setSelectedCharacter(null);
+  };
+
   return (
     <>
       <Header
-        fetchSearchData={fetch} // Передаем функцию fetchSearchData в Header
+        fetchSearchData={fetch}
         onInputChange={handleInputChange}
         inputValue={inputValue}
       />
       <Pagination onPageChange={fetchPaginationData} />
-      {selectedCharacter && <CharacterDetails character={selectedCharacter} />}
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Main dataFetch={dataFetch} onCardClick={handleCardClick} />
-      )}
+      <div className={styles.pageContainer}>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Main dataFetch={dataFetch} onCardClick={handleCardClick} />
+        )}
+        {selectedCharacter && (
+          <div ref={characterDetailsRef}>
+            <CharacterDetails
+              character={selectedCharacter}
+              onClose={handleCloseDetails}
+            />
+          </div>
+        )}
+      </div>
     </>
   );
 }
