@@ -15,7 +15,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react-refresh', '@typescript-eslint', 'react-hooks'], //"react"
+  plugins: ['react-refresh', '@typescript-eslint', 'react-hooks',"react-compiler"],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
@@ -32,6 +32,7 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-console': 'off',
+     "react-compiler/react-compiler": "error",
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
