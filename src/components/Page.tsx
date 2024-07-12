@@ -1,13 +1,15 @@
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
 import Pagination from './Pagination';
 import Main from './Main';
+import Loader from './Loader';
 import CharacterDetails from './CharacterDetails';
 import { fetchData } from '../utils/fetchData';
 import { ICharacter, IDataFetch } from '../types/interfaces';
 import { fetchDataCard } from '../utils/fetchDataCard';
 import styles from '../styles/Page.module.css';
-import Loader from './Loader';
+import NotFoundPage from './NotFoundPage';
 
 export default function Page(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
@@ -18,19 +20,36 @@ export default function Page(): JSX.Element {
   const [selectedCharacter, setSelectedCharacter] = useState<ICharacter | null>(
     null
   );
-
+  const params = useParams();
+  const numPageFromUrl = Number(params.numPagination);
   const characterDetailsRef = useRef<HTMLDivElement | null>(null);
+  const [showPagination, setShowPagination] = useState(true);
+  const navigate = useNavigate();
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     const getInputValueFromLS = localStorage.getItem('inputValue');
-    if (getInputValueFromLS === '' || getInputValueFromLS === null) {
-      fetchPaginationData(1);
-    } else {
-      fetchSearchData(getInputValueFromLS);
-    }
-  }, []);
 
-  const fetch = (): void => {
+    if (params.numPagination) {
+      const [key, value] = params.numPagination.split('=');
+
+      if (key === 'search') {
+        fetchSearchData(value);
+        localStorage.setItem('inputValue', value);
+      }
+
+      if (key === 'page') {
+        fetchPaginationData(Number(value));
+        localStorage.setItem('inputValue', '');
+      }
+
+      if (getInputValueFromLS) {
+        fetchSearchData(getInputValueFromLS);
+      }
+    }
+  }, [numPageFromUrl]);
+
+  const fetchHeader = (): void => {
     if (inputValue !== '') {
       fetchSearchData(inputValue);
     } else {
@@ -52,17 +71,29 @@ export default function Page(): JSX.Element {
     if (data) {
       setDataFetch(data);
     }
+
+    setShowPagination(false);
+    navigate(`/search=${inputValue}`);
   };
 
   const fetchPaginationData = async (pageNumber: number): Promise<void> => {
-    const data = await fetchData(
-      setIsLoading,
-      `https://rickandmortyapi.com/api/character/?page=${pageNumber}`
-    );
+    if (pageNumber <= 42) {
+      const data = await fetchData(
+        setIsLoading,
+        `https://rickandmortyapi.com/api/character/?page=${pageNumber}`
+      );
 
-    if (data) {
-      setDataFetch(data);
+      if (data) {
+        setDataFetch(data);
+      }
+
+      setShowPagination(true);
+      setNotFound(false);
+    } else {
+      setShowPagination(false);
+      setNotFound(true);
     }
+    navigate(`/page=${pageNumber}`);
   };
 
   const handleCardClick = async (id: number): Promise<void> => {
@@ -70,7 +101,6 @@ export default function Page(): JSX.Element {
     const data = await fetchDataCard(url);
 
     if (data) {
-      console.log(data);
       setSelectedCharacter(data);
     }
   };
@@ -82,16 +112,23 @@ export default function Page(): JSX.Element {
   return (
     <>
       <Header
-        fetchSearchData={fetch}
+        fetchSearchData={fetchHeader}
         onInputChange={handleInputChange}
         inputValue={inputValue}
       />
-      <Pagination onPageChange={fetchPaginationData} />
+
       <div className={styles.pageContainer}>
         {isLoading ? (
           <Loader />
+        ) : notFound ? (
+          <NotFoundPage />
         ) : (
-          <Main dataFetch={dataFetch} onCardClick={handleCardClick} />
+          <div>
+            {showPagination && (
+              <Pagination onPageChange={fetchPaginationData} />
+            )}
+            <Main dataFetch={dataFetch} onCardClick={handleCardClick} />
+          </div>
         )}
         {selectedCharacter && (
           <div ref={characterDetailsRef}>
@@ -105,16 +142,3 @@ export default function Page(): JSX.Element {
     </>
   );
 }
-
-/* const [throwError, setThrowError] = useState(false); */
-/* const errorBoundary = (): void => {
-    setThrowError(true);
-  };
-
-  if (throwError) {
-    throw new Error('This is a test error');
-  } */
-
-/* <button className={styles.btnError} onClick={errorBoundary}>
-        Error Boundary
-      </button> */

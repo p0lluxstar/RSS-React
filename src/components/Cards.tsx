@@ -29,7 +29,6 @@ export default function Cards({
           <img src={result.image} alt={result.name}></img>
           <div className={styles.cardName}>
             <span>{result.name}</span>
-            <span>{result.id}</span>
           </div>
         </div>
       ))}
