@@ -1,8 +1,11 @@
 import { ICharacter } from '../types/interfaces';
 
 export const fetchDataCard = async (
+  setIsLoadingCharacterDetails: (loading: boolean) => void,
   url: string
 ): Promise<ICharacter | null> => {
+  setIsLoadingCharacterDetails(true);
+
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -12,5 +15,7 @@ export const fetchDataCard = async (
   } catch (error) {
     console.error('Fetch error:', error);
     return null;
+  } finally {
+    setIsLoadingCharacterDetails(false);
   }
 };

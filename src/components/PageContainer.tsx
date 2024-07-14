@@ -13,6 +13,8 @@ import Content from './Content';
 export default function PageContainer(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingCharacterDetails, setIsLoadingCharacterDetails] =
+    useState(false);
   const [inputValue, setInputValue] = useState<string>(
     localStorage.getItem('inputValue') || ''
   );
@@ -99,7 +101,7 @@ export default function PageContainer(): JSX.Element {
 
   const handleCardClick = async (id: number): Promise<void> => {
     const url = `https://rickandmortyapi.com/api/character/${id}`;
-    const data = await fetchDataCard(url);
+    const data = await fetchDataCard(setIsLoadingCharacterDetails, url);
 
     if (data) {
       setSelectedCharacter(data);
@@ -131,13 +133,21 @@ export default function PageContainer(): JSX.Element {
             handleCardClick={handleCardClick}
           />
         )}
-        {selectedCharacter && (
-          <div className={styles.characterDetailsBox} ref={characterDetailsRef}>
-            <CharacterDetails
-              character={selectedCharacter}
-              onClose={handleCloseDetails}
-            />
-          </div>
+        {/* половина с детальным описанием карточки */}
+        {isLoadingCharacterDetails ? (
+          <Loader />
+        ) : (
+          selectedCharacter && (
+            <div
+              className={styles.characterDetailsBox}
+              ref={characterDetailsRef}
+            >
+              <CharacterDetails
+                character={selectedCharacter}
+                onClose={handleCloseDetails}
+              />
+            </div>
+          )
         )}
       </div>
     </>

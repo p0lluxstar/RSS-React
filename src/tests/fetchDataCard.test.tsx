@@ -2,6 +2,9 @@ import { test, expect, vi, describe } from 'vitest';
 import { fetchDataCard } from '../utils/fetchDataCard';
 import { ICharacter } from '../types/interfaces';
 
+// Мок для setIsLoading
+const setIsLoading = vi.fn();
+
 describe('Утилита fetchDataCard', () => {
   afterEach(() => {
     vi.resetAllMocks();
@@ -22,7 +25,7 @@ describe('Утилита fetchDataCard', () => {
     });
 
     const url = 'https://rickandmortyapi.com/api/character/1';
-    const data = await fetchDataCard(url);
+    const data = await fetchDataCard(setIsLoading, url);
 
     expect(data).toEqual(mockData);
   });
