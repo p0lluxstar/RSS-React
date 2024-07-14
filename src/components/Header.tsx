@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { INPUT_PLACEHOLDER } from '../constants/components';
 import styles from '../styles/Header.module.css';
 
 interface IProps {
@@ -8,7 +9,7 @@ interface IProps {
   onClearInput: () => void; // Добавлено
 }
 
-const INPUT_PLACEHOLDER = 'Enter name card. Example: Rick';
+/* const INPUT_PLACEHOLDER = 'Enter name card. Example: Rick'; */
 
 export default function Header(props: IProps): JSX.Element {
   const [showClearButton, setShowClearButton] = useState<boolean>(

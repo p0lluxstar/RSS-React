@@ -9,6 +9,7 @@ import { fetchDataCard } from '../utils/fetchDataCard';
 import styles from '../styles/PageContainer.module.css';
 import NotFoundPage from './NotFoundPage';
 import Content from './Content';
+import { MAX_PAGE_NUMBER, API_BASE_URL } from '../constants/components';
 
 export default function PageContainer(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
@@ -67,7 +68,7 @@ export default function PageContainer(): JSX.Element {
   const fetchSearchData = async (inputValue: string): Promise<void> => {
     const data = await fetchData(
       setIsLoading,
-      `https://rickandmortyapi.com/api/character/?name=${inputValue}`
+      `${API_BASE_URL}/?name=${inputValue}`
     );
 
     if (data) {
@@ -80,10 +81,10 @@ export default function PageContainer(): JSX.Element {
   };
 
   const fetchPaginationData = async (pageNumber: number): Promise<void> => {
-    if (pageNumber <= 42) {
+    if (pageNumber <= MAX_PAGE_NUMBER) {
       const data = await fetchData(
         setIsLoading,
-        `https://rickandmortyapi.com/api/character/?page=${pageNumber}`
+        `${API_BASE_URL}/?page=${pageNumber}`
       );
 
       if (data) {
@@ -100,7 +101,7 @@ export default function PageContainer(): JSX.Element {
   };
 
   const handleCardClick = async (id: number): Promise<void> => {
-    const url = `https://rickandmortyapi.com/api/character/${id}`;
+    const url = `${API_BASE_URL}/${id}`;
     const data = await fetchDataCard(setIsLoadingCharacterDetails, url);
 
     if (data) {

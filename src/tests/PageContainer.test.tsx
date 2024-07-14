@@ -36,8 +36,8 @@ describe('Компонент PageContainer', () => {
       gender: 'Male',
     };
 
-    (fetchData as vi.Mock).mockResolvedValueOnce(mockDataFetch);
-    (fetchData as vi.Mock).mockResolvedValueOnce(mockCharacter);
+    (fetchData as jest.Mock).mockResolvedValueOnce(mockDataFetch);
+    (fetchData as jest.Mock).mockResolvedValueOnce(mockCharacter);
 
     render(
       <MemoryRouter initialEntries={['/page=1']}>
@@ -66,7 +66,7 @@ describe('Компонент PageContainer', () => {
       ],
     };
 
-    (fetchData as vi.Mock).mockResolvedValue(mockDataFetch);
+    (fetchData as jest.Mock).mockResolvedValue(mockDataFetch);
 
     render(
       <MemoryRouter initialEntries={['/page=1']}>
@@ -90,7 +90,7 @@ describe('Компонент PageContainer', () => {
   });
 
   it('должен отображать компонент NotFoundPage при отсутствии результатов', async () => {
-    (fetchData as vi.Mock).mockResolvedValue({
+    (fetchData as jest.Mock).mockResolvedValue({
       results: [{ id: 0, name: '', image: '' }],
     });
 
