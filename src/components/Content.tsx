@@ -17,8 +17,8 @@ export default function Content({
 }: IProps): JSX.Element {
   return (
     <div className="content">
-      {showPagination && <Pagination onPageChange={fetchPaginationData} />}
       <Cards dataFetch={dataFetch} onCardClick={handleCardClick} />
+      {showPagination && <Pagination onPageChange={fetchPaginationData} />}
     </div>
   );
 }
