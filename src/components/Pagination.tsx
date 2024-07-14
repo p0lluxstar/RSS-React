@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, NavLinkRenderProps, useParams } from 'react-router-dom';
+import styles from '../styles/Pagination.module.css';
 
 interface IProps {
   onPageChange: (pageNumber: number) => void;
@@ -36,19 +37,51 @@ export default function Pagination({ onPageChange }: IProps): JSX.Element {
       startPage = Math.max(1, endPage - 4);
     }
 
+    // Добавляем кнопку для первой страницы, если текущая страница больше третьей
+    if (startPage > 1) {
+      buttons.push(
+        <NavLink
+          to={`/page=1`}
+          key={1}
+          onClick={(): void => handlePageChange(1)}
+          data-testid={`page-button-1`}
+          className={({ isActive }: NavLinkRenderProps): string =>
+            isActive
+              ? `${styles.paginationItem} ${styles.active}`
+              : styles.paginationItem
+          }
+        >
+          1
+        </NavLink>
+      );
+
+      buttons.push(
+        <span className={styles.ellipsis} key="ellipsis">
+          ...
+        </span>
+      );
+    }
+
     for (let i = startPage; i <= endPage; i++) {
       buttons.push(
         <NavLink
           to={`/page=${i}`}
           key={i}
           onClick={(): void => handlePageChange(i)}
+          data-testid={`page-button-${i}`}
+          className={({ isActive }: NavLinkRenderProps): string =>
+            isActive
+              ? `${styles.paginationItem} ${styles.active}`
+              : styles.paginationItem
+          }
         >
           {i}
         </NavLink>
       );
     }
+
     return buttons;
   };
 
-  return <div>{renderPageButtons()}</div>;
+  return <div className={styles.pagination}>{renderPageButtons()}</div>;
 }

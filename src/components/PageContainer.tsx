@@ -1,15 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
-import Pagination from './Pagination';
-import Main from './Main';
-import Loader from './Loader';
+import Loader from './loader';
 import CharacterDetails from './CharacterDetails';
 import { fetchData } from '../utils/fetchData';
 import { ICharacter, IDataFetch } from '../types/interfaces';
 import { fetchDataCard } from '../utils/fetchDataCard';
-import styles from '../styles/Page.module.css';
+import styles from '../styles/PageContainer.module.css';
 import NotFoundPage from './NotFoundPage';
+import Content from './Content';
 
 export default function Page(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
@@ -40,12 +39,13 @@ export default function Page(): JSX.Element {
 
       if (key === 'page') {
         fetchPaginationData(Number(value));
-        localStorage.setItem('inputValue', '');
+      } else {
+        setNotFound(true);
       }
+    }
 
-      if (getInputValueFromLS) {
-        fetchSearchData(getInputValueFromLS);
-      }
+    if (getInputValueFromLS) {
+      fetchSearchData(getInputValueFromLS);
     }
   }, [numPageFromUrl]);
 
@@ -72,6 +72,7 @@ export default function Page(): JSX.Element {
       setDataFetch(data);
     }
 
+    setNotFound(false);
     setShowPagination(false);
     navigate(`/search=${inputValue}`);
   };
@@ -123,15 +124,15 @@ export default function Page(): JSX.Element {
         ) : notFound ? (
           <NotFoundPage />
         ) : (
-          <div>
-            {showPagination && (
-              <Pagination onPageChange={fetchPaginationData} />
-            )}
-            <Main dataFetch={dataFetch} onCardClick={handleCardClick} />
-          </div>
+          <Content
+            showPagination={showPagination}
+            dataFetch={dataFetch}
+            fetchPaginationData={fetchPaginationData}
+            handleCardClick={handleCardClick}
+          />
         )}
         {selectedCharacter && (
-          <div ref={characterDetailsRef}>
+          <div className={styles.characterDetailsBox} ref={characterDetailsRef}>
             <CharacterDetails
               character={selectedCharacter}
               onClose={handleCloseDetails}

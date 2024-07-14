@@ -17,7 +17,7 @@ export default function Header(props: IProps): JSX.Element {
 
   return (
     <>
-      <header className={styles.header}>
+      <header className={styles.header} data-testid="header">
         <div className={styles.search}>
           <span className={styles.apiName}>rickandmortyapi.com</span>
           <input

@@ -1,4 +1,4 @@
-import React from 'react';
+import styles from '../styles/CharacterDetails.module.css';
 
 interface ICharacter {
   name: string;
@@ -18,13 +18,13 @@ export default function CharacterDetails({
   onClose,
 }: IProps): JSX.Element {
   return (
-    <>
+    <div className={styles.characterDetails} data-testid="CharacterDetails">
       <button onClick={onClose}>X</button>
       <h2>{character.name}</h2>
       <img src={character.image} alt={character.name} />
       <p>Status: {character.status}</p>
       <p>Species: {character.species}</p>
       <p>Gender: {character.gender}</p>
-    </>
+    </div>
   );
 }

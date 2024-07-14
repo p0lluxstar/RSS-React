@@ -3,7 +3,7 @@ import { IDataFetch } from '../types/interfaces';
 
 interface IProps {
   dataFetch: IDataFetch;
-  onCardClick: (id: number) => void;
+  onCardClick: (id: number) => Promise<void>;
 }
 
 export default function Cards({
@@ -19,7 +19,7 @@ export default function Cards({
   }
 
   return (
-    <div className={styles.cards}>
+    <div className={styles.cards} data-testid="cards">
       {dataFetch.results.map((result, index) => (
         <div
           className={styles.card}

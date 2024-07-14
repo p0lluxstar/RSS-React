@@ -1,9 +1,4 @@
-interface ICharacter {
-  name: string;
-  status: string;
-  species: string;
-  gender: string;
-}
+import { ICharacter } from '../types/interfaces';
 
 export const fetchDataCard = async (
   url: string
