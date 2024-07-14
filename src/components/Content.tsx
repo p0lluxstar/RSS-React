@@ -1,6 +1,7 @@
 import Pagination from './Pagination';
 import Cards from './Cards';
 import { IDataFetch } from '../types/interfaces';
+import styles from '../styles/Content.module.css';
 
 interface IProps {
   showPagination: boolean;
@@ -16,7 +17,7 @@ export default function Content({
   handleCardClick,
 }: IProps): JSX.Element {
   return (
-    <div className="content">
+    <div className={styles.content}>
       <Cards dataFetch={dataFetch} onCardClick={handleCardClick} />
       {showPagination && <Pagination onPageChange={fetchPaginationData} />}
     </div>

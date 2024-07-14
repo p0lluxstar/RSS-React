@@ -6,12 +6,14 @@ describe('Компонент Header', () => {
   test('рендерит компонент Header', () => {
     const mockFetchSearchData = vi.fn();
     const mockOnInputChange = vi.fn();
+    const mockOnClearInput = vi.fn();
 
     render(
       <Header
         fetchSearchData={mockFetchSearchData}
         onInputChange={mockOnInputChange}
         inputValue=""
+        onClearInput={mockOnClearInput}
       />
     );
 
@@ -25,12 +27,14 @@ describe('Компонент Header', () => {
   test('вызывает onInputChange при изменении значения ввода', () => {
     const mockFetchSearchData = vi.fn();
     const mockOnInputChange = vi.fn();
+    const mockOnClearInput = vi.fn();
 
     render(
       <Header
         fetchSearchData={mockFetchSearchData}
         onInputChange={mockOnInputChange}
         inputValue=""
+        onClearInput={mockOnClearInput}
       />
     );
 
@@ -44,12 +48,14 @@ describe('Компонент Header', () => {
   test('вызывает fetchSearchData при клике на кнопку Поиск', () => {
     const mockFetchSearchData = vi.fn();
     const mockOnInputChange = vi.fn();
+    const mockOnClearInput = vi.fn();
 
     render(
       <Header
         fetchSearchData={mockFetchSearchData}
         onInputChange={mockOnInputChange}
         inputValue=""
+        onClearInput={mockOnClearInput}
       />
     );
 
@@ -63,12 +69,14 @@ describe('Компонент Header', () => {
   test('вызывает fetchSearchData при нажатии клавиши Enter в поле ввода', () => {
     const mockFetchSearchData = vi.fn();
     const mockOnInputChange = vi.fn();
+    const mockOnClearInput = vi.fn();
 
     render(
       <Header
         fetchSearchData={mockFetchSearchData}
         onInputChange={mockOnInputChange}
         inputValue=""
+        onClearInput={mockOnClearInput}
       />
     );
 

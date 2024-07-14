@@ -1,18 +1,35 @@
+import { useState } from 'react';
 import styles from '../styles/Header.module.css';
 
 interface IProps {
   fetchSearchData: () => void;
   onInputChange: (inputValue: string) => void;
   inputValue: string;
+  onClearInput: () => void; // Добавлено
 }
 
 const INPUT_PLACEHOLDER = 'Enter name card. Example: Rick';
 
 export default function Header(props: IProps): JSX.Element {
+  const [showClearButton, setShowClearButton] = useState<boolean>(
+    props.inputValue.length > 0
+  );
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = e.target.value;
+    props.onInputChange(value);
+    setShowClearButton(value.length > 0);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       props.fetchSearchData();
     }
+  };
+
+  const handleClearInput = (): void => {
+    props.onClearInput();
+    setShowClearButton(false);
   };
 
   return (
@@ -25,15 +42,22 @@ export default function Header(props: IProps): JSX.Element {
             type="text"
             placeholder={INPUT_PLACEHOLDER}
             value={props.inputValue}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-              props.onInputChange(e.target.value);
-            }}
+            onChange={handleInputChange}
             onKeyDown={handleKeyPress}
           />
-          <button className={styles.btnSearch} onClick={props.fetchSearchData}>
-            Search
-          </button>
+          {showClearButton && (
+            <button
+              className={styles.btnClear}
+              onClick={handleClearInput}
+              aria-label="Clear input"
+            >
+              &times;
+            </button>
+          )}
         </div>
+        <button className={styles.btnSearch} onClick={props.fetchSearchData}>
+          Search
+        </button>
       </header>
     </>
   );

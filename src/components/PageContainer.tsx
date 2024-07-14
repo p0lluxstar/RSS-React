@@ -112,12 +112,19 @@ export default function PageContainer(): JSX.Element {
     setSelectedCharacter(null);
   };
 
+  const handleClearInput = (): void => {
+    setInputValue('');
+    fetchPaginationData(1);
+    localStorage.setItem('inputValue', '');
+  };
+
   return (
     <>
       <Header
         fetchSearchData={fetchHeader}
         onInputChange={handleInputChange}
         inputValue={inputValue}
+        onClearInput={handleClearInput}
       />
 
       <div className={styles.pageContainer}>
@@ -133,7 +140,6 @@ export default function PageContainer(): JSX.Element {
             handleCardClick={handleCardClick}
           />
         )}
-        {/* половина с детальным описанием карточки */}
         {isLoadingCharacterDetails ? (
           <Loader />
         ) : (

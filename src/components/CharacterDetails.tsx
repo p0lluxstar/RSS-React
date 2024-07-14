@@ -19,7 +19,7 @@ export default function CharacterDetails({
 }: IProps): JSX.Element {
   return (
     <div className={styles.characterDetails} data-testid="CharacterDetails">
-      <button onClick={onClose}>X</button>
+      <button onClick={onClose}>×</button>
       <h2>{character.name}</h2>
       <img src={character.image} alt={character.name} />
       <p>Status: {character.status}</p>
