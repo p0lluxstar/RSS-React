@@ -10,7 +10,7 @@ import styles from '../styles/PageContainer.module.css';
 import NotFoundPage from './NotFoundPage';
 import Content from './Content';
 
-export default function Page(): JSX.Element {
+export default function PageContainer(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
   const [isLoading, setIsLoading] = useState(false);
   const [inputValue, setInputValue] = useState<string>(

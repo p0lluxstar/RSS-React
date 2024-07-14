@@ -7,8 +7,8 @@ const ErrorComponent = (): never => {
   throw new Error('Test error');
 };
 
-describe('ErrorBoundary component', () => {
-  it('should render error message when an error is caught', () => {
+describe('Компонент ErrorBoundary', () => {
+  it('должно отображаться сообщение об ошибке при обнаружении ошибки', () => {
     // Используем console.error mock, чтобы подавить ошибку в консоли
     const consoleErrorSpy = vi
       .spyOn(console, 'error')

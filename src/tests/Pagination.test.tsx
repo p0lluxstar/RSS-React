@@ -1,9 +1,29 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Page from '../components/PageContainer';
+import Pagination from '../components/Pagination';
 
 describe('Компонент Pagination', () => {
+  const mockOnPageChange = vi.fn();
+
+  it('отображение многоточия, когда страниц много', () => {
+    render(
+      <MemoryRouter initialEntries={['/page=10']}>
+        <Routes>
+          <Route
+            path=":numPagination"
+            element={<Pagination onPageChange={mockOnPageChange} />}
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Проверяем, что компонент с текстом "..." отображается
+    const ellipsis = screen.getAllByText('...');
+    expect(ellipsis.length).toBeGreaterThan(0); // проверяет, что хотя бы один элемент "..." отображается
+  });
+
   it('должен отображать кнопки пагинации и реагировать на нажатия', () => {
     render(
       <MemoryRouter initialEntries={['/page=1']}>

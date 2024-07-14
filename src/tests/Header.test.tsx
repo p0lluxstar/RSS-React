@@ -2,8 +2,8 @@ import { test, expect, describe, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Header from '../components/Header';
 
-describe('Header component', () => {
-  test('renders the Header component', () => {
+describe('Компонент Header', () => {
+  test('рендерит компонент Header', () => {
     const mockFetchSearchData = vi.fn();
     const mockOnInputChange = vi.fn();
 
@@ -22,7 +22,7 @@ describe('Header component', () => {
     ).toBeInTheDocument();
   });
 
-  test('calls onInputChange when input value changes', () => {
+  test('вызывает onInputChange при изменении значения ввода', () => {
     const mockFetchSearchData = vi.fn();
     const mockOnInputChange = vi.fn();
 
@@ -41,7 +41,7 @@ describe('Header component', () => {
     expect(mockOnInputChange).toHaveBeenCalledWith('Morty');
   });
 
-  test('calls fetchSearchData when Search button is clicked', () => {
+  test('вызывает fetchSearchData при клике на кнопку Поиск', () => {
     const mockFetchSearchData = vi.fn();
     const mockOnInputChange = vi.fn();
 
@@ -60,7 +60,7 @@ describe('Header component', () => {
     expect(mockFetchSearchData).toHaveBeenCalled();
   });
 
-  test('calls fetchSearchData when Enter key is pressed in input', () => {
+  test('вызывает fetchSearchData при нажатии клавиши Enter в поле ввода', () => {
     const mockFetchSearchData = vi.fn();
     const mockOnInputChange = vi.fn();
 
