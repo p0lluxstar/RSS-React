@@ -1,0 +1,54 @@
+.cards {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  max-width: 1280px;
+  gap: 20px;
+}
+
+.card {
+  width: 220px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow:
+    2px 5px 15px 0px #0b325e,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+.card:hover {
+  box-shadow:
+    2px 5px 15px 0px #021b38,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+.card:hover img {
+  filter: none;
+}
+
+.card img {
+  width: 200px;
+  height: 200px;
+  filter: grayscale(100%);
+  transition: filter 0.2s ease-out;
+}
+
+.cardName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  height: 50px;
+  gap: 5px;
+}
+
+.cardName span {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.message {
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+}

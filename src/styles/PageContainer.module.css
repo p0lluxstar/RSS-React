@@ -1,0 +1,10 @@
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.characterDetailsBox {
+  width: 50%;
+  position: relative;
+}
