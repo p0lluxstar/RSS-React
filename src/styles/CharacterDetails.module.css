@@ -24,7 +24,7 @@
 
 .characterDetails button:hover {
   cursor: pointer;
-  opacity: 0.9;
+  background: #e2e2e2;
 }
 
 .characterDetails h2 {
