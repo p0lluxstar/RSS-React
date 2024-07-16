@@ -2,7 +2,7 @@ import { it, expect, describe, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import PageContainer from '../components/PageContainer';
-import { fetchData } from '../utils/fetchData';
+import { fetchData } from '../hooks/useFetchData';
 import { ICharacter, IDataFetch } from '../types/interfaces';
 
 // Моки для fetchData и fetchDataCard

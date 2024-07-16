@@ -6,10 +6,8 @@ interface IProps {
   fetchSearchData: () => void;
   onInputChange: (inputValue: string) => void;
   inputValue: string;
-  onClearInput: () => void; // Добавлено
+  onClearInput: () => void;
 }
-
-/* const INPUT_PLACEHOLDER = 'Enter name card. Example: Rick'; */
 
 export default function Header(props: IProps): JSX.Element {
   const [showClearButton, setShowClearButton] = useState<boolean>(

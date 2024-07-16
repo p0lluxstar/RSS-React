@@ -6,20 +6,20 @@ import styles from '../styles/Content.module.css';
 interface IProps {
   showPagination: boolean;
   dataFetch: IDataFetch;
-  fetchPaginationData: (pageNumber: number) => void;
+  paginationClick: (pageNumber: number) => void;
   handleCardClick: (id: number) => Promise<void>;
 }
 
 export default function Content({
   showPagination,
   dataFetch,
-  fetchPaginationData,
+  paginationClick,
   handleCardClick,
 }: IProps): JSX.Element {
   return (
     <div className={styles.content}>
+      {showPagination && <Pagination onPageChange={paginationClick} />}
       <Cards dataFetch={dataFetch} onCardClick={handleCardClick} />
-      {showPagination && <Pagination onPageChange={fetchPaginationData} />}
     </div>
   );
 }

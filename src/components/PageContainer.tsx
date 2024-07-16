@@ -3,31 +3,46 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
 import Loader from './loader';
 import CharacterDetails from './CharacterDetails';
-import { fetchData } from '../utils/fetchData';
 import { ICharacter, IDataFetch } from '../types/interfaces';
-import { fetchDataCard } from '../utils/fetchDataCard';
 import styles from '../styles/PageContainer.module.css';
 import NotFoundPage from './NotFoundPage';
 import Content from './Content';
-import { MAX_PAGE_NUMBER, API_BASE_URL } from '../constants/components';
+import { MAX_PAGE_NUMBER } from '../constants/components';
+import {
+  useGetCardsByNumPageOrNameQuery,
+  useGetCardByIdQuery,
+} from '../redux/slices/sliceApi';
 
 export default function PageContainer(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingCharacterDetails, setIsLoadingCharacterDetails] =
-    useState(false);
+  const [getDataById, setGetDataById] = useState<ICharacter | null>(null);
   const [inputValue, setInputValue] = useState<string>(
     localStorage.getItem('inputValue') || ''
   );
-  const [selectedCharacter, setSelectedCharacter] = useState<ICharacter | null>(
-    null
-  );
-  const params = useParams();
-  const numPageFromUrl = Number(params.numPagination);
   const characterDetailsRef = useRef<HTMLDivElement | null>(null);
   const [showPagination, setShowPagination] = useState(true);
-  const navigate = useNavigate();
   const [notFound, setNotFound] = useState(false);
+  const [numPageOrName, setNumPageOrName] = useState('');
+  const [cardId, setCardId] = useState('');
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const {
+    data: dataByNumPageOrName,
+    isLoading: isLoadingByNumPageOrName,
+    isFetching: isFetchingByNumPageOrName,
+    isError: isErrorByNumPageOrName,
+  } = useGetCardsByNumPageOrNameQuery(numPageOrName, {
+    skip: !numPageOrName,
+  });
+
+  const {
+    data: dataById,
+    isLoading: isLoadingById,
+    isFetching: isFetchingById,
+  } = useGetCardByIdQuery(cardId, {
+    skip: !cardId,
+  });
 
   useEffect(() => {
     const getInputValueFromLS = localStorage.getItem('inputValue');
@@ -36,27 +51,40 @@ export default function PageContainer(): JSX.Element {
       const [key, value] = params.numPagination.split('=');
 
       if (key === 'search') {
-        fetchSearchData(value);
+        searchClick(value);
         localStorage.setItem('inputValue', value);
-      }
-
-      if (key === 'page') {
-        fetchPaginationData(Number(value));
+      } else if (key === 'page') {
+        paginationClick(Number(value));
       } else {
         setNotFound(true);
       }
     }
 
     if (getInputValueFromLS) {
-      fetchSearchData(getInputValueFromLS);
+      searchClick(getInputValueFromLS);
     }
-  }, [numPageFromUrl]);
+  }, [numPageOrName]);
+
+  useEffect(() => {
+    if (dataByNumPageOrName) {
+      setDataFetch(dataByNumPageOrName);
+      setNotFound(dataByNumPageOrName.results.length === 0);
+    } else {
+      setNotFound(true);
+    }
+  }, [dataByNumPageOrName]);
+
+  useEffect(() => {
+    if (dataById) {
+      setGetDataById(dataById);
+    }
+  }, [dataById]);
 
   const fetchHeader = (): void => {
     if (inputValue !== '') {
-      fetchSearchData(inputValue);
+      searchClick(inputValue);
     } else {
-      fetchPaginationData(1);
+      paginationClick(1);
     }
     localStorage.setItem('inputValue', inputValue);
   };
@@ -65,57 +93,39 @@ export default function PageContainer(): JSX.Element {
     setInputValue(inputValue);
   };
 
-  const fetchSearchData = async (inputValue: string): Promise<void> => {
-    const data = await fetchData(
-      setIsLoading,
-      `${API_BASE_URL}/?name=${inputValue}`
-    );
-
-    if (data) {
-      setDataFetch(data);
-    }
-
-    setNotFound(false);
+  const searchClick = (inputValue: string): void => {
+    setNumPageOrName(`/?name=${inputValue}`);
     setShowPagination(false);
     navigate(`/search=${inputValue}`);
   };
 
-  const fetchPaginationData = async (pageNumber: number): Promise<void> => {
+  const paginationClick = (pageNumber: number): void => {
     if (pageNumber <= MAX_PAGE_NUMBER) {
-      const data = await fetchData(
-        setIsLoading,
-        `${API_BASE_URL}/?page=${pageNumber}`
-      );
-
-      if (data) {
-        setDataFetch(data);
-      }
-
+      setNumPageOrName(`/?page=${pageNumber}`);
       setShowPagination(true);
-      setNotFound(false);
+
+      navigate(`/page=${pageNumber}`);
     } else {
       setShowPagination(false);
       setNotFound(true);
     }
-    navigate(`/page=${pageNumber}`);
   };
 
   const handleCardClick = async (id: number): Promise<void> => {
-    const url = `${API_BASE_URL}/${id}`;
-    const data = await fetchDataCard(setIsLoadingCharacterDetails, url);
+    setCardId(`/${id}`);
 
-    if (data) {
-      setSelectedCharacter(data);
+    if (dataById) {
+      setGetDataById(dataById);
     }
   };
 
   const handleCloseDetails = (): void => {
-    setSelectedCharacter(null);
+    setGetDataById(null);
   };
 
   const handleClearInput = (): void => {
     setInputValue('');
-    fetchPaginationData(1);
+    paginationClick(1);
     localStorage.setItem('inputValue', '');
   };
 
@@ -129,28 +139,28 @@ export default function PageContainer(): JSX.Element {
       />
 
       <div className={styles.pageContainer}>
-        {isLoading ? (
+        {isLoadingByNumPageOrName || isFetchingByNumPageOrName ? (
           <Loader />
-        ) : notFound ? (
+        ) : notFound || isErrorByNumPageOrName ? (
           <NotFoundPage />
         ) : (
           <Content
             showPagination={showPagination}
             dataFetch={dataFetch}
-            fetchPaginationData={fetchPaginationData}
+            paginationClick={paginationClick}
             handleCardClick={handleCardClick}
           />
         )}
-        {isLoadingCharacterDetails ? (
+        {isLoadingById || isFetchingById ? (
           <Loader />
         ) : (
-          selectedCharacter && (
+          getDataById && (
             <div
               className={styles.characterDetailsBox}
               ref={characterDetailsRef}
             >
               <CharacterDetails
-                character={selectedCharacter}
+                character={getDataById}
                 onClose={handleCloseDetails}
               />
             </div>
