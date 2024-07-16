@@ -1,17 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { sliceApi } from './slices/sliceApi';
+import { apiSlice } from './slices/apiSlice';
+import themeReducer from './slices/themeSlice';
 
 const store = configureStore({
   reducer: {
-    // Добавьте сгенерированный редьюсер в root reducer
-    [sliceApi.reducerPath]: sliceApi.reducer,
+    // сгенерированный редьюсер в root reducer
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    theme: themeReducer,
   },
-  // Добавьте middleware для кэширования и управления запросами
+  // middleware для кэширования и управления запросами
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(sliceApi.middleware),
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 setupListeners(store.dispatch);
-
+export type RootState = ReturnType<typeof store.getState>;
 export default store;

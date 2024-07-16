@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { INPUT_PLACEHOLDER } from '../constants/components';
-import styles from '../styles/Header.module.css';
+import ThemeSwitcher from './ThemeSwitcher';
+import { useSelector } from 'react-redux';
+import { RootState } from '@reduxjs/toolkit/query';
+/* import styles from '../styles/Header.module.css'; */
+import lightStyles from '../styles/theme/lightHeader.module.css';
+import darkStyles from '../styles/theme/darkHeader.module.css';
 
 interface IProps {
   fetchSearchData: () => void;
@@ -10,6 +15,9 @@ interface IProps {
 }
 
 export default function Header(props: IProps): JSX.Element {
+  const theme = useSelector((state: RootState) => state.theme.theme);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
   const [showClearButton, setShowClearButton] = useState<boolean>(
     props.inputValue.length > 0
   );
@@ -33,6 +41,7 @@ export default function Header(props: IProps): JSX.Element {
 
   return (
     <>
+      <ThemeSwitcher />
       <header className={styles.header} data-testid="header">
         <div className={styles.search}>
           <span className={styles.apiName}>rickandmortyapi.com</span>

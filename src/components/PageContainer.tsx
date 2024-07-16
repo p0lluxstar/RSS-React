@@ -11,7 +11,7 @@ import { MAX_PAGE_NUMBER } from '../constants/components';
 import {
   useGetCardsByNumPageOrNameQuery,
   useGetCardByIdQuery,
-} from '../redux/slices/sliceApi';
+} from '../redux/slices/apiSlice';
 
 export default function PageContainer(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });

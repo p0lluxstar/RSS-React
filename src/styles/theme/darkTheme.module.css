@@ -1,0 +1,8 @@
+.app {
+  background-color: black;
+  color: white;
+}
+
+.app .header {
+  background-color: #cccccc !important;
+}
