@@ -1,4 +1,8 @@
-import styles from '../styles/CharacterDetails.module.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import styles from '../styles/characterDetails/CharacterDetails.module.css';
+import lightStyles from '../styles/characterDetails/LightCharacterDetails.module.css';
+import darkStyles from '../styles/characterDetails/DarkCharacterDetails.module.css';
 
 interface ICharacter {
   name: string;
@@ -17,8 +21,13 @@ export default function CharacterDetails({
   character,
   onClose,
 }: IProps): JSX.Element {
+  const theme = useSelector((state: RootState) => state.theme.theme);
+  const themeStyles = theme === 'light' ? lightStyles : darkStyles;
   return (
-    <div className={styles.characterDetails} data-testid="CharacterDetails">
+    <div
+      className={`${styles.characterDetails} ${themeStyles.characterDetails}`}
+      data-testid="CharacterDetails"
+    >
       <button onClick={onClose}>×</button>
       <h2>{character.name}</h2>
       <img src={character.image} alt={character.name} />

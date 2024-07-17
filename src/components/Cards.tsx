@@ -1,5 +1,9 @@
-import styles from '../styles/Cards.module.css';
+import { useSelector } from 'react-redux';
 import { IDataFetch } from '../types/interfaces';
+import { RootState } from '../redux/store';
+import styles from '../styles/cards/Cards.module.css';
+import lightStyles from '../styles/cards/LightCards.module.css';
+import darkStyles from '../styles/cards/DarkCards.module.css';
 
 interface IProps {
   dataFetch: IDataFetch;
@@ -10,6 +14,9 @@ export default function Cards({
   dataFetch,
   onCardClick,
 }: IProps): JSX.Element | null {
+  const theme = useSelector((state: RootState) => state.theme.theme);
+  const themeStyles = theme === 'light' ? lightStyles : darkStyles;
+
   if (dataFetch.results.length === 0) {
     return null;
   }
@@ -22,7 +29,7 @@ export default function Cards({
     <div className={styles.cards} data-testid="cards">
       {dataFetch.results.map((result, index) => (
         <div
-          className={styles.card}
+          className={`${styles.card} ${themeStyles.card}`}
           key={index}
           onClick={(): Promise<void> => onCardClick(result.id)}
         >

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { Provider, useSelector } from 'react-redux';
 import App from './App';
 import store, { RootState } from './redux/store';
-import './main.css'; // Включаем main.css
-import lightThemeStyles from '../src/styles/theme/lightTheme.module.css';
-import darkThemeStyles from '../src/styles/theme/darkTheme.module.css';
+import './main.css';
+import lightThemeStyles from '../src/styles/app/lightTheme.module.css';
+import darkThemeStyles from '../src/styles/app/darkTheme.module.css';
 
 // Создаем компонент для обертки
 const Root = (): JSX.Element => {
@@ -13,7 +13,7 @@ const Root = (): JSX.Element => {
   const themeStyles = theme === 'light' ? lightThemeStyles : darkThemeStyles;
 
   return (
-    <div className={themeStyles.app}>
+    <div className={`${themeStyles.app}`}>
       <App />
     </div>
   );

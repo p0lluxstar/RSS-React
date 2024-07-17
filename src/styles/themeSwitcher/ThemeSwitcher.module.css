@@ -1,0 +1,18 @@
+.themeSwitcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.themeSwitcher button {
+  width: 30px;
+  font-size: 18px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.themeSwitcher button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
