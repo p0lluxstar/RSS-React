@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import App from './App';
-import store, { RootState } from './redux/store';
+import store from './redux/store';
 import './main.css';
-import lightThemeStyles from '../src/styles/app/lightTheme.module.css';
-import darkThemeStyles from '../src/styles/app/darkTheme.module.css';
+import lightStyles from '../src/styles/app/lightTheme.module.css';
+import darkStyles from '../src/styles/app/darkTheme.module.css';
+import { ThemeContext, ThemeProvider } from './context/ThemeContext';
 
-// Создаем компонент для обертки
 const Root = (): JSX.Element => {
-  const theme = useSelector((state: RootState) => state.theme.theme);
-  const themeStyles = theme === 'light' ? lightThemeStyles : darkThemeStyles;
+  const themeContext = useContext(ThemeContext);
+  const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
   return (
     <div className={`${themeStyles.app}`}>
@@ -19,11 +19,12 @@ const Root = (): JSX.Element => {
   );
 };
 
-// Рендерим приложение
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <Root />
+      <ThemeProvider>
+        <Root />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );

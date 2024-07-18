@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { INPUT_PLACEHOLDER } from '../constants/components';
-import ThemeSwitcher from './ThemeSwitcher';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
 import styles from '../styles/header/Header.module.css';
 import lightStyles from '../styles/header/LightHeader.module.css';
 import darkStyles from '../styles/header/DarkHeader.module.css';
+import ThemeToggle from './ThemeToggle';
+import { ThemeContext } from '../context/ThemeContext';
 
 interface IProps {
   fetchSearchData: () => void;
@@ -15,8 +14,8 @@ interface IProps {
 }
 
 export default function Header(props: IProps): JSX.Element {
-  const theme = useSelector((state: RootState) => state.theme.theme);
-  const themeStyles = theme === 'light' ? lightStyles : darkStyles;
+  const themeContext = useContext(ThemeContext);
+  const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
   const [showClearButton, setShowClearButton] = useState<boolean>(
     props.inputValue.length > 0
@@ -41,7 +40,7 @@ export default function Header(props: IProps): JSX.Element {
 
   return (
     <>
-      <ThemeSwitcher />
+      <ThemeToggle />
       <header
         className={`${styles.header} ${themeStyles.header}`}
         data-testid="header"

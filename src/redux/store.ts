@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { apiSlice } from './slices/apiSlice';
-import themeReducer from './slices/themeSlice';
 
 const store = configureStore({
   reducer: {
     // сгенерированный редьюсер в root reducer
     [apiSlice.reducerPath]: apiSlice.reducer,
-    theme: themeReducer,
   },
   // middleware для кэширования и управления запросами
   middleware: (getDefaultMiddleware) =>

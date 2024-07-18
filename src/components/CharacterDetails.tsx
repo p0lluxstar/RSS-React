@@ -1,5 +1,6 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
+
 import styles from '../styles/characterDetails/CharacterDetails.module.css';
 import lightStyles from '../styles/characterDetails/LightCharacterDetails.module.css';
 import darkStyles from '../styles/characterDetails/DarkCharacterDetails.module.css';
@@ -21,8 +22,9 @@ export default function CharacterDetails({
   character,
   onClose,
 }: IProps): JSX.Element {
-  const theme = useSelector((state: RootState) => state.theme.theme);
-  const themeStyles = theme === 'light' ? lightStyles : darkStyles;
+  const themeContext = useContext(ThemeContext);
+  const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
+
   return (
     <div
       className={`${styles.characterDetails} ${themeStyles.characterDetails}`}
