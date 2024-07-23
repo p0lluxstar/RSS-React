@@ -13,3 +13,9 @@ export interface ICharacter {
   species: string;
   gender: string;
 }
+
+export interface IStoreReducer {
+  selectedCards: {
+    selectedIds: number[];
+  };
+}

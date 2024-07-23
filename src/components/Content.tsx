@@ -2,6 +2,7 @@ import Pagination from './Pagination';
 import Cards from './Cards';
 import { IDataFetch } from '../types/interfaces';
 import styles from '../styles/Content.module.css';
+import Flyout from './Flyout';
 
 interface IProps {
   showPagination: boolean;
@@ -18,8 +19,9 @@ export default function Content({
 }: IProps): JSX.Element {
   return (
     <div className={styles.content}>
-      {showPagination && <Pagination onPageChange={paginationClick} />}
       <Cards dataFetch={dataFetch} onCardClick={handleCardClick} />
+      {showPagination && <Pagination onPageChange={paginationClick} />}
+      <Flyout />
     </div>
   );
 }

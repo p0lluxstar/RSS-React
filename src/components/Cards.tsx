@@ -1,9 +1,11 @@
-import { IDataFetch } from '../types/interfaces';
+import { IDataFetch, IStoreReducer } from '../types/interfaces';
 import styles from '../styles/cards/Cards.module.css';
 import lightStyles from '../styles/cards/LightCards.module.css';
 import darkStyles from '../styles/cards/DarkCards.module.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleCardSelection } from '../redux/slices/selectedCardSlice';
 
 interface IProps {
   dataFetch: IDataFetch;
@@ -17,6 +19,11 @@ export default function Cards({
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
+  const dispatch = useDispatch();
+  const selectedIds = useSelector(
+    (state: IStoreReducer) => state.selectedCards.selectedIds
+  );
+
   if (dataFetch.results.length === 0) {
     return null;
   }
@@ -25,17 +32,27 @@ export default function Cards({
     return <p className={styles.message}>There is no card with that name.</p>;
   }
 
+  const handleCheckboxChange = (id: number): void => {
+    dispatch(toggleCardSelection(id));
+  };
+
   return (
     <div className={styles.cards} data-testid="cards">
-      {dataFetch.results.map((result, index) => (
-        <div
-          className={`${styles.card} ${themeStyles.card}`}
-          key={index}
-          onClick={(): Promise<void> => onCardClick(result.id)}
-        >
-          <img src={result.image} alt={result.name}></img>
-          <div className={styles.cardName}>
-            <span>{result.name}</span>
+      {dataFetch.results.map((result) => (
+        <div key={result.id}>
+          <input
+            type="checkbox"
+            checked={selectedIds.includes(result.id)}
+            onChange={(): void => handleCheckboxChange(result.id)}
+          />
+          <div
+            className={`${styles.card} ${themeStyles.card}`}
+            onClick={(): Promise<void> => onCardClick(result.id)}
+          >
+            <img src={result.image} alt={result.name}></img>
+            <div className={styles.cardName}>
+              <span>{result.name}</span>
+            </div>
           </div>
         </div>
       ))}

@@ -129,8 +129,6 @@ export default function PageContainer(): JSX.Element {
     localStorage.setItem('inputValue', '');
   };
 
-  console.log(isErrorByNumPageOrName);
-
   return (
     <>
       <Header

@@ -15,7 +15,7 @@ interface ICharacter {
 
 interface IProps {
   character: ICharacter;
-  onClose: () => void; // Добавляем свойство для функции закрытия
+  onClose: () => void;
 }
 
 export default function CharacterDetails({
