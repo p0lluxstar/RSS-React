@@ -1,6 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+interface ICharacter {
+  id: number;
+  name: string;
+  image: string;
+  status: string;
+  species: string;
+  gender: string;
+}
+
+interface SelectedCardsState {
+  selectedIds: ICharacter[];
+}
+
+const initialState: SelectedCardsState = {
   selectedIds: [],
 };
 
@@ -9,11 +22,14 @@ const selectedCardSlice = createSlice({
   initialState,
   reducers: {
     toggleCardSelection: (state, action) => {
-      const id = action.payload;
-      if (state.selectedIds.includes(id)) {
-        state.selectedIds = state.selectedIds.filter((cardId) => cardId !== id);
+      const character = action.payload;
+      const index = state.selectedIds.findIndex(
+        (card) => card.id === character.id
+      );
+      if (index >= 0) {
+        state.selectedIds.splice(index, 1);
       } else {
-        state.selectedIds.push(id);
+        state.selectedIds.push(character);
       }
     },
     unselectAllCards: (state) => {

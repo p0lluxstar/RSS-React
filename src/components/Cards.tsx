@@ -32,8 +32,13 @@ export default function Cards({
     return <p className={styles.message}>There is no card with that name.</p>;
   }
 
-  const handleCheckboxChange = (id: number): void => {
-    dispatch(toggleCardSelection(id));
+  const handleCheckboxChange = (result: object): void => {
+    console.log('r', result);
+    dispatch(toggleCardSelection(result));
+  };
+
+  const isCardSelected = (id: number): boolean => {
+    return selectedIds.some((card) => card.id === id);
   };
 
   return (
@@ -42,8 +47,8 @@ export default function Cards({
         <div key={result.id}>
           <input
             type="checkbox"
-            checked={selectedIds.includes(result.id)}
-            onChange={(): void => handleCheckboxChange(result.id)}
+            checked={isCardSelected(result.id)}
+            onChange={(): void => handleCheckboxChange(result)}
           />
           <div
             className={`${styles.card} ${themeStyles.card}`}
