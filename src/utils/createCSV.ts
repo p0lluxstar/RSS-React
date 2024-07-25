@@ -1,6 +1,6 @@
 import { ICharacterCard } from '../types/interfaces';
 
-export const createCSV = (items: ICharacterCard[]): string => {
+export const createCsv = (items: ICharacterCard[]): string => {
   const headers = ['id', 'image', 'name', 'status', 'species', 'gender'];
 
   const rows = items.map((item) => [

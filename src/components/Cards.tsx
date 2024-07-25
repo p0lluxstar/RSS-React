@@ -10,27 +10,23 @@ import { toggleCardSelection } from '../redux/slices/selectedCardsSlice';
 interface IProps {
   dataFetch: IDataFetch;
   onCardClick: (id: number) => Promise<void>;
+  error: object | undefined;
 }
 
 export default function Cards({
   dataFetch,
   onCardClick,
+  error,
 }: IProps): JSX.Element | null {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
   const dispatch = useDispatch();
-  const selectedIds = useSelector(
+  const selectedCards = useSelector(
     (state: IStoreReducer) => state.selectedCardsSlice.selectedCards
   );
 
-  console.log(selectedIds);
-
-  if (dataFetch.results.length === 0) {
-    return null;
-  }
-
-  if (dataFetch.results[0].id === 0) {
+  if (error != undefined) {
     return <p className={styles.message}>There is no card with that name.</p>;
   }
 
@@ -39,7 +35,7 @@ export default function Cards({
   };
 
   const isCardSelected = (id: number): boolean => {
-    return selectedIds.some((card) => card.id === id);
+    return selectedCards.some((card) => card.id === id);
   };
 
   return (

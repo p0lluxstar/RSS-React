@@ -9,6 +9,7 @@ interface IProps {
   dataFetch: IDataFetch;
   paginationClick: (pageNumber: number) => void;
   handleCardClick: (id: number) => Promise<void>;
+  error: object | undefined;
 }
 
 export default function Content({
@@ -16,10 +17,15 @@ export default function Content({
   dataFetch,
   paginationClick,
   handleCardClick,
+  error,
 }: IProps): JSX.Element {
   return (
     <div className={styles.content}>
-      <Cards dataFetch={dataFetch} onCardClick={handleCardClick} />
+      <Cards
+        dataFetch={dataFetch}
+        onCardClick={handleCardClick}
+        error={error}
+      />
       {showPagination && <Pagination onPageChange={paginationClick} />}
       <Flyout />
     </div>

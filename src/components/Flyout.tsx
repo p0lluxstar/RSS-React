@@ -1,16 +1,16 @@
 import styles from '../styles/Flyout.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { IStoreReducer } from '../types/interfaces';
+import { createCsv } from '../utils/createCsv';
 import { unselectAllCards } from '../redux/slices/selectedCardsSlice';
-import { createCSV } from '../utils/createCSV';
 
 export default function Flyout(): JSX.Element | null {
   const dispatch = useDispatch();
-  const selectedIds = useSelector(
+  const selectedCards = useSelector(
     (state: IStoreReducer) => state.selectedCardsSlice.selectedCards
   );
 
-  if (selectedIds.length === 0) {
+  if (selectedCards.length === 0) {
     return null;
   }
 
@@ -19,12 +19,12 @@ export default function Flyout(): JSX.Element | null {
   };
 
   return (
-    <div className={styles.flyout}>
-      <p>{selectedIds.length} items selected</p>
+    <div className={styles.flyout} data-testid="flyout">
+      <p>{selectedCards.length} items selected</p>
       <button onClick={handlUnselectAll}>Unselect all</button>
       <a
-        href={createCSV(selectedIds)}
-        download={`${selectedIds.length}_cards.csv`}
+        href={createCsv(selectedCards)}
+        download={`${selectedCards.length}_cards.csv`}
       >
         Download
       </a>

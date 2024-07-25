@@ -3,35 +3,35 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
 import Loader from './loader';
 import CharacterDetails from './CharacterDetails';
-import { ICharacter, IDataFetch } from '../types/interfaces';
-import styles from '../styles/PageContainer.module.css';
-import NotFoundPage from './NotFoundPage';
+import { ICharacterCard, IDataFetch } from '../types/interfaces';
+import styles from '../styles/MainPage.module.css';
 import Content from './Content';
 import { MAX_PAGE_NUMBER } from '../constants/components';
 import {
   useGetCardsByNumPageOrNameQuery,
   useGetCardByIdQuery,
 } from '../redux/slices/apiSlice';
+import NotFoundPage from './NotFoundPage';
 
-export default function PageContainer(): JSX.Element {
+export default function MainPage(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
-  const [getDataById, setGetDataById] = useState<ICharacter | null>(null);
+  const [getDataById, setGetDataById] = useState<ICharacterCard | null>(null);
   const [inputValue, setInputValue] = useState<string>(
     localStorage.getItem('inputValue') || ''
   );
   const characterDetailsRef = useRef<HTMLDivElement | null>(null);
   const [showPagination, setShowPagination] = useState(true);
-  /*   const [notFound, setNotFound] = useState(false); */
   const [numPageOrName, setNumPageOrName] = useState('');
   const [cardId, setCardId] = useState('');
   const params = useParams();
   const navigate = useNavigate();
+  const [notFoundPage, setNotFoundPage] = useState(false);
 
   const {
     data: dataByNumPageOrName,
     isLoading: isLoadingByNumPageOrName,
     isFetching: isFetchingByNumPageOrName,
-    isError: isErrorByNumPageOrName,
+    error: errorByNumPageOrName,
   } = useGetCardsByNumPageOrNameQuery(numPageOrName, {
     skip: !numPageOrName,
   });
@@ -56,7 +56,7 @@ export default function PageContainer(): JSX.Element {
       } else if (key === 'page') {
         paginationClick(Number(value));
       } else {
-        /* setNotFound(true); */
+        setNotFoundPage(true);
       }
     }
 
@@ -68,9 +68,6 @@ export default function PageContainer(): JSX.Element {
   useEffect(() => {
     if (dataByNumPageOrName) {
       setDataFetch(dataByNumPageOrName);
-      /* setNotFound(dataByNumPageOrName.results.length === 0); */
-    } else {
-      /* setNotFound(true); */
     }
   }, [dataByNumPageOrName]);
 
@@ -107,7 +104,6 @@ export default function PageContainer(): JSX.Element {
       navigate(`/page=${pageNumber}`);
     } else {
       setShowPagination(false);
-      /* setNotFound(true); */
     }
   };
 
@@ -137,11 +133,10 @@ export default function PageContainer(): JSX.Element {
         inputValue={inputValue}
         onClearInput={handleClearInput}
       />
-
-      <div className={styles.pageContainer}>
+      <div className={styles.mainContent} data-testid="mainContent">
         {isLoadingByNumPageOrName || isFetchingByNumPageOrName ? (
           <Loader />
-        ) : isErrorByNumPageOrName ? (
+        ) : notFoundPage ? (
           <NotFoundPage />
         ) : (
           <Content
@@ -149,6 +144,7 @@ export default function PageContainer(): JSX.Element {
             dataFetch={dataFetch}
             paginationClick={paginationClick}
             handleCardClick={handleCardClick}
+            error={errorByNumPageOrName}
           />
         )}
         {isLoadingById || isFetchingById ? (

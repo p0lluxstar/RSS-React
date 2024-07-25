@@ -1,13 +1,14 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import Page from '../components/PageContainer';
+import MainPage from '../components/MainPage';
 import Pagination from '../components/Pagination';
+import store from '../redux/store';
+import { Provider } from 'react-redux';
 
 describe('Компонент Pagination', () => {
-  const mockOnPageChange = vi.fn();
-
   it('отображение многоточия, когда страниц много', () => {
+    const mockOnPageChange = vi.fn();
     render(
       <MemoryRouter initialEntries={['/page=10']}>
         <Routes>
@@ -26,9 +27,11 @@ describe('Компонент Pagination', () => {
 
   it('должен отображать кнопки пагинации и реагировать на нажатия', () => {
     render(
-      <MemoryRouter initialEntries={['/page=1']}>
-        <Page />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/page=1']}>
+          <MainPage />
+        </MemoryRouter>
+      </Provider>
     );
 
     // Проверка отображения кнопок пагинации

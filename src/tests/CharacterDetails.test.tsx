@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import CharacterDetails from '../components/CharacterDetails';
 
 const mockCharacter = {
+  id: 1,
   name: 'Rick Sanchez',
   image: 'https://example.com/rick.png',
   status: 'Alive',

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import styles from '../styles/themeToggle/ThemeToggle.module.css';
 import lightStyles from '../styles/themeToggle/LightThemeToggle.module.css';
 import darkStyles from '../styles/themeToggle/DarkThemeToggle.module.css';
 
-const ThemeToggle: React.FC = () => {
+export default function ThemeToggle(): JSX.Element {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
@@ -15,6 +15,4 @@ const ThemeToggle: React.FC = () => {
       </button>
     </div>
   );
-};
-
-export default ThemeToggle;
+}

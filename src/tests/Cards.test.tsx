@@ -1,6 +1,9 @@
 import { it, expect, describe } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Cards from '../components/Cards';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import { selectedCardsReducer } from '../redux/slices/selectedCardsSlice';
 
 const mockDataFetch = {
   results: [
@@ -10,9 +13,20 @@ const mockDataFetch = {
 };
 
 describe('Компонент Cards', () => {
-  it('Тест - компонент Cards отображается в DOM', () => {
+  it('Компонент Cards отображается в DOM', () => {
     const mockOnCardClick = async (): Promise<void> => {};
-    render(<Cards dataFetch={mockDataFetch} onCardClick={mockOnCardClick} />);
+
+    const store = configureStore({
+      reducer: {
+        selectedCardsSlice: selectedCardsReducer,
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <Cards dataFetch={mockDataFetch} onCardClick={mockOnCardClick} />
+      </Provider>
+    );
 
     expect(screen.getAllByTestId('cards')).toBeTruthy();
   });
