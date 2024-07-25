@@ -10,34 +10,34 @@ interface ICharacter {
 }
 
 interface SelectedCardsState {
-  selectedIds: ICharacter[];
+  selectedCards: ICharacter[];
 }
 
 const initialState: SelectedCardsState = {
-  selectedIds: [],
+  selectedCards: [],
 };
 
-const selectedCardSlice = createSlice({
-  name: 'selectedCard',
+const selectedCardsSlice = createSlice({
+  name: 'selectedCards',
   initialState,
   reducers: {
     toggleCardSelection: (state, action) => {
       const character = action.payload;
-      const index = state.selectedIds.findIndex(
+      const index = state.selectedCards.findIndex(
         (card) => card.id === character.id
       );
       if (index >= 0) {
-        state.selectedIds.splice(index, 1);
+        state.selectedCards.splice(index, 1);
       } else {
-        state.selectedIds.push(character);
+        state.selectedCards.push(character);
       }
     },
     unselectAllCards: (state) => {
-      state.selectedIds = [];
+      state.selectedCards = [];
     },
   },
 });
 
 export const { toggleCardSelection, unselectAllCards } =
-  selectedCardSlice.actions;
-export const selectedCardReducer = selectedCardSlice.reducer;
+  selectedCardsSlice.actions;
+export const selectedCardsReducer = selectedCardsSlice.reducer;

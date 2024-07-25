@@ -6,7 +6,8 @@ export interface IDataFetch {
   }[];
 }
 
-export interface ICharacter {
+export interface ICharacterCard {
+  id: number;
   name: string;
   image: string;
   status: string;
@@ -15,7 +16,7 @@ export interface ICharacter {
 }
 
 export interface IStoreReducer {
-  selectedCards: {
-    selectedIds: number[];
+  selectedCardsSlice: {
+    selectedCards: ICharacterCard[];
   };
 }

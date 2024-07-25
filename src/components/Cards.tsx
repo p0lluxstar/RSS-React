@@ -5,7 +5,7 @@ import darkStyles from '../styles/cards/DarkCards.module.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleCardSelection } from '../redux/slices/selectedCardSlice';
+import { toggleCardSelection } from '../redux/slices/selectedCardsSlice';
 
 interface IProps {
   dataFetch: IDataFetch;
@@ -21,8 +21,10 @@ export default function Cards({
 
   const dispatch = useDispatch();
   const selectedIds = useSelector(
-    (state: IStoreReducer) => state.selectedCards.selectedIds
+    (state: IStoreReducer) => state.selectedCardsSlice.selectedCards
   );
+
+  console.log(selectedIds);
 
   if (dataFetch.results.length === 0) {
     return null;
@@ -33,7 +35,6 @@ export default function Cards({
   }
 
   const handleCheckboxChange = (result: object): void => {
-    console.log('r', result);
     dispatch(toggleCardSelection(result));
   };
 

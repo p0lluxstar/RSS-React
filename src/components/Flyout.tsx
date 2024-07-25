@@ -1,13 +1,13 @@
 import styles from '../styles/Flyout.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { IStoreReducer } from '../types/interfaces';
-import { unselectAllCards } from '../redux/slices/selectedCardSlice';
+import { unselectAllCards } from '../redux/slices/selectedCardsSlice';
 import { createCSV } from '../utils/createCSV';
 
 export default function Flyout(): JSX.Element | null {
   const dispatch = useDispatch();
   const selectedIds = useSelector(
-    (state: IStoreReducer) => state.selectedCards.selectedIds
+    (state: IStoreReducer) => state.selectedCardsSlice.selectedCards
   );
 
   if (selectedIds.length === 0) {

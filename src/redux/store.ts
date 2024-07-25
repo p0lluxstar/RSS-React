@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { apiSlice } from './slices/apiSlice';
-import { selectedCardReducer } from './slices/selectedCardSlice';
+import { selectedCardsReducer } from './slices/selectedCardsSlice';
 
 const store = configureStore({
   reducer: {
     // сгенерированный редьюсер в root reducer
     [apiSlice.reducerPath]: apiSlice.reducer,
-    selectedCards: selectedCardReducer,
+    selectedCardsSlice: selectedCardsReducer,
   },
   // middleware для кэширования и управления запросами
   middleware: (getDefaultMiddleware) =>

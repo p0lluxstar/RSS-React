@@ -1,20 +1,12 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
-
+import { ICharacterCard } from '../types/interfaces';
 import styles from '../styles/characterDetails/CharacterDetails.module.css';
 import lightStyles from '../styles/characterDetails/LightCharacterDetails.module.css';
 import darkStyles from '../styles/characterDetails/DarkCharacterDetails.module.css';
 
-interface ICharacter {
-  name: string;
-  image: string;
-  status: string;
-  species: string;
-  gender: string;
-}
-
 interface IProps {
-  character: ICharacter;
+  character: ICharacterCard;
   onClose: () => void;
 }
 
