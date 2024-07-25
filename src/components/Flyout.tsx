@@ -21,8 +21,11 @@ export default function Flyout(): JSX.Element | null {
   return (
     <div className={styles.flyout} data-testid="flyout">
       <p>{selectedCards.length} items selected</p>
-      <button onClick={handlUnselectAll}>Unselect all</button>
+      <button className={styles.btnUnselect} onClick={handlUnselectAll}>
+        Unselect all
+      </button>
       <a
+        className={styles.linkDownload}
         href={createCsv(selectedCards)}
         download={`${selectedCards.length}_cards.csv`}
       >

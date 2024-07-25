@@ -41,8 +41,9 @@ export default function Cards({
   return (
     <div className={styles.cards} data-testid="cards">
       {dataFetch.results.map((result) => (
-        <div key={result.id}>
+        <div className={styles.cardWrapper} key={result.id}>
           <input
+            className={styles.checkboxCard}
             type="checkbox"
             checked={isCardSelected(result.id)}
             onChange={(): void => handleCheckboxChange(result)}
