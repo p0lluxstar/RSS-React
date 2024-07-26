@@ -5,9 +5,10 @@
 }
 
 .themeToggle button {
-  width: 30px;
-  font-size: 18px;
-  padding: 5px;
+  width: 36px;
+  height: 36px;
+  font-size: 30px;
+  line-height: 30px;
   border: none;
   border-radius: 5px;
 }

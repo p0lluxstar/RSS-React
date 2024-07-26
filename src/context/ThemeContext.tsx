@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, ReactNode, useEffect } from 'react';
 
 interface ThemeContextType {
   theme: string;
@@ -20,11 +20,24 @@ export const ThemeContext =
 export const ThemeProvider = ({
   children,
 }: ThemeProviderProps): JSX.Element => {
-  const [theme, setTheme] = useState('light');
+  // Инициализация темы из localStorage или по умолчанию 'light'
+  const [theme, setTheme] = useState<string>(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme ? savedTheme : 'light';
+  });
 
   const toggleTheme = (): void => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme); // Сохранение новой темы в localStorage
+      return newTheme;
+    });
   };
+
+  // Сохранение темы в localStorage при её изменении
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

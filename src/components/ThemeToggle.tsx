@@ -11,7 +11,7 @@ export default function ThemeToggle(): JSX.Element {
   return (
     <div className={`${styles.themeToggle} ${themeStyles.themeToggle}`}>
       <button onClick={themeContext.toggleTheme}>
-        {themeContext.theme === 'light' ? '🌒︎' : '☀︎'}
+        {themeContext.theme === 'light' ? '☀︎' : '☀︎'}
       </button>
     </div>
   );

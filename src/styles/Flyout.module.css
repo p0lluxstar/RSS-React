@@ -2,7 +2,7 @@
   display: flex;
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  right: 20px;
   background-color: #3d3d3d;
   color: #fff;
   padding: 7px 10px;

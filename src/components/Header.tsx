@@ -48,6 +48,7 @@ export default function Header(props: IProps): JSX.Element {
         <div className={styles.search}>
           <span className={styles.apiName}>rickandmortyapi.com</span>
           <input
+            className={`${styles.inputSearch} ${themeStyles.inputSearch}`}
             id="search"
             type="text"
             placeholder={INPUT_PLACEHOLDER}
