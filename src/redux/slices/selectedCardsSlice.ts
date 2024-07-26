@@ -1,16 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-interface ICharacter {
-  id: number;
-  name: string;
-  image: string;
-  status: string;
-  species: string;
-  gender: string;
-}
+import { ICharacterCard } from '../../types/interfaces';
 
 interface SelectedCardsState {
-  selectedCards: ICharacter[];
+  selectedCards: ICharacterCard[];
 }
 
 const initialState: SelectedCardsState = {
