@@ -27,7 +27,7 @@ export default function Flyout(): JSX.Element | null {
       <a
         className={styles.linkDownload}
         href={createCsv(selectedCards)}
-        download={`${selectedCards.length}_cards.csv`}
+        download={`${selectedCards.length}_characters.csv`}
       >
         Download
       </a>
