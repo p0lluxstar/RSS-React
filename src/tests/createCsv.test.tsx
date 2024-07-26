@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createCsv } from '../utils/createCsv';
+import { createCsv } from '../utils/createCsvTemp';
 import { ICharacterCard } from '../types/interfaces';
 
 describe('Функция createCSV', () => {
