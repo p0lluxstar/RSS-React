@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
-import Loader from './LoaderTemp';
+import Loader from './Loader';
 import CharacterDetails from './CharacterDetails';
 import { ICharacterCard, IDataFetch } from '../types/interfaces';
 import styles from '../styles/MainPage.module.css';

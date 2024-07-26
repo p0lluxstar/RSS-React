@@ -1,7 +1,7 @@
 import styles from '../styles/Flyout.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { IStoreReducer } from '../types/interfaces';
-import { createCsv } from '../utils/createCsvTemp';
+import { createCsv } from '../utils/createCsv';
 import { unselectAllCards } from '../redux/slices/selectedCardsSlice';
 
 export default function Flyout(): JSX.Element | null {
