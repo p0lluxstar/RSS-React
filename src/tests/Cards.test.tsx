@@ -24,7 +24,11 @@ describe('Компонент Cards', () => {
 
     render(
       <Provider store={store}>
-        <Cards dataFetch={mockDataFetch} onCardClick={mockOnCardClick} />
+        <Cards
+          dataFetch={mockDataFetch}
+          onCardClick={mockOnCardClick}
+          error={undefined}
+        />
       </Provider>
     );
 

@@ -112,3 +112,7 @@ input[type='checkbox']:hover {
     0px 0px 2px 0px #021b38,
     0px 0px 2px 0px #00000000;
 }
+
+.checked img {
+  filter: none;
+}

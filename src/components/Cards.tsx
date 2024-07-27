@@ -49,7 +49,9 @@ export default function Cards({
             onChange={(): void => handleCheckboxChange(result)}
           />
           <div
-            className={`${styles.card} ${themeStyles.card}`}
+            className={`${styles.card} ${themeStyles.card} ${
+              isCardSelected(result.id) ? styles.checked : ''
+            }`}
             onClick={(): Promise<void> => onCardClick(result.id)}
           >
             <img src={result.image} alt={result.name}></img>
