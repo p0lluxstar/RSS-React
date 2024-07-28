@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import MainPage from '@/components/MainPage';
 
 export default function Home(): JSX.Element {
   return (
@@ -10,7 +11,7 @@ export default function Home(): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Main</h1>
+        <MainPage />
       </main>
     </>
   );
