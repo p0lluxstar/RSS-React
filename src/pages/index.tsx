@@ -1,7 +1,90 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { IDataFetch, IDetailsCharacter } from '@/types/interfaces';
 import Head from 'next/head';
-import MainPage from '@/components/MainPage';
+import Content from '@/components/Content';
+import Header from '@/components/Header';
+/* import Loader from '@/components/Loader'; */
+import DetailsCharacter from '@/components/DetailsCharacter';
+import styles from '../styles/Page.module.css';
 
-export default function Home(): JSX.Element {
+interface IProps {
+  characters: [];
+  detailsCharacter: IDetailsCharacter;
+}
+
+export default function Page({
+  characters,
+  detailsCharacter,
+}: IProps): JSX.Element {
+  const [inputValue, setInputValue] = useState<string>('');
+  /*   const [loading, setLoading] = useState<boolean>(false); */
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const router = useRouter();
+
+  /*  useEffect(() => {
+    const handleRouteChangeStart = (): void => {
+      setLoading(true);
+    };
+
+    const handleRouteChangeComplete = (): void => {
+      setLoading(false);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+    router.events.on('routeChangeError', handleRouteChangeComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart);
+      router.events.off('routeChangeComplete', handleRouteChangeComplete);
+      router.events.off('routeChangeError', handleRouteChangeComplete);
+    };
+  }, [router]); */
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('details')) {
+      setShowDetails(true);
+    }
+  }, [router.query]);
+
+  const fetchSearch = (): void => {
+    if (inputValue) {
+      router.push(`/?name=${inputValue}`);
+    }
+  };
+
+  const handleInputChange = (inputValue: string): void => {
+    setInputValue(inputValue);
+  };
+
+  const handleClearInput = (): void => {
+    setInputValue('');
+  };
+
+  const paginationClick = (pageNumber: number): void => {
+    setShowDetails(false);
+    console.log(pageNumber);
+  };
+
+  const handleCloseDetails = (): void => {
+    const currentParams = new URLSearchParams(window.location.search);
+    currentParams.delete('details');
+    router.replace(`/?${currentParams.toString()}`, undefined, {
+      shallow: true,
+    });
+    setShowDetails(false);
+  };
+
+  const handleCardClick = async (id: number): Promise<void> => {
+    const currentParams = new URLSearchParams(window.location.search);
+    currentParams.set('details', id.toString());
+    router.replace(`/?${currentParams.toString()}`);
+
+    setShowDetails(true);
+  };
+
   return (
     <>
       <Head>
@@ -10,9 +93,82 @@ export default function Home(): JSX.Element {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main>
-        <MainPage />
+        <Header
+          fetchSearchData={fetchSearch}
+          onInputChange={handleInputChange}
+          inputValue={inputValue}
+          onClearInput={handleClearInput}
+        />
+        <div className={styles.page} data-testid="page">
+          <>
+            <Content
+              characters={characters}
+              paginationClick={paginationClick}
+              handleCardClick={handleCardClick}
+            />
+            {showDetails && (
+              <DetailsCharacter
+                detailsCharacter={detailsCharacter}
+                onClose={handleCloseDetails}
+              />
+            )}
+          </>
+        </div>
       </main>
     </>
   );
 }
+
+export const getServerSideProps = async (context: {
+  query: { page?: string; name?: string; details?: string };
+}): Promise<{
+  props: {
+    characters: IDataFetch | [];
+    detailsCharacter: IDetailsCharacter | [];
+  };
+}> => {
+  const { page = '1', name, details } = context.query;
+  let url = '';
+
+  if (page && details) {
+    url = `https://rickandmortyapi.com/api/character/?page=${page}&details=${details}`;
+  }
+
+  if (page) {
+    url = `https://rickandmortyapi.com/api/character/?page=${page}`;
+  }
+
+  if (name) {
+    url = `https://rickandmortyapi.com/api/character/?name=${name}`;
+  }
+
+  try {
+    const response = await fetch(url);
+    const response2 = await fetch(
+      `https://rickandmortyapi.com/api/character/${details}`
+    );
+    const data = await response.json();
+    const data2 = await response2.json();
+
+    if (!data || !data.results) {
+      throw new Error('Invalid data structure');
+    }
+
+    return {
+      props: {
+        characters: data.results,
+        detailsCharacter: data2,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      props: {
+        characters: [],
+        detailsCharacter: [],
+      },
+    };
+  }
+};

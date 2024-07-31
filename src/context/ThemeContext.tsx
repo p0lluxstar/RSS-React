@@ -20,12 +20,18 @@ export const ThemeContext =
 export const ThemeProvider = ({
   children,
 }: ThemeProviderProps): JSX.Element => {
-  // Инициализация темы из localStorage или по умолчанию 'light'
-  const [theme, setTheme] = useState<string>(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme ? savedTheme : 'light';
-  });
+  // Инициализация состояния темы с использованием эффекта
+  const [theme, setTheme] = useState<string>('light');
 
+  // Инициализация темы из localStorage после монтирования компонента
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  // Функция переключения темы
   const toggleTheme = (): void => {
     setTheme((prevTheme) => {
       const newTheme = prevTheme === 'light' ? 'dark' : 'light';
@@ -34,9 +40,9 @@ export const ThemeProvider = ({
     });
   };
 
-  // Сохранение темы в localStorage при её изменении
+  // Применение темы к документу
   useEffect(() => {
-    localStorage.setItem('theme', theme);
+    document.body.className = theme; // Применение темы к <body>
   }, [theme]);
 
   return (
