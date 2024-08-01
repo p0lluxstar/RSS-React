@@ -21,8 +21,8 @@ export default function Page({
 }: IProps): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
   const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [showPagination, setShowPagination] = useState(true);
   const router = useRouter();
-
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
@@ -33,10 +33,12 @@ export default function Page({
     }
   }, [router.query]);
 
-  const fetchSearch = (): void => {
+  const fetchSearchData = (): void => {
     if (inputValue) {
       router.push(`/?name=${inputValue}`);
     }
+
+    setShowPagination(false);
   };
 
   const handleInputChange = (inputValue: string): void => {
@@ -45,6 +47,8 @@ export default function Page({
 
   const handleClearInput = (): void => {
     setInputValue('');
+    router.replace(`/`);
+    setShowPagination(true);
   };
 
   const paginationClick = (pageNumber: number): void => {
@@ -79,7 +83,7 @@ export default function Page({
       </Head>
       <main>
         <Header
-          fetchSearchData={fetchSearch}
+          fetchSearchData={fetchSearchData}
           onInputChange={handleInputChange}
           inputValue={inputValue}
           onClearInput={handleClearInput}
@@ -93,6 +97,7 @@ export default function Page({
               characters={characters}
               paginationClick={paginationClick}
               handleCardClick={handleCardClick}
+              showPagination={showPagination}
             />
             {showDetails && (
               <DetailsCharacter

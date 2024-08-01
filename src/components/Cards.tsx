@@ -33,6 +33,10 @@ export default function Cards({
     return selectedCards.some((card) => card.id === id);
   };
 
+  if (characters.length === 0) {
+    return <p className={styles.message}>There is no card with that name.</p>;
+  }
+
   return (
     <div className={styles.cards} data-testid="cards">
       {characters.map((character) => (
