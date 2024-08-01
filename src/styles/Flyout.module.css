@@ -1,0 +1,40 @@
+.flyout {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #3d3d3d;
+  color: #fff;
+  padding: 7px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  gap: 10px;
+}
+
+.btnUnselect {
+  border-radius: 2px;
+  border: none;
+  padding: 0 4px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.linkDownload {
+  background: #f0f0f0;
+  border-radius: 2px;
+  border: none;
+  padding: 0 4px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000000;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.btnUnselect:hover,
+.linkDownload:hover {
+  opacity: 0.9;
+}

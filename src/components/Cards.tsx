@@ -4,7 +4,9 @@ import darkStyles from '../styles/cards/DarkCards.module.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import Image from 'next/image';
-import { IDetailsCharacter } from '@/types/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
+import { IDetailsCharacter, IStoreReducer } from '@/types/interfaces';
+import { toggleCardSelection } from '@/redux/slices/selectedCardsSlice';
 
 interface IProps {
   characters: IDetailsCharacter[];
@@ -18,11 +20,29 @@ export default function Cards({
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
+  const dispatch = useDispatch();
+  const selectedCards = useSelector(
+    (state: IStoreReducer) => state.selectedCardsSlice.selectedCards
+  );
+
+  const handleCheckboxChange = (result: object): void => {
+    dispatch(toggleCardSelection(result));
+  };
+
+  const isCardSelected = (id: number): boolean => {
+    return selectedCards.some((card) => card.id === id);
+  };
+
   return (
     <div className={styles.cards} data-testid="cards">
       {characters.map((character) => (
         <div className={styles.cardWrapper} key={character.id}>
-          <input className={styles.checkboxCard} type="checkbox" />
+          <input
+            className={styles.checkboxCard}
+            type="checkbox"
+            onChange={(): void => handleCheckboxChange(character)}
+            checked={isCardSelected(character.id)}
+          />
           <div
             className={`${styles.card} ${themeStyles.card}`}
             onClick={(): Promise<void> => handleCardClick(character.id)}

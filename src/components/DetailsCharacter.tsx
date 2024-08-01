@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
-import { IDetailsCharacter } from '../types/interfaces';
 import styles from '../styles/characterDetails/CharacterDetails.module.css';
 import lightStyles from '../styles/characterDetails/LightCharacterDetails.module.css';
 import darkStyles from '../styles/characterDetails/DarkCharacterDetails.module.css';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
+import { IDetailsCharacter } from '../types/interfaces';
 
 interface IProps {
   detailsCharacter: IDetailsCharacter;

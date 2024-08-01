@@ -1,6 +1,7 @@
+import styles from '../styles/Content.module.css';
 import Cards from './Cards';
 import Pagination from './Pagination';
-import styles from '../styles/Content.module.css';
+import Flyout from './Flyout';
 
 interface IProps {
   characters: [];
@@ -17,6 +18,7 @@ export default function Content({
     <div className={styles.content}>
       <Cards characters={characters} handleCardClick={handleCardClick} />
       <Pagination paginationClick={paginationClick} />
+      <Flyout />
     </div>
   );
 }

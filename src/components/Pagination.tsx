@@ -1,7 +1,7 @@
+import styles from '../styles/Pagination.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import styles from '../styles/Pagination.module.css';
 
 interface IProps {
   paginationClick: (pageNumber: number) => void;
