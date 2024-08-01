@@ -44,7 +44,9 @@ export default function Cards({
             checked={isCardSelected(character.id)}
           />
           <div
-            className={`${styles.card} ${themeStyles.card}`}
+            className={`${styles.card} ${themeStyles.card} ${
+              isCardSelected(character.id) ? styles.checked : ''
+            }`}
             onClick={(): Promise<void> => handleCardClick(character.id)}
           >
             <Image

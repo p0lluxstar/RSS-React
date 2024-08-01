@@ -1,12 +1,14 @@
+import styles from '../styles/page/Page.module.css';
+import lightStyles from '../styles/page/LightPage.module.css';
+import darkStyles from '../styles/page/DarkPage.module.css';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IDataFetch, IDetailsCharacter } from '@/types/interfaces';
 import Head from 'next/head';
 import Content from '@/components/Content';
 import Header from '@/components/Header';
-/* import Loader from '@/components/Loader'; */
 import DetailsCharacter from '@/components/DetailsCharacter';
-import styles from '../styles/Page.module.css';
+import { ThemeContext } from '@/context/ThemeContext';
 
 interface IProps {
   characters: [];
@@ -18,29 +20,11 @@ export default function Page({
   detailsCharacter,
 }: IProps): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
-  /*   const [loading, setLoading] = useState<boolean>(false); */
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const router = useRouter();
 
-  /*  useEffect(() => {
-    const handleRouteChangeStart = (): void => {
-      setLoading(true);
-    };
-
-    const handleRouteChangeComplete = (): void => {
-      setLoading(false);
-    };
-
-    router.events.on('routeChangeStart', handleRouteChangeStart);
-    router.events.on('routeChangeComplete', handleRouteChangeComplete);
-    router.events.on('routeChangeError', handleRouteChangeComplete);
-
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-      router.events.off('routeChangeComplete', handleRouteChangeComplete);
-      router.events.off('routeChangeError', handleRouteChangeComplete);
-    };
-  }, [router]); */
+  const themeContext = useContext(ThemeContext);
+  const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -100,7 +84,10 @@ export default function Page({
           inputValue={inputValue}
           onClearInput={handleClearInput}
         />
-        <div className={styles.page} data-testid="page">
+        <div
+          className={`${styles.mainContent} ${themeStyles.mainContent}`}
+          data-testid="mainContent"
+        >
           <>
             <Content
               characters={characters}

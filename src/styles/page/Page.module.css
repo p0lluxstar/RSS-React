@@ -1,12 +1,7 @@
-.page {
+.mainContent {
   display: flex;
   justify-content: center;
   padding: 20px;
   min-height: calc(100vh - 100px);
-  background-color: #adcbb5;
-}
-
-.characterDetailsBox {
-  width: 50%;
   position: relative;
 }

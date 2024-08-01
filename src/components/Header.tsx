@@ -1,8 +1,8 @@
 import styles from '../styles/header/Header.module.css';
-import { useContext, useState } from 'react';
-import { INPUT_PLACEHOLDER } from '../constants/components';
 import lightStyles from '../styles/header/LightHeader.module.css';
 import darkStyles from '../styles/header/DarkHeader.module.css';
+import { useContext, useState } from 'react';
+import { INPUT_PLACEHOLDER } from '../constants/components';
 import ThemeToggle from './ThemeToggle';
 import { ThemeContext } from '../context/ThemeContext';
 
