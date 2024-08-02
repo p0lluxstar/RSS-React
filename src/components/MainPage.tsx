@@ -11,7 +11,7 @@ import DetailsCharacter from '@/components/DetailsCharacter';
 import { ThemeContext } from '@/context/ThemeContext';
 
 interface IProps {
-  characters: [];
+  characters: IDetailsCharacter[];
   detailsCharacter: IDetailsCharacter;
 }
 
@@ -21,7 +21,6 @@ export default function MainPage({
 }: IProps): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
   const [showDetails, setShowDetails] = useState<boolean>(false);
-  const [showPagination, setShowPagination] = useState(true);
   const router = useRouter();
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
@@ -35,10 +34,8 @@ export default function MainPage({
 
   const fetchSearchData = (): void => {
     if (inputValue) {
-      router.push(`/?name=${inputValue}`);
+      router.replace(`/?name=${inputValue}`);
     }
-
-    setShowPagination(false);
   };
 
   const handleInputChange = (inputValue: string): void => {
@@ -47,8 +44,7 @@ export default function MainPage({
 
   const handleClearInput = (): void => {
     setInputValue('');
-    router.replace(`/`);
-    setShowPagination(true);
+    router.replace(`/?page=1`);
   };
 
   const paginationClick = (pageNumber: number): void => {
@@ -97,7 +93,6 @@ export default function MainPage({
               characters={characters}
               paginationClick={paginationClick}
               handleCardClick={handleCardClick}
-              showPagination={showPagination}
             />
             {showDetails && (
               <DetailsCharacter

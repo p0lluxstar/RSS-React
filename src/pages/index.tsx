@@ -1,8 +1,10 @@
 import { IDataFetch, IDetailsCharacter } from '@/types/interfaces';
 import MainPage from '@/components/MainPage';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 interface IProps {
-  characters: [];
+  characters: IDetailsCharacter[];
   detailsCharacter: IDetailsCharacter;
 }
 
@@ -10,6 +12,15 @@ export default function Home({
   characters,
   detailsCharacter,
 }: IProps): JSX.Element {
+  const router = useRouter();
+  const currentUrl = router.asPath;
+
+  useEffect(() => {
+    if (currentUrl === '/') {
+      router.push('/?page=1');
+    }
+  }, []);
+
   return (
     <>
       <MainPage characters={characters} detailsCharacter={detailsCharacter} />
@@ -22,15 +33,11 @@ export const getServerSideProps = async (context: {
 }): Promise<{
   props: {
     characters: IDataFetch | [];
-    detailsCharacter: IDetailsCharacter | [];
+    detailsCharacter: IDetailsCharacter | object;
   };
 }> => {
   const { page = '1', name, details } = context.query;
   let url = '';
-
-  if (page && details) {
-    url = `https://rickandmortyapi.com/api/character/?page=${page}&details=${details}`;
-  }
 
   if (page) {
     url = `https://rickandmortyapi.com/api/character/?page=${page}`;
@@ -40,31 +47,39 @@ export const getServerSideProps = async (context: {
     url = `https://rickandmortyapi.com/api/character/?name=${name}`;
   }
 
+  let characters = [];
+  let detailsCharacter = {};
+
   try {
     const response = await fetch(url);
-    const response2 = await fetch(
-      `https://rickandmortyapi.com/api/character/${details}`
-    );
-    const data = await response.json();
-    const data2 = await response2.json();
+    const dataCharacters = await response.json();
 
-    if (!data || !data.results) {
+    if (!dataCharacters || !dataCharacters.results) {
       throw new Error('Invalid data structure');
     }
 
-    return {
-      props: {
-        characters: data.results,
-        detailsCharacter: data2,
-      },
-    };
+    characters = dataCharacters.results;
   } catch (error) {
     console.error('Error fetching data:', error);
-    return {
-      props: {
-        characters: [],
-        detailsCharacter: [],
-      },
-    };
   }
+
+  if (details) {
+    try {
+      const response = await fetch(
+        `https://rickandmortyapi.com/api/character/${details}`
+      );
+      const dataDetailsCharacter = await response.json();
+
+      detailsCharacter = dataDetailsCharacter;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  return {
+    props: {
+      characters,
+      detailsCharacter,
+    },
+  };
 };

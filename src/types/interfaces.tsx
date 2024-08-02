@@ -13,6 +13,7 @@ export interface IDetailsCharacter {
   status: string;
   species: string;
   gender: string;
+  error: string;
 }
 
 export interface IStoreReducer {

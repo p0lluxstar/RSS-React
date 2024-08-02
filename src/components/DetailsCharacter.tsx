@@ -11,12 +11,32 @@ interface IProps {
   onClose: () => void;
 }
 
+const isEmpty = (obj: object): boolean => {
+  return Object.keys(obj).length === 0;
+};
+
 export default function DetailsCharacter({
   detailsCharacter,
   onClose,
-}: IProps): JSX.Element {
+}: IProps): JSX.Element | null {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
+
+  if (detailsCharacter.error === 'Character not found') {
+    return (
+      <div
+        className={`${styles.detailsCharacter} ${themeStyles.detailsCharacter}`}
+        data-testid="CharacterDetails"
+      >
+        <button onClick={onClose}>×</button>
+        <p>There is no data on the character.</p>
+      </div>
+    );
+  }
+
+  if (isEmpty(detailsCharacter)) {
+    return null;
+  }
 
   return (
     <div
