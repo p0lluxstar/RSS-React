@@ -18,8 +18,8 @@ const createMockStore = (selectedCards: IDetailsCharacter[]): Store => {
   });
 };
 
-describe('Flyout Component', () => {
-  it('should render Flyout with selected items and check "Unselect all" button', () => {
+describe('Компонент Flyout', () => {
+  it('должен рендерить Flyout с выбранными элементами и проверять кнопку "Unselect all"', () => {
     const mockSelectedCards = [
       {
         id: 1,

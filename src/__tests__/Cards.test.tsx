@@ -48,6 +48,6 @@ describe('Компонент Cards', () => {
     );
 
     expect(screen.getAllByTestId('cards')).toBeTruthy();
-    /* expect(asFragment).toMatchSnapshot(); */
+    /*  expect(asFragment()).toMatchSnapshot(); */
   });
 });
