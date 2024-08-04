@@ -1,39 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { fetchCharactersAndDetails } from '@/utils/fetchData';
-import { IDetailsCharacter } from '@/types/interfaces';
-
-const mockCharacters = {
-  results: [
-    {
-      id: 1,
-      name: 'Персонаж 1',
-      image: 'https://example.com/image1.jpg',
-      status: 'Alive',
-      species: 'Human',
-      gender: 'Male',
-      error: '',
-    },
-    {
-      id: 2,
-      name: 'Персонаж 2',
-      image: 'https://example.com/image2.jpg',
-      status: 'Dead',
-      species: 'Alien',
-      gender: 'Female',
-      error: '',
-    },
-  ],
-};
-
-const mockDetailsCharacter: IDetailsCharacter = {
-  id: 1,
-  name: 'Персонаж 1',
-  image: 'https://example.com/image1.jpg',
-  status: 'Alive',
-  species: 'Human',
-  gender: 'Male',
-  error: '',
-};
+import { MOCK_CHARACTERS, MOCK_DETAILS_CHARACTER } from '@/constants/tests';
 
 // Мокаем глобальный fetch
 global.fetch = vi.fn();
@@ -42,12 +9,12 @@ describe('getServerSideProps', () => {
   it('возвращает корректные props при получении персонажей и их описания', async () => {
     // Мокаем успешный ответ для запроса персонажей
     (global.fetch as vi.Mock).mockResolvedValueOnce({
-      json: async () => mockCharacters,
+      json: async () => MOCK_CHARACTERS,
     });
 
     // Мокаем успешный ответ для запроса деталей персонажа
     (global.fetch as vi.Mock).mockResolvedValueOnce({
-      json: async () => mockDetailsCharacter,
+      json: async () => MOCK_DETAILS_CHARACTER,
     });
 
     const context = {
@@ -56,7 +23,7 @@ describe('getServerSideProps', () => {
 
     const { props } = await fetchCharactersAndDetails(context);
 
-    expect(props.characters).toEqual(mockCharacters.results);
-    expect(props.detailsCharacter).toEqual(mockDetailsCharacter);
+    expect(props.characters).toEqual(MOCK_CHARACTERS.results);
+    expect(props.detailsCharacter).toEqual(MOCK_DETAILS_CHARACTER);
   });
 });

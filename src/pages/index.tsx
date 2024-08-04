@@ -3,8 +3,7 @@ import { IDetailsCharacter } from '@/types/interfaces';
 import MainPage from '@/components/MainPage';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { fetchCharactersAndDetails } from '@/utils/fetchData'; // Импортируем новую функцию
-
+import { fetchCharactersAndDetails } from '@/utils/fetchData';
 interface IProps {
   characters: IDetailsCharacter[];
   detailsCharacter: IDetailsCharacter;

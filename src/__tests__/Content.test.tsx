@@ -6,34 +6,12 @@ import { IDetailsCharacter } from '../types/interfaces';
 import { MAX_PAGE_NUMBER } from '@/constants/components';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
+import { MOCK_CHARACTERS } from '@/constants/tests';
 
 // Мокируем useRouter
 vi.mock('next/router', () => ({
   useRouter: vi.fn(),
 }));
-
-const mockDataFetch = {
-  results: [
-    {
-      id: 1,
-      name: 'Персонаж 1',
-      image: 'https://example.com/image1.jpg',
-      status: 'Alive',
-      species: 'Human',
-      gender: 'Male',
-      error: '',
-    },
-    {
-      id: 2,
-      name: 'Персонаж 2',
-      image: 'https://example.com/image2.jpg',
-      status: 'Dead',
-      species: 'Alien',
-      gender: 'Female',
-      error: '',
-    },
-  ],
-};
 
 describe('Компонент Content', () => {
   it('рендерит компонент Content', () => {
@@ -49,7 +27,7 @@ describe('Компонент Content', () => {
     render(
       <Provider store={store}>
         <Content
-          characters={mockDataFetch.results}
+          characters={MOCK_CHARACTERS.results}
           paginationClick={mockPaginationClick}
           handleCardClick={mockHandleCardClick}
         />

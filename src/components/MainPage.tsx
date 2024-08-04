@@ -1,14 +1,9 @@
-import styles from '../styles/MainPage/MainPage.module.css';
-import lightStyles from '../styles/MainPage/LightMainPage.module.css';
-import darkStyles from '../styles/MainPage/DarkMainPage.module.css';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IDetailsCharacter } from '@/types/interfaces';
 import Head from 'next/head';
-import Content from '@/components/Content';
 import Header from '@/components/Header';
-import DetailsCharacter from '@/components/DetailsCharacter';
-import { ThemeContext } from '@/context/ThemeContext';
+import MainContent from '@/components/MainContent';
 
 interface IProps {
   characters: IDetailsCharacter[];
@@ -22,8 +17,6 @@ export default function MainPage({
   const [inputValue, setInputValue] = useState<string>('');
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const router = useRouter();
-  const themeContext = useContext(ThemeContext);
-  const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -84,24 +77,14 @@ export default function MainPage({
           inputValue={inputValue}
           onClearInput={handleClearInput}
         />
-        <div
-          className={`${styles.mainContent} ${themeStyles.mainContent}`}
-          data-testid="mainContent"
-        >
-          <>
-            <Content
-              characters={characters}
-              paginationClick={paginationClick}
-              handleCardClick={handleCardClick}
-            />
-            {showDetails && (
-              <DetailsCharacter
-                detailsCharacter={detailsCharacter}
-                onClose={handleCloseDetails}
-              />
-            )}
-          </>
-        </div>
+        <MainContent
+          characters={characters}
+          paginationClick={paginationClick}
+          handleCardClick={handleCardClick}
+          showDetails={showDetails}
+          detailsCharacter={detailsCharacter}
+          handleCloseDetails={handleCloseDetails}
+        />
       </main>
     </>
   );

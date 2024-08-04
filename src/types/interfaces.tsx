@@ -1,5 +1,5 @@
 export interface IDataFetch {
-  characters: {
+  results: {
     id: number;
     image: string;
     name: string;

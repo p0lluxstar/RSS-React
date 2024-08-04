@@ -1,43 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import MainPage from '@/components/MainPage';
-import { IDetailsCharacter } from '@/types/interfaces';
 import createRouter from 'next-router-mock';
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
-
-// Моковые данные для тестирования
-const mockCharacters: IDetailsCharacter[] = [
-  {
-    id: 1,
-    name: 'Персонаж 1',
-    image: 'https://example.com/image1.jpg',
-    status: 'Alive',
-    species: 'Human',
-    gender: 'Male',
-    error: '',
-  },
-  {
-    id: 2,
-    name: 'Персонаж 2',
-    image: 'https://example.com/image2.jpg',
-    status: 'Dead',
-    species: 'Alien',
-    gender: 'Female',
-    error: '',
-  },
-];
-
-const mockDetailsCharacter: IDetailsCharacter = {
-  id: 1,
-  name: 'Персонаж 1',
-  image: 'https://example.com/image1.jpg',
-  status: 'Alive',
-  species: 'Human',
-  gender: 'Male',
-  error: '',
-};
+import { MOCK_CHARACTERS, MOCK_DETAILS_CHARACTER } from '@/constants/tests';
 
 describe('Компонент MainPage', () => {
   it('рендерит компоненты Header и Content', () => {
@@ -47,8 +15,8 @@ describe('Компонент MainPage', () => {
       <RouterContext.Provider value={router}>
         <Provider store={store}>
           <MainPage
-            characters={mockCharacters}
-            detailsCharacter={mockDetailsCharacter}
+            characters={MOCK_CHARACTERS.results}
+            detailsCharacter={MOCK_DETAILS_CHARACTER}
           />
         </Provider>
       </RouterContext.Provider>
