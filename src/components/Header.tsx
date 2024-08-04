@@ -57,11 +57,7 @@ export default function Header(props: IProps): JSX.Element {
             onKeyDown={handleKeyPress}
           />
           {showClearButton && (
-            <button
-              className={styles.btnClear}
-              onClick={handleClearInput}
-              aria-label="Clear input"
-            >
+            <button className={styles.btnClear} onClick={handleClearInput}>
               &times;
             </button>
           )}

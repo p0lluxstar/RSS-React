@@ -29,7 +29,7 @@ export default function Content({
     );
   }
   return (
-    <div className={styles.content}>
+    <div className={styles.content} data-testid="content">
       <Cards characters={characters} handleCardClick={handleCardClick} />
       {numPaginationFromUrl <= MAX_PAGE_NUMBER && (
         <Pagination paginationClick={paginationClick} />

@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Компонент Header > вызывает onInputChange при изменении значения ввода 1`] = `
+<DocumentFragment>
+  <div
+    class="_themeToggle_7150e1 _themeToggle_12eaeb"
+  >
+    <button>
+      ☀︎
+    </button>
+  </div>
+  <header
+    class="_header_dcbf3f _header_5efeaf"
+    data-testid="header"
+  >
+    <div
+      class="_search_dcbf3f"
+    >
+      <span
+        class="_apiName_dcbf3f"
+      >
+        rickandmortyapi.com
+      </span>
+      <input
+        aria-label="Search Input"
+        class="_inputSearch_dcbf3f _inputSearch_5efeaf"
+        id="search"
+        placeholder="Enter name card. Example: Rick"
+        type="text"
+        value=""
+      />
+      <button
+        aria-label="Clear input"
+        class="_btnClear_dcbf3f"
+      >
+        ×
+      </button>
+    </div>
+    <button
+      class="_btnSearch_dcbf3f"
+    >
+      Search
+    </button>
+  </header>
+</DocumentFragment>
+`;
