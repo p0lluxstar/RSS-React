@@ -9,3 +9,11 @@ body {
   margin: 0;
   font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
 }
+
+body.light {
+  background: #adcbb5;
+}
+
+body.dark {
+  background: #3d3d3d;
+}
