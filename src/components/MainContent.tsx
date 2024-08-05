@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from '../styles/MainPage/MainPage.module.css';
 import lightStyles from '../styles/MainPage/LightMainPage.module.css';
 import darkStyles from '../styles/MainPage/DarkMainPage.module.css';
@@ -7,6 +6,7 @@ import DetailsCharacter from './DetailsCharacter';
 import { IDetailsCharacter } from '@/types/interfaces';
 import { useContext } from 'react';
 import { ThemeContext } from '@/context/ThemeContext';
+import Loader from './Loader';
 
 interface IProps {
   characters: IDetailsCharacter[];
@@ -15,6 +15,8 @@ interface IProps {
   showDetails: boolean;
   detailsCharacter: IDetailsCharacter;
   handleCloseDetails: () => void;
+  loadingCards: boolean;
+  loadingDetails: boolean;
 }
 
 const MainContent: React.FC<IProps> = ({
@@ -24,6 +26,8 @@ const MainContent: React.FC<IProps> = ({
   showDetails,
   detailsCharacter,
   handleCloseDetails,
+  loadingCards,
+  loadingDetails,
 }) => {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
@@ -33,17 +37,25 @@ const MainContent: React.FC<IProps> = ({
       className={`${styles.mainContent} ${themeStyles.mainContent}`}
       data-testid="mainContent"
     >
-      <Content
-        characters={characters}
-        paginationClick={paginationClick}
-        handleCardClick={handleCardClick}
-      />
-      {showDetails && (
-        <DetailsCharacter
-          detailsCharacter={detailsCharacter}
-          onClose={handleCloseDetails}
+      {loadingCards ? (
+        <Loader />
+      ) : (
+        <Content
+          characters={characters}
+          paginationClick={paginationClick}
+          handleCardClick={handleCardClick}
         />
       )}
+
+      {showDetails &&
+        (loadingDetails ? (
+          <Loader />
+        ) : (
+          <DetailsCharacter
+            detailsCharacter={detailsCharacter}
+            onClose={handleCloseDetails}
+          />
+        ))}
     </div>
   );
 };

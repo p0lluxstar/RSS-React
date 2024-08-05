@@ -16,14 +16,51 @@ export default function MainPage({
 }: IProps): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
   const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [loadingCards, setLoadingCards] = useState<boolean>(false);
+  const [loadingDetails, setLoadingDetails] = useState<boolean>(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('details')) {
-      setShowDetails(true);
+  const handleRouteChangeStart = (url: string): void => {
+    if (typeof url === 'string') {
+      const params = new URLSearchParams(url.split('?')[1]);
+      if (params.has('details')) {
+        setLoadingDetails(true);
+      } else {
+        setLoadingCards(true);
+      }
     }
-  }, [router.query]);
+  };
+
+  const handleRouteChangeComplete = (url: string): void => {
+    if (typeof url === 'string') {
+      const params = new URLSearchParams(url.split('?')[1]);
+      if (params.has('details')) {
+        setLoadingDetails(false);
+      } else {
+        setLoadingCards(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+    router.events.on('routeChangeError', handleRouteChangeComplete);
+
+    // Проверка на первичную загрузку страницы
+    if (router.isReady) {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('details')) {
+        setShowDetails(true);
+      }
+    }
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart);
+      router.events.off('routeChangeComplete', handleRouteChangeComplete);
+      router.events.off('routeChangeError', handleRouteChangeComplete);
+    };
+  }, [router]);
 
   const fetchSearchData = (): void => {
     if (inputValue) {
@@ -40,9 +77,8 @@ export default function MainPage({
     router.replace(`/?page=1`);
   };
 
-  const paginationClick = (pageNumber: number): void => {
+  const paginationClick = (): void => {
     setShowDetails(false);
-    console.log(pageNumber);
   };
 
   const handleCloseDetails = (): void => {
@@ -58,7 +94,6 @@ export default function MainPage({
     const currentParams = new URLSearchParams(window.location.search);
     currentParams.set('details', id.toString());
     router.replace(`/?${currentParams.toString()}`);
-
     setShowDetails(true);
   };
 
@@ -84,6 +119,8 @@ export default function MainPage({
           showDetails={showDetails}
           detailsCharacter={detailsCharacter}
           handleCloseDetails={handleCloseDetails}
+          loadingCards={loadingCards}
+          loadingDetails={loadingDetails}
         />
       </main>
     </>

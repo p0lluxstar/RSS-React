@@ -1,3 +1,9 @@
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
 .loading {
   width: 24px;
   height: 24px;
