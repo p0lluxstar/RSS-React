@@ -1,4 +1,3 @@
-// fetchData.ts
 import { IDataFetch, IDetailsCharacter } from '@/types/interfaces';
 
 export const fetchCharactersAndDetails = async (context: {

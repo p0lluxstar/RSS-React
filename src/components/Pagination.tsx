@@ -2,6 +2,7 @@ import styles from '../styles/Pagination.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { MAX_PAGE_NUMBER } from '@/constants/components';
 
 interface IProps {
   paginationClick: (pageNumber: number) => void;
@@ -9,11 +10,17 @@ interface IProps {
 
 export default function Pagination({ paginationClick }: IProps): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
+  const [details, setDetails] = useState('');
   const router = useRouter();
 
   useEffect(() => {
     // Получаем номер страницы из query параметров
-    const { page } = router.query;
+    const { page, details } = router.query;
+
+    if (details) {
+      setDetails(`&details=${details}`);
+    }
+
     if (page) {
       setCurrentPage(Number(page));
     }
@@ -29,7 +36,7 @@ export default function Pagination({ paginationClick }: IProps): JSX.Element {
     const pageValue = Number(router.query.page) || currentPage;
 
     let startPage = pageValue > 2 ? pageValue - 2 : 1;
-    const endPage = Math.min(startPage + 4, 42); // Максимальная кнопка пагинации 42
+    const endPage = Math.min(startPage + 4, MAX_PAGE_NUMBER);
 
     if (endPage - startPage < 4) {
       startPage = Math.max(1, endPage - 4);
@@ -61,7 +68,7 @@ export default function Pagination({ paginationClick }: IProps): JSX.Element {
 
     for (let i = startPage; i <= endPage; i++) {
       buttons.push(
-        <Link href={`/?page=${i}`} key={i}>
+        <Link href={`/?page=${i}${details}`} key={i}>
           <span
             onClick={(): void => handlePageChange(i)}
             data-testid={`page-button-${i}`}
