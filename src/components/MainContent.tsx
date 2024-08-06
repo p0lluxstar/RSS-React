@@ -15,22 +15,25 @@ interface IProps {
   showDetails: boolean;
   detailsCharacter: IDetailsCharacter;
   handleCloseDetails: () => void;
-  loadingCards: boolean;
-  loadingDetails: boolean;
+  /*  loadingCards: boolean;
+  loadingDetails: boolean; */
 }
 
 const MainContent: React.FC<IProps> = ({
   characters,
   paginationClick,
   handleCardClick,
-  showDetails,
+  /*   showDetails, */
   detailsCharacter,
   handleCloseDetails,
-  loadingCards,
-  loadingDetails,
+  /* loadingCards,
+  loadingDetails, */
 }) => {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
+
+  console.log(detailsCharacter);
+  const loadingCards = false;
 
   return (
     <div
@@ -46,8 +49,11 @@ const MainContent: React.FC<IProps> = ({
           handleCardClick={handleCardClick}
         />
       )}
-
-      {showDetails &&
+      <DetailsCharacter
+        detailsCharacter={detailsCharacter}
+        onClose={handleCloseDetails}
+      />
+      {/*       {showDetails &&
         (loadingDetails ? (
           <Loader />
         ) : (
@@ -55,7 +61,7 @@ const MainContent: React.FC<IProps> = ({
             detailsCharacter={detailsCharacter}
             onClose={handleCloseDetails}
           />
-        ))}
+        ))} */}
     </div>
   );
 };

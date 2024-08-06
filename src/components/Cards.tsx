@@ -37,11 +37,9 @@ export default function Cards({
     return <p className={styles.message}>There is no card with that name.</p>;
   }
 
-  console.log('Server Component rendered');
-
   return (
     <div className={styles.cards} data-testid="cards">
-      {characters.results.map((character) => (
+      {characters.map((character) => (
         <div className={styles.cardWrapper} key={character.id}>
           <input
             className={styles.checkboxCard}

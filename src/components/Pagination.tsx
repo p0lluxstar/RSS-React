@@ -1,7 +1,7 @@
 import styles from '../styles/Pagination.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 interface IProps {
   paginationClick: (pageNumber: number) => void;
@@ -9,15 +9,15 @@ interface IProps {
 
 export default function Pagination({ paginationClick }: IProps): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
-  const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     // Получаем номер страницы из query параметров
-    const { page } = router.query;
+    const page = searchParams.get('page');
     if (page) {
       setCurrentPage(Number(page));
     }
-  }, [router.query]);
+  }, [searchParams]);
 
   const handlePageChange = (pageNumber: number): void => {
     setCurrentPage(pageNumber);
@@ -26,7 +26,7 @@ export default function Pagination({ paginationClick }: IProps): JSX.Element {
 
   const renderPageButtons = (): JSX.Element[] => {
     const buttons = [];
-    const pageValue = Number(router.query.page) || currentPage;
+    const pageValue = Number(searchParams.get('page')) || currentPage;
 
     let startPage = pageValue > 2 ? pageValue - 2 : 1;
     const endPage = Math.min(startPage + 4, 42); // Максимальная кнопка пагинации 42

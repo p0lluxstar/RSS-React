@@ -18,7 +18,7 @@ export default function MainPage({
 }: IProps): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
   const [showDetails, setShowDetails] = useState<boolean>(false);
-  /*   const [loadingCards, setLoadingCards] = useState<boolean>(false);
+  /*  const [loadingCards, setLoadingCards] = useState<boolean>(false);
   const [loadingDetails, setLoadingDetails] = useState<boolean>(false); */
   const router = useRouter();
 
@@ -121,8 +121,8 @@ export default function MainPage({
           showDetails={showDetails}
           detailsCharacter={detailsCharacter}
           handleCloseDetails={handleCloseDetails}
-          loadingCards={loadingCards}
-          loadingDetails={loadingDetails}
+          /*  loadingCards={loadingCards}
+          loadingDetails={loadingDetails} */
         />
       </main>
     </>
