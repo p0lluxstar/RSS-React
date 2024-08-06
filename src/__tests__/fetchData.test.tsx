@@ -1,29 +1,76 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { fetchCharactersAndDetails } from '@/utils/fetchData';
-import { MOCK_CHARACTERS, MOCK_DETAILS_CHARACTER } from '@/constants/tests';
+import { IDetailsCharacter } from '@/types/interfaces';
+
+const mockCharacters = [
+  {
+    id: 1,
+    name: 'Rick Sanchez',
+    status: 'Alive',
+    species: 'Human',
+    gender: 'Male',
+    image: 'https://example.com/image.jpg',
+    error: '',
+  },
+];
+
+const mockDetailsCharacter: IDetailsCharacter = {
+  id: 1,
+  name: 'Rick Sanchez',
+  status: 'Alive',
+  species: 'Human',
+  gender: 'Male',
+  image: 'https://example.com/image.jpg',
+  error: '',
+};
 
 // Мокаем глобальный fetch
 global.fetch = vi.fn();
 
-describe('getServerSideProps', () => {
-  it('возвращает корректные props при получении персонажей и их описания', async () => {
-    // Мокаем успешный ответ для запроса персонажей
-    (global.fetch as vi.Mock).mockResolvedValueOnce({
-      json: async () => MOCK_CHARACTERS,
+describe('fetchCharactersAndDetails', () => {
+  it('успешно получает данные персонажей по странице', async () => {
+    (fetch as vi.Mock).mockResolvedValueOnce({
+      json: () => Promise.resolve({ results: mockCharacters }),
     });
 
-    // Мокаем успешный ответ для запроса деталей персонажа
-    (global.fetch as vi.Mock).mockResolvedValueOnce({
-      json: async () => MOCK_DETAILS_CHARACTER,
+    const { characters, detailsCharacter } =
+      await fetchCharactersAndDetails('1');
+
+    expect(characters).toEqual(mockCharacters);
+    expect(detailsCharacter).toEqual({});
+  });
+
+  it('успешно получает данные персонажей по странице', async () => {
+    (fetch as vi.Mock).mockResolvedValueOnce({
+      json: () => Promise.resolve({ results: mockCharacters }),
     });
 
-    const context = {
-      query: { page: '1', details: '1' },
-    };
+    const { characters, detailsCharacter } = await fetchCharactersAndDetails(
+      null,
+      null,
+      'Rick'
+    );
 
-    const { props } = await fetchCharactersAndDetails(context);
+    expect(characters).toEqual(mockCharacters);
+    expect(detailsCharacter).toEqual({});
+  });
 
-    expect(props.characters).toEqual(MOCK_CHARACTERS.results);
-    expect(props.detailsCharacter).toEqual(MOCK_DETAILS_CHARACTER);
+  it('успешно получает данные персонажа по деталям', async () => {
+    (fetch as vi.Mock).mockResolvedValueOnce({
+      json: () => Promise.resolve({ results: mockCharacters }),
+    });
+
+    // Настраиваем мок fetch для получения деталей персонажа
+    (fetch as vi.Mock).mockResolvedValueOnce({
+      json: () => Promise.resolve(mockDetailsCharacter),
+    });
+
+    const { characters, detailsCharacter } = await fetchCharactersAndDetails(
+      '1',
+      '1'
+    );
+
+    expect(characters).toEqual(mockCharacters);
+    expect(detailsCharacter).toEqual(mockDetailsCharacter);
   });
 });

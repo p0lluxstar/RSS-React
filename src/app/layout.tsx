@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 import { Metadata } from 'next';
 import ReduxProvider from '@/redux/ReduxProvider';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 export const metadata: Metadata = {
   title: 'RSSchool | NextJS',
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReduxProvider>{children}</ReduxProvider>
+        <ThemeProvider>
+          <ReduxProvider>{children}</ReduxProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

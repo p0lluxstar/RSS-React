@@ -1,34 +1,34 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import Content from '../components/Content';
-import { useRouter } from 'next/router';
 import { IDetailsCharacter } from '../types/interfaces';
 import { MAX_PAGE_NUMBER } from '@/constants/components';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
 import { MOCK_CHARACTERS } from '@/constants/tests';
+import { useSearchParams } from 'next/navigation';
 
 // Мокируем useRouter
-vi.mock('next/router', () => ({
-  useRouter: vi.fn(),
+vi.mock('next/navigation', () => ({
+  useSearchParams: vi.fn(),
 }));
 
 describe('Компонент Content', () => {
   it('рендерит компонент Content', () => {
     // Мокаем данные и функции
-    const mockPaginationClick = vi.fn();
     const mockHandleCardClick = vi.fn();
-    const mockUseRouter = useRouter as vi.Mock;
+    const mockUseSearchParams = useSearchParams as vi.Mock;
 
     // Мокаем возвращаемое значение useRouter
-    mockUseRouter.mockReturnValue({ query: { page: '1' } });
+    mockUseSearchParams.mockReturnValue({
+      get: () => '1', // Симулируем параметр страницы = 1
+    });
 
     // Рендерим компонент
     render(
       <Provider store={store}>
         <Content
           characters={MOCK_CHARACTERS.results}
-          paginationClick={mockPaginationClick}
           handleCardClick={mockHandleCardClick}
         />
       </Provider>
@@ -42,13 +42,12 @@ describe('Компонент Content', () => {
 
   it('рендерит NotFoundPage если номер страницы превышает MAX_PAGE_NUMBER', () => {
     const mockCharacters: IDetailsCharacter[] = [];
-    const mockPaginationClick = vi.fn();
     const mockHandleCardClick = vi.fn();
-    const mockUseRouter = useRouter as vi.Mock;
+    const mockUseSearchParams = useSearchParams as vi.Mock;
 
     // Мокаем возвращаемое значение useRouter
-    mockUseRouter.mockReturnValue({
-      query: { page: (MAX_PAGE_NUMBER + 1).toString() },
+    mockUseSearchParams.mockReturnValue({
+      get: () => (MAX_PAGE_NUMBER + 1).toString(), // Симулируем параметр страницы больше MAX_PAGE_NUMBER
     });
 
     // Рендерим компонент
@@ -56,7 +55,6 @@ describe('Компонент Content', () => {
       <Provider store={store}>
         <Content
           characters={mockCharacters}
-          paginationClick={mockPaginationClick}
           handleCardClick={mockHandleCardClick}
         />
       </Provider>

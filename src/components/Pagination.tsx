@@ -3,11 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-interface IProps {
-  paginationClick: (pageNumber: number) => void;
-}
-
-export default function Pagination({ paginationClick }: IProps): JSX.Element {
+export default function Pagination(): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
   const searchParams = useSearchParams();
 
@@ -21,7 +17,6 @@ export default function Pagination({ paginationClick }: IProps): JSX.Element {
 
   const handlePageChange = (pageNumber: number): void => {
     setCurrentPage(pageNumber);
-    paginationClick(pageNumber);
   };
 
   const renderPageButtons = (): JSX.Element[] => {

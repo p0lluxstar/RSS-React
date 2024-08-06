@@ -1,7 +1,7 @@
 import MainPage from '@/components/MainPage';
 import { fetchCharactersAndDetails } from '@/utils/fetchData';
+import { redirect } from 'next/navigation';
 
-// Определите тип для параметров запроса
 interface Props {
   searchParams: {
     page?: string;
@@ -17,11 +17,10 @@ export default async function Home({
   const name = searchParams.name;
   const details = searchParams.details;
 
-  console.log('Page:', page);
-  console.log('Name:', name);
-  console.log('Details:', details);
+  if (Object.keys(searchParams).length === 0) {
+    redirect('/?page=1');
+  }
 
-  // Передайте параметры в функцию получения данных
   const { characters, detailsCharacter } = await fetchCharactersAndDetails(
     page,
     details,
