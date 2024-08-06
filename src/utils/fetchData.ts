@@ -1,58 +1,19 @@
-// fetchData.ts
-import { IDataFetch, IDetailsCharacter } from '@/types/interfaces';
+import { IDetailsCharacter } from '@/types/interfaces';
 
-export const fetchCharactersAndDetails = async (context: {
-  query: { page?: string; name?: string; details?: string };
-}): Promise<{
-  props: {
-    characters: IDataFetch | [];
-    detailsCharacter: IDetailsCharacter | object;
-  };
+export const fetchCharactersAndDetails = async (): Promise<{
+  characters: IDetailsCharacter[];
+  detailsCharacter: IDetailsCharacter;
 }> => {
-  const { page = '1', name, details } = context.query;
-  let url = '';
+  // Реализация функции получения данных
+  const charactersResponse = await fetch(
+    'https://rickandmortyapi.com/api/character/?page=1'
+  );
+  const detailsCharacterResponse = await fetch(
+    'https://rickandmortyapi.com/api/character/1'
+  );
 
-  if (page) {
-    url = `https://rickandmortyapi.com/api/character/?page=${page}`;
-  }
+  const characters = await charactersResponse.json();
+  const detailsCharacter = await detailsCharacterResponse.json();
 
-  if (name) {
-    url = `https://rickandmortyapi.com/api/character/?name=${name}`;
-  }
-
-  let characters = [];
-  let detailsCharacter = {};
-
-  try {
-    const response = await fetch(url);
-    const dataCharacters = await response.json();
-
-    if (!dataCharacters || !dataCharacters.results) {
-      throw new Error('Invalid data structure');
-    }
-
-    characters = dataCharacters.results;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-
-  if (details) {
-    try {
-      const response = await fetch(
-        `https://rickandmortyapi.com/api/character/${details}`
-      );
-      const dataDetailsCharacter = await response.json();
-
-      detailsCharacter = dataDetailsCharacter;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
-
-  return {
-    props: {
-      characters,
-      detailsCharacter,
-    },
-  };
+  return { characters, detailsCharacter };
 };

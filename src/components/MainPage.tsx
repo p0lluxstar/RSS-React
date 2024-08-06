@@ -1,5 +1,7 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { IDetailsCharacter } from '@/types/interfaces';
 import Head from 'next/head';
 import Header from '@/components/Header';
@@ -16,11 +18,11 @@ export default function MainPage({
 }: IProps): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
   const [showDetails, setShowDetails] = useState<boolean>(false);
-  const [loadingCards, setLoadingCards] = useState<boolean>(false);
-  const [loadingDetails, setLoadingDetails] = useState<boolean>(false);
+  /*   const [loadingCards, setLoadingCards] = useState<boolean>(false);
+  const [loadingDetails, setLoadingDetails] = useState<boolean>(false); */
   const router = useRouter();
 
-  const handleRouteChangeStart = (url: string): void => {
+  /*  const handleRouteChangeStart = (url: string): void => {
     if (typeof url === 'string') {
       const params = new URLSearchParams(url.split('?')[1]);
       if (params.has('details')) {
@@ -29,9 +31,9 @@ export default function MainPage({
         setLoadingCards(true);
       }
     }
-  };
+  }; */
 
-  const handleRouteChangeComplete = (url: string): void => {
+  /*   const handleRouteChangeComplete = (url: string): void => {
     if (typeof url === 'string') {
       const params = new URLSearchParams(url.split('?')[1]);
       if (params.has('details')) {
@@ -40,9 +42,9 @@ export default function MainPage({
         setLoadingCards(false);
       }
     }
-  };
+  }; */
 
-  useEffect(() => {
+  /* useEffect(() => {
     router.events.on('routeChangeStart', handleRouteChangeStart);
     router.events.on('routeChangeComplete', handleRouteChangeComplete);
     router.events.on('routeChangeError', handleRouteChangeComplete);
@@ -61,7 +63,7 @@ export default function MainPage({
       router.events.off('routeChangeError', handleRouteChangeComplete);
     };
   }, [router]);
-
+ */
   const fetchSearchData = (): void => {
     if (inputValue) {
       router.replace(`/?name=${inputValue}`);
