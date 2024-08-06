@@ -4,11 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MAX_PAGE_NUMBER } from '@/constants/components';
 
-interface IProps {
-  paginationClick: (pageNumber: number) => void;
-}
-
-export default function Pagination({ paginationClick }: IProps): JSX.Element {
+export default function Pagination(): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
   const [details, setDetails] = useState('');
   const router = useRouter();
@@ -28,7 +24,6 @@ export default function Pagination({ paginationClick }: IProps): JSX.Element {
 
   const handlePageChange = (pageNumber: number): void => {
     setCurrentPage(pageNumber);
-    paginationClick(pageNumber);
   };
 
   const renderPageButtons = (): JSX.Element[] => {

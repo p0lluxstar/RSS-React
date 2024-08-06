@@ -10,7 +10,6 @@ import Loader from './Loader';
 
 interface IProps {
   characters: IDetailsCharacter[];
-  paginationClick: (pageNumber: number) => void;
   handleCardClick: (id: number) => Promise<void>;
   showDetails: boolean;
   detailsCharacter: IDetailsCharacter;
@@ -21,7 +20,6 @@ interface IProps {
 
 const MainContent: React.FC<IProps> = ({
   characters,
-  paginationClick,
   handleCardClick,
   showDetails,
   detailsCharacter,
@@ -40,11 +38,7 @@ const MainContent: React.FC<IProps> = ({
       {loadingCards ? (
         <Loader />
       ) : (
-        <Content
-          characters={characters}
-          paginationClick={paginationClick}
-          handleCardClick={handleCardClick}
-        />
+        <Content characters={characters} handleCardClick={handleCardClick} />
       )}
 
       {showDetails &&

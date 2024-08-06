@@ -1,4 +1,3 @@
-// pages/index.tsx
 import { IDetailsCharacter } from '@/types/interfaces';
 import MainPage from '@/components/MainPage';
 import { useEffect } from 'react';

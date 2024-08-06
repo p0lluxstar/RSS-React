@@ -9,13 +9,11 @@ import { IDetailsCharacter } from '@/types/interfaces';
 
 interface IProps {
   characters: IDetailsCharacter[];
-  paginationClick: (pageNumber: number) => void;
   handleCardClick: (id: number) => Promise<void>;
 }
 
 export default function Content({
   characters,
-  paginationClick,
   handleCardClick,
 }: IProps): JSX.Element {
   const router = useRouter();
@@ -31,9 +29,7 @@ export default function Content({
   return (
     <div className={styles.content} data-testid="content">
       <Cards characters={characters} handleCardClick={handleCardClick} />
-      {numPaginationFromUrl <= MAX_PAGE_NUMBER && (
-        <Pagination paginationClick={paginationClick} />
-      )}
+      {numPaginationFromUrl <= MAX_PAGE_NUMBER && <Pagination />}
       <Flyout />
     </div>
   );

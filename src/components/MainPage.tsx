@@ -77,10 +77,6 @@ export default function MainPage({
     router.replace(`/?page=1`);
   };
 
-  const paginationClick = (): void => {
-    setShowDetails(false);
-  };
-
   const handleCloseDetails = (): void => {
     const currentParams = new URLSearchParams(window.location.search);
     currentParams.delete('details');
@@ -114,7 +110,6 @@ export default function MainPage({
         />
         <MainContent
           characters={characters}
-          paginationClick={paginationClick}
           handleCardClick={handleCardClick}
           showDetails={showDetails}
           detailsCharacter={detailsCharacter}
