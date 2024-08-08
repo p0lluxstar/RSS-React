@@ -16,9 +16,7 @@ import { useSearchParams } from 'react-router-dom';
 export default function MainPage(): JSX.Element {
   const [dataFetch, setDataFetch] = useState<IDataFetch>({ results: [] });
   const [getDataById, setGetDataById] = useState<ICharacterCard | null>(null);
-  const [inputValue, setInputValue] = useState<string>(
-    localStorage.getItem('inputValue') || ''
-  );
+  const [inputValue, setInputValue] = useState<string>('');
   const characterDetailsRef = useRef<HTMLDivElement | null>(null);
   const [showPagination, setShowPagination] = useState(true);
   const [numPageOrName, setNumPageOrName] = useState('');
@@ -48,7 +46,7 @@ export default function MainPage(): JSX.Element {
   });
 
   useEffect(() => {
-    const getInputValueFromLS = localStorage.getItem('inputValue');
+    /* const getInputValueFromLS = localStorage.getItem('inputValue'); */
 
     if (params.numPagination) {
       const [key, value] = params.numPagination.split('=');
@@ -63,9 +61,9 @@ export default function MainPage(): JSX.Element {
       }
     }
 
-    if (getInputValueFromLS) {
+    /* if (getInputValueFromLS) {
       searchClick(getInputValueFromLS);
-    }
+    } */
   }, [numPageOrName]);
 
   useEffect(() => {
@@ -84,7 +82,7 @@ export default function MainPage(): JSX.Element {
     if (inputValue !== '') {
       searchClick(inputValue);
     }
-    localStorage.setItem('inputValue', inputValue);
+    /* localStorage.setItem('inputValue', inputValue); */
   };
 
   const handleInputChange = (inputValue: string): void => {
@@ -110,7 +108,7 @@ export default function MainPage(): JSX.Element {
 
   const handleClearInput = (): void => {
     setInputValue('');
-    localStorage.setItem('inputValue', '');
+    /*  localStorage.setItem('inputValue', ''); */
   };
 
   return (

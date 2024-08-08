@@ -1,49 +1,39 @@
-import type { MetaFunction } from "@remix-run/node";
-import React from "react";
+import type { MetaFunction } from '@remix-run/node';
+import React, { useContext } from 'react';
+import MainPage from '../../src/components/MainPage';
+import { Provider } from 'react-redux';
+import store from '../../src/redux/store';
+import { ThemeContext, ThemeProvider } from '../../src/context/ThemeContext';
+import lightStyles from '../../src/styles/root/LightTheme.module.css';
+import darkStyles from '../../src/styles/root/DarkTheme.module.css';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: 'New Remix App' },
+    { name: 'description', content: 'Welcome to Remix!' },
   ];
 };
 
-export default function Index() {
+const Root = (): JSX.Element => {
+  const themeContext = useContext(ThemeContext);
+  const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
+
+  console.log(themeStyles);
   return (
-    <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Remix</h1>
-      <ul className="list-disc mt-4 pl-6 space-y-2">
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/quickstart"
-            rel="noreferrer"
-          >
-            5m Quick Start
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/tutorial"
-            rel="noreferrer"
-          >
-            30m Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/docs"
-            rel="noreferrer"
-          >
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div className={`${themeStyles.root}`}>
+      <MainPage />
+    </div>
+  );
+};
+
+export default function Index(): JSX.Element {
+  return (
+    <div>
+      <Provider store={store}>
+        <ThemeProvider>
+          <Root />
+        </ThemeProvider>
+      </Provider>
     </div>
   );
 }
