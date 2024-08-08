@@ -6,12 +6,12 @@ import lightStyles from '../styles/characterDetails/LightCharacterDetails.module
 import darkStyles from '../styles/characterDetails/DarkCharacterDetails.module.css';
 
 interface IProps {
-  character: ICharacterCard;
+  detailsCharacter: ICharacterCard;
   onClose: () => void;
 }
 
 export default function CharacterDetails({
-  character,
+  detailsCharacter,
   onClose,
 }: IProps): JSX.Element {
   const themeContext = useContext(ThemeContext);
@@ -23,11 +23,11 @@ export default function CharacterDetails({
       data-testid="CharacterDetails"
     >
       <button onClick={onClose}>×</button>
-      <h2>{character.name}</h2>
-      <img src={character.image} alt={character.name} />
-      <p>Status: {character.status}</p>
-      <p>Species: {character.species}</p>
-      <p>Gender: {character.gender}</p>
+      <h2>{detailsCharacter.name}</h2>
+      <img src={detailsCharacter.image} alt={detailsCharacter.name} />
+      <p>Status: {detailsCharacter.status}</p>
+      <p>Species: {detailsCharacter.species}</p>
+      <p>Gender: {detailsCharacter.gender}</p>
     </div>
   );
 }

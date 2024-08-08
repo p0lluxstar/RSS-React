@@ -1,57 +1,58 @@
-import { useState } from 'react';
-import { NavLink, NavLinkRenderProps, useParams } from 'react-router-dom';
 import styles from '../styles/Pagination.module.css';
+import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
-interface IProps {
-  onPageChange: (pageNumber: number) => void;
-}
-
-export default function Pagination({ onPageChange }: IProps): JSX.Element {
+export default function Pagination(): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
-  const params = useParams();
+  const [searchParams] = useSearchParams();
+  const [details, setDetails] = useState('');
+  const page = searchParams.get('page');
+  const detailsParam = searchParams.get('details');
+
+  useEffect(() => {
+    if (page) {
+      setCurrentPage(Number(page));
+    } else {
+      setCurrentPage(1);
+    }
+
+    if (detailsParam) {
+      setDetails(`&details=${detailsParam}`);
+    } else {
+      setDetails('');
+    }
+  }, [searchParams]);
 
   const handlePageChange = (pageNumber: number): void => {
     setCurrentPage(pageNumber);
-    onPageChange(pageNumber);
   };
 
   const renderPageButtons = (): JSX.Element[] => {
     const buttons = [];
-    let value;
+    const pageValue = Number(searchParams.get('page')) || currentPage;
 
-    // получаем номер страницы из url
-    if (params.numPagination) {
-      value = params.numPagination.split('=')[1];
-    }
-
-    let startPage = Number(value) - 2;
-    if (Number(value) > 2) {
-      startPage = Number(value) - 2;
-    } else {
-      startPage = Math.max(1, currentPage - 2);
-    }
+    let startPage = pageValue > 2 ? pageValue - 2 : 1;
     const endPage = Math.min(startPage + 4, 42); // Максимальная кнопка пагинации 42
 
     if (endPage - startPage < 4) {
-      // Если не хватает кнопок, чтобы добить до 5, сдвигаем начало диапазона
       startPage = Math.max(1, endPage - 4);
     }
 
-    // Добавляем кнопку для первой страницы, если текущая страница больше третьей
     if (startPage > 1) {
       buttons.push(
-        <NavLink
-          to={`/page=1`}
-          key={1}
-          onClick={(): void => handlePageChange(1)}
-          data-testid={`page-button-1`}
-          className={({ isActive }: NavLinkRenderProps): string =>
-            isActive
-              ? `${styles.paginationItem} ${styles.active}`
-              : styles.paginationItem
-          }
-        >
-          1
+        <NavLink to={`/?page=1`} key={1}>
+          <span
+            onClick={(): void => handlePageChange(1)}
+            data-testid={`page-button-1`}
+            className={
+              currentPage === 1
+                ? `${styles.paginationItem} ${styles.active}`
+                : styles.paginationItem
+            }
+          >
+            1
+          </span>
         </NavLink>
       );
 
@@ -64,18 +65,18 @@ export default function Pagination({ onPageChange }: IProps): JSX.Element {
 
     for (let i = startPage; i <= endPage; i++) {
       buttons.push(
-        <NavLink
-          to={`/page=${i}`}
-          key={i}
-          onClick={(): void => handlePageChange(i)}
-          data-testid={`page-button-${i}`}
-          className={({ isActive }: NavLinkRenderProps): string =>
-            isActive
-              ? `${styles.paginationItem} ${styles.active}`
-              : styles.paginationItem
-          }
-        >
-          {i}
+        <NavLink to={`/?page=${i}${details}`} key={i}>
+          <span
+            onClick={(): void => handlePageChange(i)}
+            data-testid={`page-button-${i}`}
+            className={
+              currentPage === i
+                ? `${styles.paginationItem} ${styles.active}`
+                : styles.paginationItem
+            }
+          >
+            {i}
+          </span>
         </NavLink>
       );
     }

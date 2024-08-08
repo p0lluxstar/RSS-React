@@ -7,7 +7,6 @@ import Flyout from './Flyout';
 interface IProps {
   showPagination: boolean;
   dataFetch: IDataFetch;
-  paginationClick: (pageNumber: number) => void;
   handleCardClick: (id: number) => Promise<void>;
   error: object | undefined;
 }
@@ -15,7 +14,6 @@ interface IProps {
 export default function Content({
   showPagination,
   dataFetch,
-  paginationClick,
   handleCardClick,
   error,
 }: IProps): JSX.Element {
@@ -26,7 +24,7 @@ export default function Content({
         onCardClick={handleCardClick}
         error={error}
       />
-      {showPagination && <Pagination onPageChange={paginationClick} />}
+      {showPagination && <Pagination />}
       <Flyout />
     </div>
   );

@@ -1,0 +1,25 @@
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/Loader.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
+.Loader_loadingWrapper___y8YR {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.Loader_loading__ZPz8K {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3.8px solid;
+  border-color: #dbdcef;
+  border-right-color: #297cf8;
+  animation: Loader_spinner-d3wgkg__mnI9Q 0.4s infinite linear;
+}
+
+@keyframes Loader_spinner-d3wgkg__mnI9Q {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
