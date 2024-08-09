@@ -1,29 +1,23 @@
 import Pagination from './Pagination';
 import Cards from './Cards';
-import { IDataFetch } from '../types/interfaces';
+import { IDetailsCharacter } from '../types/interfaces';
 import styles from '../styles/Content.module.css';
 import Flyout from './Flyout';
 
 interface IProps {
   showPagination: boolean;
-  dataFetch: IDataFetch;
+  characters: IDetailsCharacter[];
   handleCardClick: (id: number) => Promise<void>;
-  error: object | undefined;
 }
 
 export default function Content({
   showPagination,
-  dataFetch,
+  characters,
   handleCardClick,
-  error,
 }: IProps): JSX.Element {
   return (
     <div className={styles.content}>
-      <Cards
-        dataFetch={dataFetch}
-        onCardClick={handleCardClick}
-        error={error}
-      />
+      <Cards characters={characters} onCardClick={handleCardClick} />
       {showPagination && <Pagination />}
       <Flyout />
     </div>

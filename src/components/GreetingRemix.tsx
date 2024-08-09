@@ -1,31 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from '@remix-run/react';
+import { IDetailsCharacter } from '../types/interfaces';
 
-export default function GreeitingRemix(): JSX.Element {
-  const [characters, setCharacters] = useState([]);
+interface IProps {
+  characters: IDetailsCharacter[];
+  detailsCharacter: IDetailsCharacter;
+}
 
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      try {
-        const response = await fetch(
-          'https://rickandmortyapi.com/api/character/?page=1'
-        );
-        const data = await response.json();
-        setCharacters(data.results || []); // Убедитесь, что данные получены корректно
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+export default function GreenigRemix({
+  characters,
+  detailsCharacter,
+}: IProps): JSX.Element {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get('page')) || 1;
 
-    fetchData();
-  }, []);
+  const handleNextPage = (): void => {
+    const nextPage = page + 1;
+    searchParams.set('page', nextPage.toString());
+    navigate(`?${searchParams.toString()}`);
+  };
 
   return (
     <div>
-      {characters.map((character, index) => (
-        <div key={index}>
+      {characters.map((character) => (
+        <div key={character.id}>
           <h2>{character.name}</h2>
         </div>
       ))}
+      <button onClick={handleNextPage}>Next</button>
+      <hr />
+      <p>{detailsCharacter.name}</p>
     </div>
   );
 }

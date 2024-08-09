@@ -1,21 +1,29 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
-import { ICharacterCard } from '../types/interfaces';
+import { IDetailsCharacter } from '../types/interfaces';
 import styles from '../styles/characterDetails/CharacterDetails.module.css';
 import lightStyles from '../styles/characterDetails/LightCharacterDetails.module.css';
 import darkStyles from '../styles/characterDetails/DarkCharacterDetails.module.css';
 
 interface IProps {
-  detailsCharacter: ICharacterCard;
+  detailsCharacter: IDetailsCharacter;
   onClose: () => void;
 }
+
+const isEmpty = (obj: object): boolean => {
+  return Object.keys(obj).length === 0;
+};
 
 export default function CharacterDetails({
   detailsCharacter,
   onClose,
-}: IProps): JSX.Element {
+}: IProps): JSX.Element | null {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
+
+  if (isEmpty(detailsCharacter)) {
+    return null;
+  }
 
   return (
     <div

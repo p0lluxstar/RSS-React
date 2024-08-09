@@ -1,11 +1,14 @@
-import type { MetaFunction } from '@remix-run/node';
+import { type MetaFunction } from '@remix-run/node';
 import React, { useContext } from 'react';
-import MainPage from '../../src/components/MainPage';
 import { Provider } from 'react-redux';
 import store from '../../src/redux/store';
 import { ThemeContext, ThemeProvider } from '../../src/context/ThemeContext';
 import lightStyles from '../../src/styles/root/LightTheme.module.css';
 import darkStyles from '../../src/styles/root/DarkTheme.module.css';
+/* import GreenigRemix from '../../src/components/GreetingRemix'; */
+import { useLoaderData } from 'react-router-dom';
+import { api } from '../../src/utils/api';
+import MainPage from '../../src/components/MainPage'
 
 export const meta: MetaFunction = () => {
   return [
@@ -14,14 +17,20 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const loader = api;
+
 const Root = (): JSX.Element => {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
-  console.log(themeStyles);
+  const { characters, detailsCharacter } = useLoaderData();
+
   return (
     <div className={`${themeStyles.root}`}>
-      <MainPage />
+      <MainPage
+        characters={characters}
+        detailsCharacter={detailsCharacter}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { IDataFetch, IStoreReducer } from '../types/interfaces';
+import { IDetailsCharacter, IStoreReducer } from '../types/interfaces';
 import styles from '../styles/cards/Cards.module.css';
 import lightStyles from '../styles/cards/LightCards.module.css';
 import darkStyles from '../styles/cards/DarkCards.module.css';
@@ -8,15 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleCardSelection } from '../redux/slices/selectedCardsSlice';
 
 interface IProps {
-  dataFetch: IDataFetch;
+  characters: IDetailsCharacter[];
   onCardClick: (id: number) => Promise<void>;
-  error: object | undefined;
 }
 
 export default function Cards({
-  dataFetch,
+  characters,
   onCardClick,
-  error,
 }: IProps): JSX.Element | null {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
@@ -26,9 +24,9 @@ export default function Cards({
     (state: IStoreReducer) => state.selectedCardsSlice.selectedCards
   );
 
-  if (error != undefined) {
+  /* if (error != undefined) {
     return <p className={styles.message}>There is no card with that name.</p>;
-  }
+  } */
 
   const handleCheckboxChange = (result: object): void => {
     dispatch(toggleCardSelection(result));
@@ -38,9 +36,11 @@ export default function Cards({
     return selectedCards.some((card) => card.id === id);
   };
 
+  console.log('characters', characters);
+
   return (
     <div className={styles.cards} data-testid="cards">
-      {dataFetch.results.map((result) => (
+      {characters.map((result) => (
         <div className={styles.cardWrapper} key={result.id}>
           <input
             className={styles.checkboxCard}
