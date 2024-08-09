@@ -3,30 +3,34 @@
   flex-direction: column;
   border-radius: 5px;
   padding: 20px;
+  width: 50%;
+  height: 100%;
+  position: relative;
 }
 
 .characterDetails img {
   width: 100%;
+  height: 100%;
   margin-bottom: 10px;
 }
 
 .characterDetails button {
   position: absolute;
-  top: -8px;
-  right: -10px;
+  top: 0px;
+  right: 8px;
   width: 26px;
   height: 26px;
   font-weight: 600;
   border: none;
   border-radius: 50%;
-  font-size: 20px;
+  font-size: 36px;
+  background: none;
   color: #ff8787;
   cursor: pointer;
 }
 
 .characterDetails button:hover {
-  cursor: pointer;
-  background: #e2e2e2;
+  opacity: 0.8;
 }
 
 .characterDetails h2 {

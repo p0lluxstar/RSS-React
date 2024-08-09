@@ -5,6 +5,10 @@
   margin-top: 20px;
 }
 
+.pagination a {
+  text-decoration: none;
+}
+
 .paginationItem {
   display: flex;
   justify-content: center;

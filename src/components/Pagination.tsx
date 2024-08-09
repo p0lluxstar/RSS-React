@@ -3,7 +3,13 @@ import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 
-export default function Pagination(): JSX.Element {
+interface IProps {
+  handlePaginationClick: () => void;
+}
+
+export default function Pagination({
+  handlePaginationClick,
+}: IProps): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
   const [details, setDetails] = useState('');
@@ -24,10 +30,6 @@ export default function Pagination(): JSX.Element {
     }
   }, [searchParams]);
 
-  const handlePageChange = (pageNumber: number): void => {
-    setCurrentPage(pageNumber);
-  };
-
   const renderPageButtons = (): JSX.Element[] => {
     const buttons = [];
     const pageValue = Number(searchParams.get('page')) || currentPage;
@@ -43,7 +45,7 @@ export default function Pagination(): JSX.Element {
       buttons.push(
         <NavLink to={`/?page=1`} key={1}>
           <span
-            onClick={(): void => handlePageChange(1)}
+            onClick={(): void => handlePaginationClick()}
             data-testid={`page-button-1`}
             className={
               currentPage === 1
@@ -67,7 +69,7 @@ export default function Pagination(): JSX.Element {
       buttons.push(
         <NavLink to={`/?page=${i}${details}`} key={i}>
           <span
-            onClick={(): void => handlePageChange(i)}
+            onClick={(): void => handlePaginationClick()}
             data-testid={`page-button-${i}`}
             className={
               currentPage === i

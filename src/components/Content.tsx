@@ -8,17 +8,21 @@ interface IProps {
   showPagination: boolean;
   characters: IDetailsCharacter[];
   handleCardClick: (id: number) => Promise<void>;
+  handlePaginationClick: () => void;
 }
 
 export default function Content({
   showPagination,
   characters,
   handleCardClick,
+  handlePaginationClick,
 }: IProps): JSX.Element {
   return (
     <div className={styles.content}>
       <Cards characters={characters} onCardClick={handleCardClick} />
-      {showPagination && <Pagination />}
+      {showPagination && (
+        <Pagination handlePaginationClick={handlePaginationClick} />
+      )}
       <Flyout />
     </div>
   );
