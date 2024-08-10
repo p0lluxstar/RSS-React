@@ -9,6 +9,7 @@ const mockCharacter = {
   status: 'Alive',
   species: 'Human',
   gender: 'Male',
+  error: '',
 };
 
 describe('Компонент CharacterDetails', () => {
@@ -16,7 +17,10 @@ describe('Компонент CharacterDetails', () => {
     const mockOnClose = vi.fn();
 
     render(
-      <CharacterDetails character={mockCharacter} onClose={mockOnClose} />
+      <CharacterDetails
+        detailsCharacter={mockCharacter}
+        onClose={mockOnClose}
+      />
     );
 
     // Проверка наличия элементов в документе

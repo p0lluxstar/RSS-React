@@ -9,12 +9,12 @@ import { toggleCardSelection } from '../redux/slices/selectedCardsSlice';
 
 interface IProps {
   characters: IDetailsCharacter[];
-  onCardClick: (id: number) => Promise<void>;
+  handleCardClick: (id: number) => Promise<void>;
 }
 
 export default function Cards({
   characters,
-  onCardClick,
+  handleCardClick,
 }: IProps): JSX.Element | null {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
@@ -24,9 +24,9 @@ export default function Cards({
     (state: IStoreReducer) => state.selectedCardsSlice.selectedCards
   );
 
-  /* if (error != undefined) {
+  if (characters.length === 0) {
     return <p className={styles.message}>There is no card with that name.</p>;
-  } */
+  }
 
   const handleCheckboxChange = (result: object): void => {
     dispatch(toggleCardSelection(result));
@@ -35,8 +35,6 @@ export default function Cards({
   const isCardSelected = (id: number): boolean => {
     return selectedCards.some((card) => card.id === id);
   };
-
-  console.log('characters', characters);
 
   return (
     <div className={styles.cards} data-testid="cards">
@@ -52,7 +50,7 @@ export default function Cards({
             className={`${styles.card} ${themeStyles.card} ${
               isCardSelected(result.id) ? styles.checked : ''
             }`}
-            onClick={(): Promise<void> => onCardClick(result.id)}
+            onClick={(): Promise<void> => handleCardClick(result.id)}
           >
             <img src={result.image} alt={result.name}></img>
             <div className={styles.cardName}>

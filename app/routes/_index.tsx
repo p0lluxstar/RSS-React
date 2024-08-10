@@ -5,7 +5,6 @@ import store from '../../src/redux/store';
 import { ThemeContext, ThemeProvider } from '../../src/context/ThemeContext';
 import lightStyles from '../../src/styles/root/LightTheme.module.css';
 import darkStyles from '../../src/styles/root/DarkTheme.module.css';
-/* import GreenigRemix from '../../src/components/GreetingRemix'; */
 import { useLoaderData } from 'react-router-dom';
 import { api } from '../../src/utils/api';
 import MainPage from '../../src/components/MainPage'

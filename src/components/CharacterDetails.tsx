@@ -21,6 +21,20 @@ export default function CharacterDetails({
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
 
+  console.log('detailsCharacter', detailsCharacter);
+
+  if (detailsCharacter.error === 'Character not found') {
+    return (
+      <div
+        className={`${styles.characterDetails} ${themeStyles.characterDetails}`}
+        data-testid="CharacterDetails"
+      >
+        <button onClick={onClose}>×</button>
+        <p>There is no data on the character.</p>
+      </div>
+    );
+  }
+
   if (isEmpty(detailsCharacter)) {
     return null;
   }

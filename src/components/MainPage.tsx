@@ -6,7 +6,7 @@ import CharacterDetails from './CharacterDetails';
 import { IDetailsCharacter } from '../types/interfaces';
 import styles from '../styles/MainPage.module.css';
 import Content from './Content';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from '@remix-run/react';
 import Loader from './Loader';
 
 interface IProps {
@@ -19,13 +19,12 @@ export default function MainPage({
   detailsCharacter,
 }: IProps): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
-  const [showPagination, setShowPagination] = useState(true);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    setLoading(false); // Останавливаем лоадер после завершения загрузки данных
+    setLoading(false);
   }, [characters, detailsCharacter]);
 
   const fetchHeader = (): void => {
@@ -39,7 +38,6 @@ export default function MainPage({
   };
 
   const searchClick = (inputValue: string): void => {
-    setShowPagination(false);
     navigate(`/?name=${inputValue}`);
     setLoading(true);
   };
@@ -61,7 +59,6 @@ export default function MainPage({
 
   const handleClearInput = (): void => {
     navigate(`/?page=1`, { replace: true });
-    setShowPagination(true);
     setInputValue('');
     setLoading(true);
   };
@@ -78,7 +75,6 @@ export default function MainPage({
         {loading && <Loader />}
         <>
           <Content
-            showPagination={showPagination}
             characters={characters}
             handleCardClick={handleCardClick}
             handlePaginationClick={handlePaginationClick}

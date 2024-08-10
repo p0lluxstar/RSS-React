@@ -1,7 +1,7 @@
 import styles from '../styles/Pagination.module.css';
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from '@remix-run/react';
 
 interface IProps {
   handlePaginationClick: () => void;
@@ -86,5 +86,9 @@ export default function Pagination({
     return buttons;
   };
 
-  return <div className={styles.pagination}>{renderPageButtons()}</div>;
+  return (
+    <div className={styles.pagination} data-testid="pagination">
+      {renderPageButtons()}
+    </div>
+  );
 }

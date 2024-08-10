@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { createCsv } from '../utils/createCsv';
-import { ICharacterCard } from '../types/interfaces';
+import { IDetailsCharacter } from '../types/interfaces';
 
 describe('Функция createCSV', () => {
   it('должна правильно форматировать данные в CSV строку', () => {
     // Данные для тестирования
-    const items: ICharacterCard[] = [
+    const items: IDetailsCharacter[] = [
       {
         id: 1,
         name: 'Rick Sanchez',
@@ -13,6 +13,7 @@ describe('Функция createCSV', () => {
         status: 'Alive',
         species: 'Human',
         gender: 'Male',
+        error: '',
       },
       {
         id: 2,
@@ -21,6 +22,7 @@ describe('Функция createCSV', () => {
         status: 'Alive',
         species: 'Human',
         gender: 'Male',
+        error: '',
       },
     ];
 

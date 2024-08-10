@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "format:fix": "prettier . --write",
-    "test": "vitest run --coverage --reporter verbose"
+    "test": "vitest run --coverage --reporter verbose",
+    "test:single": "vitest run"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
