@@ -4,9 +4,9 @@ const nextConfig = {
   images: {
     domains: ['rickandmortyapi.com'],
   },
-  experimental: {
+/*   experimental: {
     appDir: true,
-  },
+  }, */
 };
 
 export default nextConfig;

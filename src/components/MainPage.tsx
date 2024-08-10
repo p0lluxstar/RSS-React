@@ -6,6 +6,7 @@ import { IDetailsCharacter } from '@/types/interfaces';
 import Head from 'next/head';
 import Header from '@/components/Header';
 import MainContent from '@/components/MainContent';
+/* import Loader from './Loader'; */
 
 interface IProps {
   characters: IDetailsCharacter[];
@@ -17,8 +18,6 @@ export default function MainPage({
   detailsCharacter,
 }: IProps): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
-  /*  const [loadingCards, setLoadingCards] = useState<boolean>(false);
-  const [loadingDetails, setLoadingDetails] = useState<boolean>(false); */
   const router = useRouter();
 
   const fetchSearchData = (): void => {
@@ -70,8 +69,6 @@ export default function MainPage({
           handleCardClick={handleCardClick}
           detailsCharacter={detailsCharacter}
           handleCloseDetails={handleCloseDetails}
-          /*  loadingCards={loadingCards}
-          loadingDetails={loadingDetails} */
         />
       </main>
     </>
