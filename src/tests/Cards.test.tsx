@@ -18,10 +18,7 @@ describe('Компонент Cards', () => {
 
     render(
       <Provider store={store}>
-        <Cards
-          characters={MOCK_CHARACTERS.results}
-          handleCardClick={mockOnCardClick}
-        />
+        <Cards characters={MOCK_CHARACTERS} handleCardClick={mockOnCardClick} />
       </Provider>
     );
 

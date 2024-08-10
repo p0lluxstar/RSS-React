@@ -5,9 +5,9 @@ import store from '../../src/redux/store';
 import { ThemeContext, ThemeProvider } from '../../src/context/ThemeContext';
 import lightStyles from '../../src/styles/root/LightTheme.module.css';
 import darkStyles from '../../src/styles/root/DarkTheme.module.css';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData } from '@remix-run/react';
 import { api } from '../../src/utils/api';
-import MainPage from '../../src/components/MainPage'
+import MainPage from '../../src/components/MainPage';
 
 export const meta: MetaFunction = () => {
   return [
@@ -26,10 +26,7 @@ const Root = (): JSX.Element => {
 
   return (
     <div className={`${themeStyles.root}`}>
-      <MainPage
-        characters={characters}
-        detailsCharacter={detailsCharacter}
-      />
+      <MainPage characters={characters} detailsCharacter={detailsCharacter} />
     </div>
   );
 };

@@ -4,29 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import MainPage from '../components/MainPage';
 import store from '../redux/store';
 import { Provider } from 'react-redux';
-import { IDetailsCharacter } from '../types/interfaces';
-
-const mockCharacters: IDetailsCharacter[] = [
-  {
-    id: 1,
-    name: 'Character 1',
-    image: 'https://example.com/image1.jpg',
-    status: 'Alive',
-    species: 'Human',
-    gender: 'Male',
-    error: '',
-  },
-];
-
-const mockDetailsCharacter: IDetailsCharacter = {
-  id: 2,
-  name: 'Character 2',
-  image: 'https://example.com/image2.jpg',
-  status: 'Alive',
-  species: 'Alien',
-  gender: 'Female',
-  error: '',
-};
+import { MOCK_CHARACTERS, MOCK_DETAILS_CHARACTER } from '../constants/tests';
 
 describe('Компонент PageContainer', () => {
   it('должен отображать элемент с классом mainContent', () => {
@@ -34,8 +12,8 @@ describe('Компонент PageContainer', () => {
       <Provider store={store}>
         <MemoryRouter>
           <MainPage
-            characters={mockCharacters}
-            detailsCharacter={mockDetailsCharacter}
+            characters={MOCK_CHARACTERS}
+            detailsCharacter={MOCK_DETAILS_CHARACTER}
           />
         </MemoryRouter>
       </Provider>

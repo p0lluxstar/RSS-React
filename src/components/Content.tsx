@@ -20,6 +20,7 @@ export default function Content({
 }: IProps): JSX.Element {
   const [searchParams] = useSearchParams();
   const numPaginationFromUrl = Number(searchParams.get('page'));
+  const detailaFromUrl = searchParams.get('details');
 
   if (numPaginationFromUrl > MAX_PAGE_NUMBER) {
     return (
@@ -32,7 +33,9 @@ export default function Content({
   return (
     <div className={styles.content}>
       <Cards characters={characters} handleCardClick={handleCardClick} />
-      {(numPaginationFromUrl > 0 || searchParams.size === 0) && (
+      {(numPaginationFromUrl > 0 ||
+        searchParams.size === 0 ||
+        detailaFromUrl) && (
         <Pagination handlePaginationClick={handlePaginationClick} />
       )}
       <Flyout />

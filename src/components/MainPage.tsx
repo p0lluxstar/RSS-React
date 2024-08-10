@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from '@remix-run/react';
 import Header from './Header';
-/* import Loader from './Loader'; */
+import Loader from './Loader';
 import CharacterDetails from './CharacterDetails';
 import { IDetailsCharacter } from '../types/interfaces';
 import styles from '../styles/MainPage.module.css';
 import Content from './Content';
-import { useSearchParams } from '@remix-run/react';
-import Loader from './Loader';
 
 interface IProps {
   characters: IDetailsCharacter[];

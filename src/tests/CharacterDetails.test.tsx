@@ -1,16 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import CharacterDetails from '../components/CharacterDetails';
-
-const mockCharacter = {
-  id: 1,
-  name: 'Rick Sanchez',
-  image: 'https://example.com/rick.png',
-  status: 'Alive',
-  species: 'Human',
-  gender: 'Male',
-  error: '',
-};
+import { MOCK_DETAILS_CHARACTER } from '../constants/tests';
 
 describe('Компонент CharacterDetails', () => {
   it('Должен отображать детали персонажа, если данные передаются', () => {
@@ -18,7 +9,7 @@ describe('Компонент CharacterDetails', () => {
 
     render(
       <CharacterDetails
-        detailsCharacter={mockCharacter}
+        detailsCharacter={MOCK_DETAILS_CHARACTER}
         onClose={mockOnClose}
       />
     );

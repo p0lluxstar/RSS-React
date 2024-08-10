@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { api } from '../utils/api';
 
-// Мокируем глобальный fetch
 global.fetch = vi.fn();
 
 describe('api function', () => {

@@ -4,7 +4,6 @@ import Pagination from '../components/Pagination';
 import { MemoryRouter } from 'react-router-dom';
 import { useSearchParams } from '@remix-run/react';
 
-// Мокаем useSearchParams
 vi.mock('@remix-run/react', () => ({
   useSearchParams: vi.fn(),
 }));
@@ -14,7 +13,6 @@ describe('Компонент Pagination', () => {
     // Мокаем возвращаемое значение useSearchParams
     (useSearchParams as vi.Mock).mockReturnValue([new URLSearchParams()]);
 
-    // Рендерим компонент внутри MemoryRouter
     render(
       <MemoryRouter>
         <Pagination handlePaginationClick={vi.fn()} />

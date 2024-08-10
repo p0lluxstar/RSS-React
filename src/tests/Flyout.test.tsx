@@ -4,10 +4,11 @@ import { Provider } from 'react-redux';
 import { configureStore, Store } from '@reduxjs/toolkit';
 import { selectedCardsReducer } from '../redux/slices/selectedCardsSlice';
 import Flyout from '../components/Flyout';
-import { ICharacterCard } from '../types/interfaces';
+import { IDetailsCharacter } from '../types/interfaces';
+import { MOCK_CHARACTERS } from '../constants/tests';
 
 // Создание mock хранилища Redux
-const createMockStore = (selectedCards: ICharacterCard[]): Store => {
+const createMockStore = (selectedCards: IDetailsCharacter[]): Store => {
   return configureStore({
     reducer: {
       selectedCardsSlice: selectedCardsReducer,
@@ -20,27 +21,8 @@ const createMockStore = (selectedCards: ICharacterCard[]): Store => {
 
 describe('Компонент Flyout', () => {
   it('должен отображаться Flyout с выбранными элементами и проверка кнопки "Unselect all"', () => {
-    const mockSelectedCards = [
-      {
-        id: 1,
-        name: 'Персонаж 1',
-        image: 'url1',
-        status: 'Alive',
-        species: 'Human',
-        gender: 'Male',
-      },
-      {
-        id: 2,
-        name: 'Персонаж 2',
-        image: 'url2',
-        status: 'Dead',
-        species: 'Alien',
-        gender: 'Female',
-      },
-    ];
-
     // Создание mock хранилища Redux
-    const store = createMockStore(mockSelectedCards);
+    const store = createMockStore(MOCK_CHARACTERS);
 
     render(
       <Provider store={store}>
@@ -50,7 +32,7 @@ describe('Компонент Flyout', () => {
 
     // Проверка наличия текста о количестве выбранных элементов
     expect(
-      screen.getByText(`${mockSelectedCards.length} items selected`)
+      screen.getByText(`${MOCK_CHARACTERS.length} items selected`)
     ).toBeInTheDocument();
 
     // Проверка наличия ссылки для скачивания CSV

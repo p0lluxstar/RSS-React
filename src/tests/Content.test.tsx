@@ -11,28 +11,6 @@ vi.mock('@remix-run/react', () => ({
 }));
 
 describe('Компонент Content', () => {
-  /*  it('рендерит Cards и Pagination на действительной странице', () => {
-    const mockHandleCardClick = vi.fn();
-    const mockHandlePaginationClick = vi.fn();
-
-    // Мокаем возвращаемое значение useSearchParams
-    useSearchParams.mockReturnValue([{ get: () => '1', size: 0 }, vi.fn()]);
-
-    render(
-      <Provider store={store}>
-        <Content
-          characters={MOCK_CHARACTERS.results}
-          handleCardClick={mockHandleCardClick}
-          handlePaginationClick={mockHandlePaginationClick}
-        />
-      </Provider>
-    );
-
-    // Проверяем, что компоненты Cards и Pagination рендерятся
-    expect(screen.getByTestId('cards')).toBeInTheDocument();
-    expect(screen.getByTestId('pagination')).toBeInTheDocument();
-  }); */
-
   it('рендерит NotFoundPage, если номер страницы превышает MAX_PAGE_NUMBER', () => {
     const mockHandleCardClick = vi.fn();
     const mockHandlePaginationClick = vi.fn();
