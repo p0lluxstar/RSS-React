@@ -10,11 +10,13 @@ import { IDetailsCharacter } from '@/types/interfaces';
 interface IProps {
   characters: IDetailsCharacter[];
   handleCardClick: (id: number) => Promise<void>;
+  handlePaginationClick: () => void;
 }
 
 export default function Content({
   characters,
   handleCardClick,
+  handlePaginationClick,
 }: IProps): JSX.Element {
   const searchParams = useSearchParams();
 
@@ -31,7 +33,9 @@ export default function Content({
   return (
     <div className={styles.content} data-testid="content">
       <Cards characters={characters} handleCardClick={handleCardClick} />
-      {numPaginationFromUrl > 0 && <Pagination />}
+      {numPaginationFromUrl > 0 && (
+        <Pagination handlePaginationClick={handlePaginationClick} />
+      )}
       <Flyout />
     </div>
   );

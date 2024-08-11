@@ -3,20 +3,36 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-export default function Pagination(): JSX.Element {
+interface IProps {
+  handlePaginationClick: () => void;
+}
+
+export default function Pagination({
+  handlePaginationClick,
+}: IProps): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
+  const [details, setDetails] = useState('');
   const searchParams = useSearchParams();
+  const page = searchParams.get('page');
+  const detailsParam = searchParams.get('details');
 
   useEffect(() => {
-    // Получаем номер страницы из query параметров
-    const page = searchParams.get('page');
     if (page) {
       setCurrentPage(Number(page));
+    } else {
+      setCurrentPage(1);
+    }
+
+    if (detailsParam) {
+      setDetails(`&details=${detailsParam}`);
+    } else {
+      setDetails('');
     }
   }, [searchParams]);
 
   const handlePageChange = (pageNumber: number): void => {
     setCurrentPage(pageNumber);
+    handlePaginationClick();
   };
 
   const renderPageButtons = (): JSX.Element[] => {
@@ -56,7 +72,7 @@ export default function Pagination(): JSX.Element {
 
     for (let i = startPage; i <= endPage; i++) {
       buttons.push(
-        <Link href={`/?page=${i}`} key={i}>
+        <Link href={`/?page=${i}${details}`} key={i}>
           <span
             onClick={(): void => handlePageChange(i)}
             data-testid={`page-button-${i}`}

@@ -12,6 +12,7 @@ interface IProps {
   handleCardClick: (id: number) => Promise<void>;
   detailsCharacter: IDetailsCharacter;
   handleCloseDetails: () => void;
+  handlePaginationClick: () => void;
 }
 
 const MainContent: React.FC<IProps> = ({
@@ -19,6 +20,7 @@ const MainContent: React.FC<IProps> = ({
   handleCardClick,
   detailsCharacter,
   handleCloseDetails,
+  handlePaginationClick,
 }) => {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
@@ -28,7 +30,11 @@ const MainContent: React.FC<IProps> = ({
       className={`${styles.mainContent} ${themeStyles.mainContent}`}
       data-testid="mainContent"
     >
-      <Content characters={characters} handleCardClick={handleCardClick} />
+      <Content
+        characters={characters}
+        handleCardClick={handleCardClick}
+        handlePaginationClick={handlePaginationClick}
+      />
       <DetailsCharacter
         detailsCharacter={detailsCharacter}
         onClose={handleCloseDetails}
