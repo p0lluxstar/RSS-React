@@ -46,9 +46,7 @@ export default function MainPage({
   const handleCloseDetails = (): void => {
     const currentParams = new URLSearchParams(window.location.search);
     currentParams.delete('details');
-    router.replace(`/?${currentParams.toString()}`, undefined, {
-      shallow: true,
-    });
+    router.replace(`/?${currentParams.toString()}`);
   };
 
   const handleCardClick = async (id: number): Promise<void> => {

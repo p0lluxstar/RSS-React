@@ -7,13 +7,13 @@ export interface IDataFetch {
 }
 
 export interface IDetailsCharacter {
-  id: number;
-  name: string;
-  image: string;
-  status: string;
-  species: string;
-  gender: string;
-  error: string;
+  id?: number;
+  name?: string;
+  image?: string;
+  status?: string;
+  species?: string;
+  gender?: string;
+  error?: string;
 }
 
 export interface IStoreReducer {

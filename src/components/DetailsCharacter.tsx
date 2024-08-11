@@ -45,12 +45,15 @@ export default function DetailsCharacter({
     >
       <button onClick={onClose}>×</button>
       <h2>{detailsCharacter.name}</h2>
-      <Image
-        src={detailsCharacter.image}
-        alt={detailsCharacter.name}
-        width={200}
-        height={200}
-      />
+      {detailsCharacter.image && detailsCharacter.name && (
+        <Image
+          src={detailsCharacter.image}
+          alt={detailsCharacter.name}
+          width={200}
+          height={200}
+        />
+      )}
+
       <p>Status: {detailsCharacter.status}</p>
       <p>Species: {detailsCharacter.species}</p>
       <p>Gender: {detailsCharacter.gender}</p>
