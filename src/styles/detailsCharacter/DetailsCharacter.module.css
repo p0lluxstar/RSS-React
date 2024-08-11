@@ -1,0 +1,46 @@
+.detailsCharacter {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 20px;
+  width: 50%;
+  height: 100%;
+}
+
+.detailsCharacter img {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.detailsCharacter button {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  width: 26px;
+  height: 26px;
+  font-weight: 600;
+  border: none;
+  border-radius: 50%;
+  font-size: 36px;
+  background: none;
+  color: #ff8787;
+  cursor: pointer;
+}
+
+.detailsCharacter button:hover {
+  opacity: 0.8;
+}
+
+.detailsCharacter h2 {
+  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.detailsCharacter p {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 600;
+}

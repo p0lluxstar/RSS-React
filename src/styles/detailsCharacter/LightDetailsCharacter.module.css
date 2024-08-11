@@ -1,0 +1,6 @@
+.detailsCharacter {
+  background-color: #00000060;
+  box-shadow:
+    2px 5px 15px 0px #0b325e,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}

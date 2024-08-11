@@ -1,0 +1,19 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
+}
+
+body.light {
+  background: #adcbb5;
+}
+
+body.dark {
+  background: #3d3d3d;
+}
