@@ -1,0 +1,520 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/header/Header.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+.Header_header__5y5a4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.Header_search___ZWV4 {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 600px;
+  justify-content: center;
+}
+
+.Header_apiName__wMScy {
+  position: absolute;
+  top: -5px;
+  left: 10px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.Header_btnClear__jXJwX {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  width: 26px;
+  height: 26px;
+  font-weight: 600;
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  color: #ff8787;
+  background: none;
+  cursor: pointer;
+}
+
+.Header_btnClear__jXJwX:hover {
+  opacity: 0.8;
+}
+
+.Header_inputSearch__1MRQA {
+  margin: 10px;
+  display: block;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.25rem;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.Header_btnSearch__ySNNg {
+  background-color: #fff;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  color: #212529;
+  font-weight: 600;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.Header_btnSearch__ySNNg:hover {
+  opacity: 0.8;
+}
+
+@keyframes Header_shake__KAd8W {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.Header_inputError__bzmYg {
+  background: #feb9b9 !important;
+  animation: Header_shake__KAd8W 0.15s forwards;
+}
+
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/header/LightHeader.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
+.LightHeader_header__1K5Zl {
+  background: #62a77c;
+}
+
+.LightHeader_inputSearch__PIezQ {
+  outline-color: #7bcf9c;
+}
+
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/header/DarkHeader.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.DarkHeader_header__YF41d {
+  background: #000000;
+}
+
+.DarkHeader_inputSearch__xPFRo {
+  outline-color: #acacac;
+}
+
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/themeToggle/ThemeToggle.module.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+.ThemeToggle_themeToggle__fuePw {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.ThemeToggle_themeToggle__fuePw button {
+  width: 36px;
+  height: 36px;
+  font-size: 30px;
+  line-height: 30px;
+  border: none;
+  border-radius: 5px;
+}
+
+.ThemeToggle_themeToggle__fuePw button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/themeToggle/LightThemeToggle.module.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+.LightThemeToggle_themeToggle__JMRsV button {
+  background: #cacaca;
+  color: #000000;
+}
+
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/themeToggle/DarkThemeToggle.module.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************/
+.DarkThemeToggle_themeToggle__unjTo button {
+  background: #adcbb5;
+  color: white;
+}
+
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/MainPage/MainPage.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.MainPage_mainContent__dOVcN {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: calc(100vh - 100px);
+  position: relative;
+}
+
+/*!****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/MainPage/LightMainPage.module.css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************/
+.LightMainPage_mainContent__jQqQk {
+  background-color: #adcbb5;
+  color: black;
+}
+
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/MainPage/DarkMainPage.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+.DarkMainPage_mainContent__g6dvo {
+  background-color: #3d3d3d;
+  color: white;
+}
+
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/Content.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.Content_content__WQsnz {
+  min-width: 50%;
+}
+
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/cards/Cards.module.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
+.Cards_cards__69M9E {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  max-width: 1280px;
+  gap: 20px;
+}
+
+.Cards_cardWrapper__x7YFg {
+  position: relative;
+}
+
+.Cards_card__49Pi9 {
+  width: 220px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.Cards_card__49Pi9:hover img {
+  filter: none;
+}
+
+.Cards_card__49Pi9 img {
+  width: 200px;
+  height: 200px;
+  filter: grayscale(100%);
+  transition: filter 0.2s ease-out;
+}
+
+.Cards_cardName__giLIF {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  height: 50px;
+  gap: 5px;
+}
+
+.Cards_cardName__giLIF span {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.Cards_message__x9FNk {
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.Cards_checkboxCard__mChhT {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 999;
+}
+
+.Cards_checkboxCard__mChhT[type='checkbox'] {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 1px solid #979797;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.Cards_checkboxCard__mChhT[type='checkbox']:after {
+  content: '';
+  display: block;
+  width: 70%;
+  height: 40%;
+  background-color: transparente;
+  border-bottom: 35px solid white;
+  border-left: 35px solid white;
+  transform: rotate(-45deg) translate(7%, -5%);
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.Cards_checkboxCard__mChhT[type='checkbox']:checked {
+  background-color: #e65555;
+  border-color: #a13a3a;
+}
+
+.Cards_checkboxCard__mChhT[type='checkbox']:checked:after {
+  border-bottom: 4px solid white;
+  border-left: 4px solid white;
+}
+
+.Cards_checkboxCard__mChhT[type='checkbox']:focus {
+  outline: none;
+}
+
+.Cards_checkboxCard__mChhT[type='checkbox']:disabled {
+  background-color: #eee;
+  border-color: transparent;
+}
+
+.Cards_checkboxCard__mChhT[type='checkbox']:disabled:after {
+  border-color: #aaa;
+}
+
+.Cards_checkboxCard__mChhT[type='checkbox']:hover {
+  box-shadow:
+    0px 0px 2px 0px #021b38,
+    0px 0px 2px 0px #00000000;
+}
+
+.Cards_checked__cVPqp img {
+  filter: none;
+}
+
+/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/cards/LightCards.module.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************/
+.LightCards_card__rrJl3 {
+  box-shadow:
+    2px 5px 15px 0px #0b325e,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+.LightCards_card__rrJl3:hover {
+  box-shadow:
+    2px 5px 15px 0px #021b38,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/cards/DarkCards.module.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************/
+.DarkCards_card__Z4pYA {
+  box-shadow:
+    0px 0px 8px 2px #b3b3b3,
+    5px 5px 15px 5px #00000000;
+}
+
+.DarkCards_card__Z4pYA:hover {
+  box-shadow:
+    0px 0px 8px 2px #daecff,
+    5px 5px 15px 5px #00000000;
+}
+
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/Pagination.module.css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+.Pagination_pagination__TofOK {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.Pagination_pagination__TofOK a {
+  text-decoration: none;
+}
+
+.Pagination_paginationItem__DPtxh {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 3px;
+  background: #f7f7f7;
+  cursor: pointer;
+  font-weight: 600;
+  border: 1px solid #767676;
+  color: #000000;
+}
+
+.Pagination_paginationItem__DPtxh:hover {
+  opacity: 0.8;
+}
+
+.Pagination_active__xaslx {
+  color: white;
+  background: #61a1d7;
+}
+
+.Pagination_active__xaslx {
+  opacity: 1;
+}
+
+.Pagination_ellipsis__46W5h {
+  color: #ffffff;
+  font-size: 24px;
+}
+
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/Flyout.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
+.Flyout_flyout__oc8t5 {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #3d3d3d;
+  color: #fff;
+  padding: 7px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  gap: 10px;
+}
+
+.Flyout_btnUnselect__scJ_c {
+  border-radius: 2px;
+  border: none;
+  padding: 0 4px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.Flyout_linkDownload__FY5cd {
+  background: #f0f0f0;
+  border-radius: 2px;
+  border: none;
+  padding: 0 4px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000000;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.Flyout_btnUnselect__scJ_c:hover,
+.Flyout_linkDownload__FY5cd:hover {
+  opacity: 0.9;
+}
+
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/NotFoundPage.module.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
+.NotFoundPage_notFoundPage__BpXPq {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  width: 100%;
+}
+
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/detailsCharacter/DetailsCharacter.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+.DetailsCharacter_detailsCharacter__rhVIv {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 20px;
+  width: 50%;
+  height: 100%;
+}
+
+.DetailsCharacter_detailsCharacter__rhVIv img {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.DetailsCharacter_detailsCharacter__rhVIv button {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  width: 26px;
+  height: 26px;
+  font-weight: 600;
+  border: none;
+  border-radius: 50%;
+  font-size: 36px;
+  background: none;
+  color: #ff8787;
+  cursor: pointer;
+}
+
+.DetailsCharacter_detailsCharacter__rhVIv button:hover {
+  opacity: 0.8;
+}
+
+.DetailsCharacter_detailsCharacter__rhVIv h2 {
+  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.DetailsCharacter_detailsCharacter__rhVIv p {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/detailsCharacter/LightDetailsCharacter.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+.LightDetailsCharacter_detailsCharacter__4Dt43 {
+  background-color: #00000060;
+  box-shadow:
+    2px 5px 15px 0px #0b325e,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/detailsCharacter/DarkDetailsCharacter.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+.DarkDetailsCharacter_detailsCharacter__qsB5G {
+  background-color: #e0d9d960;
+  box-shadow:
+    0px 0px 8px 2px #b3b3b3,
+    5px 5px 15px 5px #00000000;
+}
+

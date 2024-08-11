@@ -1,0 +1,11 @@
+.mainContent {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: calc(100vh - 100px);
+}
+
+.characterDetailsBox {
+  width: 50%;
+  position: relative;
+}
