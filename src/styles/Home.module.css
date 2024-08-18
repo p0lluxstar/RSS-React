@@ -1,0 +1,11 @@
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 1280px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
