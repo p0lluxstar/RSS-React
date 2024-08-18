@@ -7,6 +7,7 @@ import useValidationSchema from '../yup/useValidationSchema';
 import FileInput from './FileInput';
 import * as yup from 'yup';
 import CheckPassword from './CheckPassword';
+import { RootState } from '../redux/store';
 
 const UncontrolledForm = () => {
   const navigate = useNavigate();
@@ -24,11 +25,10 @@ const UncontrolledForm = () => {
   const [countryInput, setCountryInput] = useState<string>('');
   const [passwordLength, setPasswordLength] = useState<number>(0);
   const [file, setFile] = useState<string | null>(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const countries = useSelector(
-    (state: RootState) => state.countries.countries
+    (state: RootState) => state.countriesSlice.countries
   );
-
-  // Получаем схему валидации из хука
   const validationSchema = useValidationSchema();
 
   const validateForm = async () => {
@@ -71,17 +71,18 @@ const UncontrolledForm = () => {
     if (value === '') {
       setFilteredCountries([]);
     } else {
-      const filtered = countries.filter((country) =>
+      const filtered = countries.filter((country: string) =>
         country.toLowerCase().startsWith(value.toLowerCase())
       );
 
-      setFilteredCountries(filtered);
+      if (filtered[0].toUpperCase() === value.toUpperCase()) {
+        setFilteredCountries([]);
+        setIsDropdownVisible(false);
+      } else {
+        setIsDropdownVisible(true);
+        setFilteredCountries(filtered);
+      }
     }
-  };
-
-  const handleCountrySelect = (country: string) => {
-    setFilteredCountries([]);
-    setCountryInput(country);
   };
 
   const handlePasswordInputChange = (
@@ -89,6 +90,20 @@ const UncontrolledForm = () => {
   ) => {
     const value = event.target.value;
     setPasswordLength(value.length);
+  };
+
+  const handleCountryClick = () => {
+    setIsDropdownVisible(true);
+  };
+
+  const handleCountrySelect = (country: string) => {
+    setIsDropdownVisible(false);
+    setFilteredCountries([]);
+    setCountryInput(country);
+  };
+
+  const handleButtonCloseCountry = () => {
+    setIsDropdownVisible(false);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -116,23 +131,11 @@ const UncontrolledForm = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1>Uncontrolled Form</h1>
         <div>
-          <input
-            id="name"
-            type="text"
-            ref={nameRef}
-            placeholder="Name"
-            value="A"
-          />
+          <input id="name" type="text" ref={nameRef} placeholder="Name" />
           {errors.name && <p className={styles.error}>{errors.name}</p>}
         </div>
         <div>
-          <input
-            id="age"
-            type="number"
-            ref={ageRef}
-            placeholder="Age"
-            value="20"
-          />
+          <input id="age" type="number" ref={ageRef} placeholder="Age" />
           {errors.age && <p className={styles.error}>{errors.age}</p>}
         </div>
         <div className={styles.gender}>
@@ -147,13 +150,7 @@ const UncontrolledForm = () => {
           {errors.gender && <p className={styles.error}>{errors.gender}</p>}
         </div>
         <div>
-          <input
-            id="email"
-            type="text"
-            ref={emailRef}
-            placeholder="Email"
-            value="a@aa.ru"
-          />
+          <input id="email" type="text" ref={emailRef} placeholder="Email" />
           {errors.email && <p className={styles.error}>{errors.email}</p>}
         </div>
         <div className={styles.country}>
@@ -162,14 +159,24 @@ const UncontrolledForm = () => {
             type="text"
             value={countryInput}
             onChange={handleCountryInputChange}
+            onClick={handleCountryClick}
             placeholder="Select Country"
             ref={countryRef}
           />
           {errors.country && <p className={styles.error}>{errors.country}</p>}
-          {filteredCountries.length > 0 && (
-            <>
+          {isDropdownVisible && (
+            <div className={styles.countryList}>
+              <button
+                className={styles.btnCloseCountry}
+                onClick={handleButtonCloseCountry}
+              >
+                x
+              </button>
               <ul>
-                {filteredCountries.map((country) => (
+                {(filteredCountries.length > 0
+                  ? filteredCountries
+                  : countries
+                ).map((country) => (
                   <li
                     key={country}
                     onClick={() => handleCountrySelect(country)}
@@ -179,7 +186,7 @@ const UncontrolledForm = () => {
                 ))}
               </ul>
               <span>❱</span>
-            </>
+            </div>
           )}
         </div>
         <div className={styles.password}>
@@ -189,7 +196,6 @@ const UncontrolledForm = () => {
             ref={passwordRef}
             placeholder="Password"
             onChange={handlePasswordInputChange}
-            value="Q1w2e3r3!"
           />
           {errors.password && <p className={styles.error}>{errors.password}</p>}
           {passwordLength > 0 && (
@@ -204,7 +210,6 @@ const UncontrolledForm = () => {
             type="password"
             ref={confirmPasswordRef}
             placeholder="Confirm password"
-            value="Q1w2e3r3!"
           />
           {errors.confirmPassword && (
             <p className={styles.error}>{errors.confirmPassword}</p>

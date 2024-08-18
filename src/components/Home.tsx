@@ -1,11 +1,11 @@
 import styles from '../styles/Home.module.css';
 import { useSelector } from 'react-redux';
 import DataUserOnPage from './DataUserOnPage';
-import { DataForm } from '../types/interfaces';
+import { IDataForm } from '../types/interfaces';
 
 const Home = () => {
   const dataUserFromStore = useSelector(
-    (state: { dataForms: DataForm[] }) => state.dataForms
+    (state: { dataForms: IDataForm[] }) => state.dataForms
   );
 
   return (

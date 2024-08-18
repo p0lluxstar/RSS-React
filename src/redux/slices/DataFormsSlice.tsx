@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DataForm } from '../../types/interfaces';
+import { IDataForm } from '../../types/interfaces';
 
-const initialState: DataForm[] = [];
+const initialState: IDataForm[] = [];
 
 const dataFormsSlice = createSlice({
   name: 'DataForms',
   initialState,
   reducers: {
     addUser(state, action) {
-      console.log(action.payload);
       state.push(action.payload);
     },
   },

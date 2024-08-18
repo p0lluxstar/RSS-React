@@ -31,13 +31,13 @@
   position: relative;
 }
 
-.country ul {
+.countryList {
   position: absolute;
-  left: -116px;
-  top: 6px;
+  left: -141px;
+  top: 0px;
   background: #ccc;
-  padding: 6px 10px;
-  min-width: 90px;
+  padding: 12px 10px 6px;
+  min-width: 96px;
   border-radius: 3px;
   color: #000;
 }
@@ -47,14 +47,35 @@
   cursor: pointer;
   line-height: 24px;
   height: 24px;
+  min-width: 96px;
+}
+
+.country li:hover {
+  opacity: 0.8;
 }
 
 .country span {
   position: absolute;
   top: 10px;
-  left: -22px;
+  right: -12px;
   color: #ccc;
   font-size: 20px;
+}
+
+.country button {
+  width: 10px;
+  height: 10px;
+  margin: 0px;
+  padding: 0px;
+  background: none;
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+}
+
+.country button:hover {
+  opacity: 0.8;
 }
 
 /*gender*/

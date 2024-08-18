@@ -4,12 +4,12 @@
   box-shadow:
     0px 2px 15px 0px #0b325e,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
-  max-width: 32.2%;
   width: 32.2%;
 }
 
 .dataUser img {
   width: 100%;
+  max-height: 300px;
   margin-top: 4px;
   border-radius: 3px;
 }

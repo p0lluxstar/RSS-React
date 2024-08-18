@@ -14,8 +14,8 @@ const FileInput: React.FC<FileInputProps> = ({ onFileChange, error }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
     if (file) {
-      if (file.type !== 'image/jpeg') {
-        setFileError('Only JPEG files are allowed.');
+      if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+        setFileError('Only JPEG and PNG files are allowed.');
         onFileChange(null);
         setPreview(null);
         return;

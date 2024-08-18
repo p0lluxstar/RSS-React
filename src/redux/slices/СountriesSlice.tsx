@@ -6,12 +6,19 @@ interface ICountry {
 
 const initialState: ICountry = {
   countries: [
-    'Russia',
-    'Romania',
+    'Belarus',
     'Canada',
-    'United States',
-    'Germany',
+    'China',
+    'England',
     'France',
+    'Germany',
+    'Italy',
+    'Japan',
+    'Kazakhstan',
+    'Romania',
+    'Russia',
+    'United States',
+    'Ukraine',
   ],
 };
 

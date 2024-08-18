@@ -5,8 +5,11 @@ import countryReducer from './slices/СountriesSlice';
 const store = configureStore({
   reducer: {
     dataForms: dataFormsSliceReducer,
-    countries: countryReducer,
+    countriesSlice: countryReducer,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export default store;

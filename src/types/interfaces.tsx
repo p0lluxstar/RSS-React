@@ -1,4 +1,4 @@
-export interface DataForm {
+export interface IDataForm {
   index?: number;
   name: string;
   age: string;
@@ -9,4 +9,8 @@ export interface DataForm {
   confirmPassword?: string;
   file: string;
   agreement?: boolean;
+}
+
+export interface IStoreReducer {
+  countries: string[];
 }

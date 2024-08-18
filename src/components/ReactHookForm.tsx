@@ -2,20 +2,22 @@ import styles from '../styles/Forms.module.css';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { DataForm } from '../types/interfaces';
+import { IDataForm } from '../types/interfaces';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataFormsSliceAction } from '../redux/slices/DataFormsSlice';
 import useValidationSchema from '../yup/useValidationSchema';
 import FileInput from './FileInput';
 import CheckPassword from './CheckPassword';
+import { RootState } from '../redux/store';
 
 const ReactHookForm = () => {
   const [countryInput, setCountryInput] = useState<string>('');
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
+  const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [file, setFile] = useState<string | null>(null);
   const countries = useSelector(
-    (state: RootState) => state.countries.countries
+    (state: RootState) => state.countriesSlice.countries
   );
   const navigate = useNavigate();
   const dispatchFunction = useDispatch();
@@ -26,14 +28,14 @@ const ReactHookForm = () => {
     handleSubmit,
     setValue,
     watch,
-  } = useForm<DataForm>({
+  } = useForm<IDataForm>({
     mode: 'onChange',
     resolver: yupResolver(useValidationSchema()),
   });
 
   const passwordLength = (watch(['password'])[0] || '').length;
 
-  const onSubmit = (data: DataForm) => {
+  const onSubmit = (data: IDataForm) => {
     dispatchFunction(
       dataFormsSliceAction.addUser({
         name: data.name,
@@ -57,22 +59,33 @@ const ReactHookForm = () => {
     if (value === '') {
       setFilteredCountries([]);
     } else {
-      const filtered = countries.filter((country) =>
+      const filtered = countries.filter((country: string) =>
         country.toUpperCase().startsWith(value.toUpperCase())
       );
 
       if (filtered[0].toUpperCase() === value.toUpperCase()) {
         setFilteredCountries([]);
+        setIsDropdownVisible(false);
       } else {
+        setIsDropdownVisible(true);
         setFilteredCountries(filtered);
       }
     }
   };
 
-  /* const handleCountrySelect = (country: string) => {
+  const handleCountryClick = () => {
+    setIsDropdownVisible(true);
+  };
+
+  const handleCountrySelect = (country: string) => {
+    setIsDropdownVisible(false);
     setFilteredCountries([]);
     setCountryInput(country);
-  }; */
+  };
+
+  const handleButtonCloseCountry = () => {
+    setIsDropdownVisible(false);
+  };
 
   return (
     <>
@@ -84,7 +97,6 @@ const ReactHookForm = () => {
             id="name"
             placeholder="Name"
             type="text"
-            value="A"
           />
           {errors.name && <p className={styles.error}>{errors.name.message}</p>}
         </div>
@@ -94,7 +106,6 @@ const ReactHookForm = () => {
             id="age"
             placeholder="Age"
             type="number"
-            value="20"
           />
           {errors.age && <p className={styles.error}>{errors.age.message}</p>}
         </div>
@@ -117,7 +128,6 @@ const ReactHookForm = () => {
             id="email"
             placeholder="Email"
             type="string"
-            value="a@aa.ru"
           />
           {errors.email && (
             <p className={styles.error}>{errors.email.message}</p>
@@ -130,20 +140,35 @@ const ReactHookForm = () => {
             type="text"
             value={countryInput}
             onInput={handleCountryInputChange}
+            onClick={handleCountryClick}
             placeholder="Select Country"
           />
           {errors.country && (
             <p className={styles.error}>{errors.country.message}</p>
           )}
-          {filteredCountries.length > 0 && (
-            <>
+          {isDropdownVisible && (
+            <div className={styles.countryList}>
+              <button
+                className={styles.btnCloseCountry}
+                onClick={handleButtonCloseCountry}
+              >
+                x
+              </button>
               <ul>
-                {filteredCountries.map((country) => (
-                  <li key={country}>{country}</li>
+                {(filteredCountries.length > 0
+                  ? filteredCountries
+                  : countries
+                ).map((country) => (
+                  <li
+                    key={country}
+                    onClick={() => handleCountrySelect(country)}
+                  >
+                    {country}
+                  </li>
                 ))}
               </ul>
               <span>❱</span>
-            </>
+            </div>
           )}
         </div>
         <div className={styles.password}>
@@ -151,7 +176,6 @@ const ReactHookForm = () => {
             {...register('password')}
             placeholder="Password"
             type="password"
-            value="Q1w2e3r3!"
           />
           {errors.password && (
             <p className={styles.error}>{errors.password.message}</p>
@@ -167,7 +191,6 @@ const ReactHookForm = () => {
             {...register('confirmPassword')}
             placeholder="Confirm password"
             type="password"
-            value="Q1w2e3r3!"
           />
           {errors.confirmPassword && (
             <p className={styles.error}>{errors.confirmPassword.message}</p>

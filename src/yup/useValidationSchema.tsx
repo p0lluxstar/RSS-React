@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 import * as yup from 'yup';
 
 const useValidationSchema = () => {
   const countries = useSelector(
-    (state: RootState) => state.countries.countries
+    (state: RootState) => state.countriesSlice.countries
   );
 
   return yup.object().shape({
@@ -23,7 +24,7 @@ const useValidationSchema = () => {
       .email('The email must contain the "@" and the domain name.'),
     password: yup
       .string()
-      .min(8, 'The password must be at least 8 characters.')
+
       .matches(
         /[A-Z]/,
         'The password must contain at least one capital letter.'
@@ -37,10 +38,11 @@ const useValidationSchema = () => {
         /[!@#$%^&*()_+]/,
         'The password must contain at least one special symbol.'
       )
+      .min(8, 'The password must be at least 8 characters.')
       .required('The password is required.'),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref('password'), null], 'Passwords must match.')
+      .oneOf([yup.ref('password')], 'Passwords must match.')
       .required('Confirm password is required.'),
     gender: yup
       .string()
@@ -53,7 +55,7 @@ const useValidationSchema = () => {
         'You must select a valid country from the list.',
         function (value) {
           if (!value) return false;
-          const lowerCasedCountries = countries.map((country) =>
+          const lowerCasedCountries = countries.map((country: string) =>
             country.toLowerCase()
           );
           return lowerCasedCountries.includes(value.toLowerCase());
