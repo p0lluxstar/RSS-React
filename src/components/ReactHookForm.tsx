@@ -77,11 +77,11 @@ const ReactHookForm = () => {
     setIsDropdownVisible(true);
   };
 
-  const handleCountrySelect = (country: string) => {
+  /*  const handleCountrySelect = (country: string) => {
     setIsDropdownVisible(false);
     setFilteredCountries([]);
     setCountryInput(country);
-  };
+  }; */
 
   const handleButtonCloseCountry = () => {
     setIsDropdownVisible(false);
@@ -161,7 +161,7 @@ const ReactHookForm = () => {
                 ).map((country) => (
                   <li
                     key={country}
-                    onClick={() => handleCountrySelect(country)}
+                    /* onClick={() => handleCountrySelect(country)} */
                   >
                     {country}
                   </li>
