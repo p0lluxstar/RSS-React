@@ -4,22 +4,22 @@
   align-items: center;
   height: 100px;
   /* background: #42627f; */
-  background: #235877;
+  /* background: #235877; */
   margin-bottom: 20px;
 }
 
 a {
-  color: #ffffff;
+  color: #527f99;
   text-decoration: none;
   margin: 20px;
   font-weight: bold;
   font-size: 20px;
-  border: 1px solid #ffffff;
   padding: 7px;
   border-radius: 3px;
+  background: #fff;
 }
 
 a:hover {
-  opacity: 0.7;
+  opacity: 0.8;
   cursor: pointer;
 }

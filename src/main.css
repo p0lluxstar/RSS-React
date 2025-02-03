@@ -5,9 +5,14 @@
 }
 
 body {
-  background: #527f99;
+  /* background: #527f99; */
   height: 100%;
   font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
+  background-image: url('/public/img/bg.png');
+  background-size: cover; /* Масштабирование на весь экран */
+  background-position: center; /* Центрирование */
+  background-repeat: no-repeat; /* Отключаем повтор */
+  background-attachment: fixed; /* Фон остаётся на месте при прокрутке */
 }
 
 #root {
@@ -16,8 +21,8 @@ body {
 }
 
 .active {
-  background: #ffffff;
-  color: #2d4e65;
+  background: #527f99;
+  color: #fcfcfc;
 }
 
 input {
@@ -34,7 +39,7 @@ input {
   background-clip: padding-box;
   border: 1px solid #bdbdbd;
   border-radius: 0.25rem;
-  outline-color: #42627f;
+  outline-color: #a2aab2;
   transition:
     border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
