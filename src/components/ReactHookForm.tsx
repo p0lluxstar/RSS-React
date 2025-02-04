@@ -200,7 +200,9 @@ const ReactHookForm = () => {
           {...register('file')}
           onFileChange={(file) => {
             setFile(file);
-            setValue('file', file);
+            if (file !== null) {
+              setValue('file', file);
+            }
           }}
         />
         <div className={styles.agreement}>

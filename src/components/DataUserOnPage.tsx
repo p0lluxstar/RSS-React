@@ -1,7 +1,7 @@
 import styles from '../styles/DataUserOnPage.module.css';
-import { DataForm } from '../types/interfaces';
+import { IDataUserOnPage } from '../types/interfaces';
 
-const DataUserOnPage = (props: DataForm) => {
+const DataUserOnPage = (props: IDataUserOnPage) => {
   return (
     <>
       <div className={styles.dataUser}>

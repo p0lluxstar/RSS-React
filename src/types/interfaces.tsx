@@ -1,14 +1,17 @@
-export interface IDataForm {
+export interface IDataUserOnPage {
   index?: number;
   name: string;
-  age: string;
-  gender: string;
+  age: number;
   email: string;
-  country: string;
   password: string;
-  confirmPassword?: string;
+  gender: 'male' | 'female';
+  country: string;
   file: string;
-  agreement?: boolean;
+}
+
+export interface IDataForm extends IDataUserOnPage {
+  confirmPassword: string;
+  agreement: boolean;
 }
 
 export interface IStoreReducer {
