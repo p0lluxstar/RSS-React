@@ -2,24 +2,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
-  /* background: #42627f; */
-  /* background: #235877; */
-  margin-bottom: 20px;
+  gap: 20px;
+  height: 50px;
+  margin-bottom: 40px;
 }
 
-a {
-  color: #527f99;
+.headerBtn {
   text-decoration: none;
-  margin: 20px;
+  color: #fff;
+  font-size: 34px;
   font-weight: bold;
-  font-size: 20px;
-  padding: 7px;
-  border-radius: 3px;
-  background: #fff;
+  transition: box-shadow 0.2s ease;
 }
 
-a:hover {
-  opacity: 0.8;
-  cursor: pointer;
+.headerBtn:hover {
+  box-shadow: 0 4px 0 0 #fff;
 }

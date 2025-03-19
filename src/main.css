@@ -5,72 +5,35 @@
 }
 
 body {
-  /* background: #527f99; */
-  height: 100%;
-  font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
-  background-image: url('/public/img/bg.png');
-  background-size: cover; /* Масштабирование на весь экран */
-  background-position: center; /* Центрирование */
-  background-repeat: no-repeat; /* Отключаем повтор */
-  background-attachment: fixed; /* Фон остаётся на месте при прокрутке */
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Poppins', 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(45deg, #00dbde, #fc00ff);
+  background-repeat: no-repeat;
 }
 
 #root {
   display: flex;
   flex-direction: column;
-}
-
-.active {
-  background: #527f99;
-  color: #fcfcfc;
+  padding: 40px;
 }
 
 input {
-  margin: 5px 0px 2px 0px;
-  display: block;
-  width: 100%;
-  height: calc(2.25rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #bdbdbd;
-  border-radius: 0.25rem;
-  outline-color: #a2aab2;
-  transition:
-    border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  font-family: 'Poppins', 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
 }
 
-button {
-  background-color: #fff;
-  height: calc(2.25rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1.2rem;
-  line-height: 1.2;
-  color: #42627f;
-  font-weight: 600;
-  background-clip: padding-box;
-  border: 1px solid #bdbdbd;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  width: 120px;
+.active {
+  box-shadow: 0 4px 0 0 #fff;
 }
 
-button:hover {
-  opacity: 0.9;
+#email {
+  margin-top: 12px;
 }
 
-button[disabled] {
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
+.noValidForm {
+  background: #ccc;
+}
+
+.noValidForm:hover {
   cursor: default;
-}
-
-button[disabled]:hover {
-  opacity: 1;
 }

@@ -90,42 +90,48 @@ const ReactHookForm = () => {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h1>React Hook Form</h1>
-        <div>
+        <h1 className={styles.formTitle}>React Hook Form</h1>
+        <div className={styles.wrapInput}>
           <input
             {...register('name')}
             id="name"
-            placeholder="Name"
+            className={styles.input}
+            placeholder="Enter your name"
             type="text"
           />
           {errors.name && <p className={styles.error}>{errors.name.message}</p>}
         </div>
-        <div>
+        <div className={styles.wrapInput}>
           <input
             {...register('age')}
             id="age"
+            className={styles.input}
             placeholder="Age"
             type="number"
           />
           {errors.age && <p className={styles.error}>{errors.age.message}</p>}
         </div>
-        <div className={styles.gender}>
-          <div className={styles.genderField}>
-            <p>Select gender</p>
-            <select {...register('gender')} id="gener" defaultValue="">
-              <option value="" disabled></option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-          {errors.gender && (
-            <p className={styles.error}>{errors.gender.message}</p>
-          )}
+        <div className={styles.wrapInputSelect}>
+          <span className={styles.labelSelect}>Select gender</span>
+          <select
+            {...register('gender')}
+            id="gener"
+            className={styles.genderSelect}
+            defaultValue=""
+          >
+            <option value="" disabled></option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
         </div>
-        <div>
+        {errors.gender && (
+          <p className={styles.error}>{errors.gender.message}</p>
+        )}
+        <div className={styles.wrapInput}>
           <input
             {...register('email')}
             id="email"
+            className={styles.input}
             placeholder="Email"
             type="string"
           />
@@ -133,10 +139,11 @@ const ReactHookForm = () => {
             <p className={styles.error}>{errors.email.message}</p>
           )}
         </div>
-        <div className={styles.country}>
+        <div className={`${styles.wrapInput} ${styles.country}`}>
           <input
             {...register('country')}
             id="country"
+            className={styles.input}
             type="text"
             value={countryInput}
             onInput={handleCountryInputChange}
@@ -152,7 +159,7 @@ const ReactHookForm = () => {
                 className={styles.btnCloseCountry}
                 onClick={handleButtonCloseCountry}
               >
-                x
+                ✖
               </button>
               <ul>
                 {(filteredCountries.length > 0
@@ -171,9 +178,10 @@ const ReactHookForm = () => {
             </div>
           )}
         </div>
-        <div className={styles.password}>
+        <div className={styles.wrapInput}>
           <input
             {...register('password')}
+            className={styles.input}
             placeholder="Password"
             type="password"
           />
@@ -186,9 +194,10 @@ const ReactHookForm = () => {
             </div>
           )}
         </div>
-        <div>
+        <div className={styles.wrapInput}>
           <input
             {...register('confirmPassword')}
+            className={styles.input}
             placeholder="Confirm password"
             type="password"
           />
@@ -219,10 +228,17 @@ const ReactHookForm = () => {
             <p className={styles.error}>{errors.agreement.message}</p>
           )}
         </div>
-        <div className={styles.btn}>
-          <button disabled={!isValid} type="submit">
-            Submit
-          </button>
+        <div className={styles.conteainerBtn}>
+          <div className={styles.wrapBtn}>
+            {isValid && <div className={styles.bgbtn}></div>}
+            <button
+              className={`${styles.btn} ${isValid ? '' : 'noValidForm'}`}
+              type="submit"
+              disabled={!isValid}
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </form>
     </>

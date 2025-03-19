@@ -10,28 +10,23 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <h1>Home</h1>
-      </div>
+      <h1>User data from forms</h1>
       {dataUserFromStore.length > 0 && (
-        <>
-          <h2>User data from forms</h2>
-          <div className={styles.home}>
-            {dataUserFromStore.map((user, index) => (
-              <DataUserOnPage
-                key={index}
-                index={index + 1}
-                name={user.name}
-                age={user.age}
-                gender={user.gender}
-                email={user.email}
-                country={user.country}
-                password={user.password}
-                file={user.file}
-              />
-            ))}
-          </div>
-        </>
+        <div className={styles.home}>
+          {dataUserFromStore.map((user, index) => (
+            <DataUserOnPage
+              key={index}
+              index={index + 1}
+              name={user.name}
+              age={user.age}
+              gender={user.gender}
+              email={user.email}
+              country={user.country}
+              password={user.password}
+              file={user.file}
+            />
+          ))}
+        </div>
       )}
     </>
   );

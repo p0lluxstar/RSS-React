@@ -129,33 +129,59 @@ const UncontrolledForm = () => {
   return (
     <div>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h1>Uncontrolled Form</h1>
-        <div>
-          <input id="name" type="text" ref={nameRef} placeholder="Name" />
+        <h1 className={styles.formTitle}>Uncontrolled Form</h1>
+        <div className={styles.wrapInput}>
+          <input
+            id="name"
+            className={styles.input}
+            type="text"
+            ref={nameRef}
+            placeholder="Enter your name"
+          />
           {errors.name && <p className={styles.error}>{errors.name}</p>}
         </div>
-        <div>
-          <input id="age" type="number" ref={ageRef} placeholder="Age" />
+        <div className={styles.wrapInput}>
+          <input
+            id="age"
+            className={styles.input}
+            type="number"
+            ref={ageRef}
+            placeholder="Age"
+          />
           {errors.age && <p className={styles.error}>{errors.age}</p>}
         </div>
-        <div className={styles.gender}>
-          <div className={styles.genderField}>
-            <p>Select gender</p>
-            <select id="gener" ref={genderRef} defaultValue="">
-              <option value="" disabled></option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-          {errors.gender && <p className={styles.error}>{errors.gender}</p>}
+        <div className={styles.wrapInputSelect}>
+          <span className={styles.labelSelect}>Select gender</span>
+          <select
+            id="gender"
+            className={styles.genderSelect}
+            ref={genderRef}
+            defaultValue=""
+          >
+            <option
+              className={styles.genderSelectTitle}
+              value=""
+              disabled
+            ></option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
         </div>
-        <div>
-          <input id="email" type="text" ref={emailRef} placeholder="Email" />
+        {errors.gender && <p className={styles.error}>{errors.gender}</p>}
+        <div className={styles.wrapInput}>
+          <input
+            id="email"
+            className={styles.input}
+            type="text"
+            ref={emailRef}
+            placeholder="Enter your email"
+          />
           {errors.email && <p className={styles.error}>{errors.email}</p>}
         </div>
-        <div className={styles.country}>
+        <div className={`${styles.wrapInput} ${styles.country}`}>
           <input
             id="country"
+            className={styles.input}
             type="text"
             value={countryInput}
             onChange={handleCountryInputChange}
@@ -170,7 +196,7 @@ const UncontrolledForm = () => {
                 className={styles.btnCloseCountry}
                 onClick={handleButtonCloseCountry}
               >
-                x
+                ✖
               </button>
               <ul>
                 {(filteredCountries.length > 0
@@ -189,9 +215,10 @@ const UncontrolledForm = () => {
             </div>
           )}
         </div>
-        <div className={styles.password}>
+        <div className={styles.wrapInput}>
           <input
             id="password"
+            className={styles.input}
             type="password"
             ref={passwordRef}
             placeholder="Password"
@@ -204,9 +231,10 @@ const UncontrolledForm = () => {
             </div>
           )}
         </div>
-        <div>
+        <div className={styles.wrapInput}>
           <input
             id="confirmPassword"
+            className={styles.input}
             type="password"
             ref={confirmPasswordRef}
             placeholder="Confirm password"
@@ -235,8 +263,13 @@ const UncontrolledForm = () => {
             <p className={styles.error}>{errors.agreement}</p>
           )}
         </div>
-        <div className={styles.btn}>
-          <button type="submit">Submit</button>
+        <div className={styles.conteainerBtn}>
+          <div className={styles.wrapBtn}>
+            <div className={styles.bgbtn}></div>
+            <button className={styles.btn} type="submit">
+              Submit
+            </button>
+          </div>
         </div>
       </form>
     </div>

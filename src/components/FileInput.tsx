@@ -44,6 +44,12 @@ const FileInput: React.FC<FileInputProps> = ({ onFileChange, error }) => {
     }
   };
 
+  const handleFileButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
     <div className={styles.fileInput}>
       <input
@@ -52,6 +58,12 @@ const FileInput: React.FC<FileInputProps> = ({ onFileChange, error }) => {
         accept="image/jpeg"
         onChange={handleFileChange}
       />
+      <div className={styles.wrapInputFileBtn}>
+        <span className={styles.inputFileBtn} onClick={handleFileButtonClick}>
+          Select a file
+        </span>
+        <span className={styles.inputFileText}>Maximum 1mb</span>
+      </div>
       {error && <p className={styles.error}>{error}</p>}
       {fileError && <p className={styles.error}>{fileError}</p>}
       {preview && <img src={preview} alt="Preview" />}

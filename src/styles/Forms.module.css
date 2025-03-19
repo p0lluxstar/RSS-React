@@ -1,41 +1,109 @@
 .form {
+  width: 450px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 42px 55px 45px 55px;
+}
+
+.formTitle {
+  display: block;
+  font-size: 34px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.wrapInput {
+  position: relative;
   display: flex;
   flex-direction: column;
-  width: 340px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow:
-    0px 2px 15px 0px #86929f,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
-  background: #f7f7f7;
-  color: #3d637f;
+  margin-bottom: 14px;
 }
 
-.btn {
-  margin: 10px auto;
+.labelInput {
+  font-size: 12px;
+  color: #666666;
+  line-height: 1.5;
 }
 
-.error {
-  color: #c2060c;
-  font-size: 14px;
+.input {
+  padding: 6px 0px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: none;
 }
 
-.password-level {
-  padding-left: 5px;
-  color: #164e24;
-  font-size: 14px;
+.input::placeholder {
+  opacity: 0.8;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.input:active {
+  outline: none;
+  box-shadow: none;
+  border-color: #000;
+}
+
+/*gender*/
+
+.wrapInputSelect {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.genderSelect {
+  width: 80px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.genderSelect:focus {
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.genderSelect:active {
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.genderSelectTitle:disabled {
+  font-size: 16px;
+  font-weight: 600;
+  background: #ccc;
+}
+
+.genderSelec:hover {
+  cursor: pointer;
+}
+
+.labelSelect {
+  color: #666666;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
 }
 
 /*country*/
 
-.country {
-  position: relative;
-}
-
 .countryList {
   position: absolute;
-  left: -141px;
+  left: -150px;
   top: 0px;
   background: #fcfcfc;
   border: 1px solid #ccc;
@@ -59,10 +127,10 @@
 
 .country span {
   position: absolute;
-  top: 10px;
-  right: -12px;
-  color: #a2aab2;
+  top: 2px;
+  right: -17px;
   font-size: 20px;
+  opacity: 0.8;
 }
 
 .country button {
@@ -73,49 +141,27 @@
   background: none;
   border: none;
   position: absolute;
-  right: 5px;
+  right: 8px;
   top: 0px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .country button:hover {
+  cursor: pointer;
   opacity: 0.8;
 }
 
-/*gender*/
-
-.gender {
-  margin: 4px 0;
-}
-
-.genderField {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.genderField p {
-  font-size: 20px;
-  margin-right: 10px;
-  line-height: 25px;
-}
-
-.gender select {
-  border-radius: 5px;
-  width: 80px;
-  height: 34px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-}
-
 /*password*/
+
 .password {
   position: relative;
 }
 
 .passwordLevel {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: -5px;
+  right: 0px;
 }
 
 /*agreement*/
@@ -131,7 +177,10 @@
 }
 
 .agreement label {
-  font-size: 20px;
+  color: #666666;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
   margin-right: 10px;
 }
 
@@ -192,4 +241,75 @@
   box-shadow:
     0px 0px 2px 0px #021b38,
     0px 0px 2px 0px #00000000;
+}
+
+/*form button*/
+
+.conteainerBtn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 13px;
+}
+
+.wrapBtn {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.bgbtn {
+  position: absolute;
+  z-index: -1;
+  width: 300%;
+  height: 100%;
+  background: #a64bf4;
+  background: -webkit-linear-gradient(left, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  background: -o-linear-gradient(left, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  background: -moz-linear-gradient(left, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  background: linear-gradient(left, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  top: 0;
+  left: -100%;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.wrapBtn:hover .bgbtn {
+  left: 0;
+}
+
+.btn {
+  font-family: 'Poppins';
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0 20px;
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.noValidForm {
+  background: #ccc;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
 }

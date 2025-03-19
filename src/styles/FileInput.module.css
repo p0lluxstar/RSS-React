@@ -1,10 +1,88 @@
+.fileInput {
+  display: inline-block;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  position: relative;
+  display: inline-block;
+}
+
+.fileInput:hover {
+  color: #666666;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
 .fileInput img {
-  margin-top: 5px;
+  margin-top: 10px;
   max-width: 100%;
   border-radius: 3px;
 }
 
 .error {
-  color: #c2060c;
-  font-size: 14px;
+  font-size: 12px;
+  color: red;
+  font-weight: 400;
+}
+
+/**/
+
+.inputFileBtn {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  vertical-align: middle;
+  color: rgb(255 255 255);
+  text-align: center;
+  border-radius: 25px;
+  background-color: #8c8c8c;
+  line-height: 22px;
+  height: 40px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  transition: background-color 0.2s;
+}
+
+.inputFileText {
+  padding: 0 10px;
+  line-height: 40px;
+  display: inline-block;
+}
+
+.fileInput input[type='file'] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+/* Focus */
+.fileInput input[type='file']:focus + .inputFileBtn {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Hover/active */
+.fileInput:hover .inputFileBtn {
+  background-color: #8c8c8c;
+}
+.fileInput:active .inputFileBtn {
+  background-color: #8c8c8c;
+}
+
+/* Disabled */
+.input-file input[type='file']:disabled + .inputFileBtn {
+  background-color: #eee;
 }

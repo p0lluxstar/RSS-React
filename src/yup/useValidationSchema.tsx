@@ -66,7 +66,7 @@ const useValidationSchema = () => {
       .boolean()
       .oneOf([true], 'You must accept the agreement.')
       .required('Agreement is required.'),
-    file: yup.string().required('File is required'),
+    file: yup.string().required('File is required.'),
   });
 };
 
