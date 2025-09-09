@@ -8,10 +8,11 @@ body {
   height: 100%;
   margin: 0;
   font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(180deg, #adcbb5, #308ebd);
 }
 
 body.light {
-  background: #adcbb5;
+  background: linear-gradient(180deg, #adcbb5, #308ebd);
 }
 
 body.dark {

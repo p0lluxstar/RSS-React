@@ -5,6 +5,8 @@ import { useContext, useState } from 'react';
 import { INPUT_PLACEHOLDER } from '../constants/components';
 import ThemeToggle from './ThemeToggle';
 import { ThemeContext } from '../context/ThemeContext';
+import Image from 'next/image';
+import { BiSearchAlt } from 'react-icons/bi';
 
 interface IProps {
   fetchSearchData: () => void;
@@ -16,6 +18,7 @@ interface IProps {
 export default function Header(props: IProps): JSX.Element {
   const themeContext = useContext(ThemeContext);
   const themeStyles = themeContext.theme === 'light' ? lightStyles : darkStyles;
+  const isSearchDisabled = props.inputValue.trim().length === 0;
 
   const [showClearButton, setShowClearButton] = useState<boolean>(
     props.inputValue.length > 0
@@ -28,7 +31,7 @@ export default function Header(props: IProps): JSX.Element {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isSearchDisabled) {
       props.fetchSearchData();
     }
   };
@@ -45,6 +48,7 @@ export default function Header(props: IProps): JSX.Element {
         className={`${styles.header} ${themeStyles.header}`}
         data-testid="header"
       >
+        <Image src="/img/logo.png" width={196} height={62} alt="logo" />
         <div className={styles.search}>
           <span className={styles.apiName}>rickandmortyapi.com</span>
           <input
@@ -62,8 +66,14 @@ export default function Header(props: IProps): JSX.Element {
             </button>
           )}
         </div>
-        <button className={styles.btnSearch} onClick={props.fetchSearchData}>
-          Search
+        <button
+          className={styles.btnSearch}
+          onClick={props.fetchSearchData}
+          disabled={isSearchDisabled}
+        >
+          <div>
+            <BiSearchAlt />
+          </div>
         </button>
       </header>
     </>

@@ -1,6 +1,6 @@
 .themeToggle {
   position: absolute;
-  top: 20px;
+  top: 32px;
   right: 20px;
 }
 
@@ -16,4 +16,18 @@
 .themeToggle button:hover {
   cursor: pointer;
   opacity: 0.9;
+}
+
+@media (max-width: 1000px) {
+  .themeToggle {
+    top: 8px;
+    right: 20px;
+  }
+
+  .themeToggle button {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    line-height: 18px;
+  }
 }

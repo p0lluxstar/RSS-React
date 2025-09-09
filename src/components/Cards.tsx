@@ -45,17 +45,27 @@ export default function Cards({
             className={styles.checkboxCard}
             type="checkbox"
             onChange={(): void => handleCheckboxChange(character)}
-            checked={isCardSelected(character.id)}
+            checked={
+              typeof character.id === 'number'
+                ? isCardSelected(character.id)
+                : false
+            }
           />
           <div
             className={`${styles.card} ${themeStyles.card} ${
-              isCardSelected(character.id) ? styles.checked : ''
+              typeof character.id === 'number' && isCardSelected(character.id)
+                ? styles.checked
+                : ''
             }`}
-            onClick={(): Promise<void> => handleCardClick(character.id)}
+            onClick={(): Promise<void> =>
+              typeof character.id === 'number'
+                ? handleCardClick(character.id)
+                : Promise.resolve()
+            }
           >
             <Image
-              src={character.image}
-              alt={character.name}
+              src={character.image ?? '/default-image.png'}
+              alt={character.name ?? 'Character image'}
               width={200}
               height={200}
             />

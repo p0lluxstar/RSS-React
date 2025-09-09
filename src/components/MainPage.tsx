@@ -51,6 +51,10 @@ export default function MainPage({
 
   const handleCardClick = async (id: number): Promise<void> => {
     const currentParams = new URLSearchParams(window.location.search);
+
+    if (currentParams.get('details') === id.toString()) {
+      return;
+    }
     currentParams.set('details', id.toString());
     router.replace(`/?${currentParams.toString()}`);
     setLoading(true);

@@ -15,11 +15,10 @@
   align-items: center;
   width: 26px;
   height: 26px;
-  border-radius: 3px;
+  border-radius: 2px;
   background: #f7f7f7;
   cursor: pointer;
   font-weight: 600;
-  border: 1px solid #767676;
   color: #000000;
 }
 
@@ -29,7 +28,7 @@
 
 .active {
   color: white;
-  background: #61a1d7;
+  background: #486073;
 }
 
 .active {

@@ -1,3 +1,9 @@
 .content {
-  min-width: 50%;
+  width: 62%;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    width: 50%;
+  }
 }
