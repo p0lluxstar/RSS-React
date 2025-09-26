@@ -37,3 +37,15 @@ input {
 .noValidForm:hover {
   cursor: default;
 }
+
+@media (max-width: 768px) {
+  .active {
+    box-shadow: 0 3px 0 0 #fff;
+  }
+}
+
+@media (max-width: 460px) {
+  #root {
+    padding: 40px 20px;
+  }
+}

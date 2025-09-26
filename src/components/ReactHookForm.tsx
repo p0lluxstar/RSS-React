@@ -167,6 +167,7 @@ const ReactHookForm = () => {
                   : countries
                 ).map((country) => (
                   <li
+                    className={styles.itemCountryList}
                     key={country}
                     /* onClick={() => handleCountrySelect(country)} */
                   >
@@ -206,7 +207,6 @@ const ReactHookForm = () => {
           )}
         </div>
         <FileInput
-          {...register('file')}
           onFileChange={(file) => {
             setFile(file);
             if (file !== null) {

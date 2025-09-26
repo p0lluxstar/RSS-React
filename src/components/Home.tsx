@@ -28,6 +28,12 @@ const Home = () => {
           ))}
         </div>
       )}
+      {dataUserFromStore.length === 0 && (
+        <div className={styles.empty}>
+          <p>There is no data to display</p>
+          <span>Fill out the form to see the data here</span>
+        </div>
+      )}
     </>
   );
 };
