@@ -1,0 +1,41 @@
+import styles from '../styles/Home.module.css';
+import { useSelector } from 'react-redux';
+import DataUserOnPage from './DataUserOnPage';
+import { IDataForm } from '../types/interfaces';
+
+const Home = () => {
+  const dataUserFromStore = useSelector(
+    (state: { dataForms: IDataForm[] }) => state.dataForms
+  );
+
+  return (
+    <>
+      <h1>User data from forms</h1>
+      {dataUserFromStore.length > 0 && (
+        <div className={styles.home}>
+          {dataUserFromStore.map((user, index) => (
+            <DataUserOnPage
+              key={index}
+              index={index + 1}
+              name={user.name}
+              age={user.age}
+              gender={user.gender}
+              email={user.email}
+              country={user.country}
+              password={user.password}
+              file={user.file}
+            />
+          ))}
+        </div>
+      )}
+      {dataUserFromStore.length === 0 && (
+        <div className={styles.empty}>
+          <p>There is no data to display</p>
+          <span>Fill out the form to see the data here</span>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Home;

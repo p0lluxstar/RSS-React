@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 50px;
+  margin-bottom: 40px;
+  line-height: 1.2;
+}
+
+.headerBtn {
+  text-decoration: none;
+  color: #fff;
+  font-size: 34px;
+  font-weight: bold;
+  transition: box-shadow 0.2s ease;
+}
+
+.headerBtn:hover {
+  box-shadow: 0 4px 0 0 #fff;
+}
+
+@media (max-width: 900px) {
+  .headerBtn {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    line-height: 1;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .headerBtn:hover {
+    box-shadow: 0 3px 0 0 #fff;
+  }
+}

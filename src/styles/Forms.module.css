@@ -1,0 +1,363 @@
+.form {
+  width: 450px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 45px;
+}
+
+.formTitle {
+  display: block;
+  font-size: 34px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.wrapInput {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.labelInput {
+  font-size: 12px;
+  color: #666666;
+  line-height: 1.5;
+}
+
+.input {
+  padding: 6px 0px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: none;
+}
+
+.input::placeholder {
+  opacity: 0.8;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.input:active {
+  outline: none;
+  box-shadow: none;
+  border-color: #000;
+}
+
+/*gender*/
+
+.wrapInputSelect {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.genderSelect {
+  width: 80px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.genderSelect:focus {
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.genderSelect:active {
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.genderSelectTitle:disabled {
+  font-size: 16px;
+  font-weight: 600;
+  background: #ccc;
+}
+
+.genderSelec:hover {
+  cursor: pointer;
+}
+
+.labelSelect {
+  color: #666666;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/*country*/
+
+.countryList {
+  position: absolute;
+  left: -150px;
+  top: 0px;
+  background: #fcfcfc;
+  border: 1px solid #ccc;
+  padding: 12px 10px 6px;
+  min-width: 96px;
+  border-radius: 4px;
+  color: #191919;
+  z-index: 2;
+}
+
+.country li {
+  list-style: none;
+  cursor: pointer;
+  line-height: 24px;
+  height: 24px;
+  min-width: 96px;
+}
+
+.country li:hover {
+  opacity: 0.8;
+}
+
+.country span {
+  position: absolute;
+  top: 2px;
+  right: -17px;
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+.country li.itemCountryList {
+  cursor: default;
+}
+
+.country li.itemCountryList:hover {
+  opacity: 1;
+}
+
+.country button {
+  width: 10px;
+  height: 10px;
+  margin: 0px;
+  padding: 0px;
+  background: none;
+  border: none;
+  position: absolute;
+  right: 8px;
+  top: 0px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.country button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/*password*/
+
+.password {
+  position: relative;
+}
+
+.passwordLevel {
+  position: absolute;
+  top: -5px;
+  right: 0px;
+}
+
+/*agreement*/
+
+.agreement {
+  margin: 20px 0;
+}
+
+.agreementField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.agreement label {
+  color: #666666;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-right: 10px;
+}
+
+.checkbox[type='checkbox'] {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 1px solid #979797;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0px;
+  width: 20px;
+  padding: 0;
+}
+
+.checkbox[type='checkbox']:after {
+  content: '';
+  display: block;
+  width: 70%;
+  height: 40%;
+  background-color: transparente;
+  border-bottom: 35px solid white;
+  border-left: 35px solid white;
+  transform: rotate(-45deg) translate(7%, -5%);
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.checkbox[type='checkbox']:checked {
+  background-color: #a7a9ac;
+  /* border-color: #a13a3a; */
+}
+
+.checkbox[type='checkbox']:checked:after {
+  border-bottom: 4px solid white;
+  border-left: 4px solid white;
+}
+
+.checkboxCard[type='checkbox']:focus {
+  outline: none;
+}
+
+.checkboxCard[type='checkbox']:disabled {
+  background-color: #eee;
+  border-color: transparent;
+}
+
+.checkbox[type='checkbox']:disabled:after {
+  border-color: #aaa;
+}
+
+.checkbox[type='checkbox']:hover {
+  box-shadow:
+    0px 0px 2px 0px #021b38,
+    0px 0px 2px 0px #00000000;
+}
+
+/*form button*/
+
+.conteainerBtn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 13px;
+}
+
+.wrapBtn {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.bgbtn {
+  position: absolute;
+  z-index: -1;
+  width: 300%;
+  height: 100%;
+  background: #a64bf4;
+  background: -webkit-linear-gradient(left, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  background: -o-linear-gradient(left, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  background: -moz-linear-gradient(left, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  background: linear-gradient(left, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  top: 0;
+  left: -100%;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.wrapBtn:hover .bgbtn {
+  left: 0;
+}
+
+.btn {
+  font-family: 'Poppins';
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0 20px;
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.noValidForm {
+  background: #ccc;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
+}
+
+@media (max-width: 768px) {
+  .form {
+    width: 360px;
+    padding: 30px;
+  }
+
+  .formTitle {
+    font-size: 24px;
+    padding-bottom: 0px;
+  }
+}
+
+@media (max-width: 660px) {
+  .countryList {
+    left: 0px;
+    top: 50px;
+  }
+
+  .countryList ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .countryList li {
+    margin-right: 5px;
+  }
+
+  .country span {
+    top: -20px;
+    transform: rotate(270deg);
+  }
+}
+
+@media (max-width: 460px) {
+  .form {
+    width: 100%;
+  }
+}
