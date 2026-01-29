@@ -1,0 +1,31 @@
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #30303033;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 9999;
+  top: 0px;
+  left: 0px;
+}
+
+.loading {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 5px solid;
+  border-color: #dbdcef;
+  border-right-color: #297cf8;
+  animation: spinner-d3wgkg 0.4s infinite linear;
+  position: absolute;
+  z-index: 1;
+}
+
+@keyframes spinner-d3wgkg {
+  to {
+    transform: rotate(1turn);
+  }
+}

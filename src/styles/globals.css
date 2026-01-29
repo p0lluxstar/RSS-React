@@ -1,0 +1,20 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Exo 2', 'Lato', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(180deg, #adcbb5, #308ebd);
+}
+
+body.light {
+  background: linear-gradient(180deg, #adcbb5, #308ebd);
+}
+
+body.dark {
+  background: #3d3d3d;
+}

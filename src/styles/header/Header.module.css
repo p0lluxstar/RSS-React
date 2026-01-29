@@ -1,0 +1,104 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  padding: 0 20px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 600px;
+  justify-content: center;
+}
+
+.apiName {
+  position: absolute;
+  top: -5px;
+  left: 10px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.btnClear {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  width: 26px;
+  height: 26px;
+  font-weight: 600;
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  color: #ff8787;
+  background: none;
+  cursor: pointer;
+}
+
+.btnClear:hover {
+  opacity: 0.8;
+}
+
+.inputSearch {
+  margin: 10px;
+  display: block;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.25rem;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.btnSearch {
+  background-color: #fff;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  color: #212529;
+  font-weight: 600;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.btnSearch:hover {
+  opacity: 0.8;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.inputError {
+  background: #feb9b9 !important;
+  animation: shake 0.15s forwards;
+}
+
+.btnSearch svg {
+  font-size: 26px;
+  color: #8b8b8b;
+}

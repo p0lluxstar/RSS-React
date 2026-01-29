@@ -1,0 +1,118 @@
+.cards {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  max-width: 1280px;
+  gap: 20px;
+}
+
+.cardWrapper {
+  position: relative;
+}
+
+.card {
+  width: 220px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.card:hover img {
+  filter: none;
+}
+
+.card img {
+  width: 200px;
+  height: 200px;
+  filter: grayscale(100%);
+  transition: filter 0.2s ease-out;
+}
+
+.cardName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  height: 50px;
+  gap: 5px;
+}
+
+.cardName span {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.message {
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.checkboxCard {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 999;
+}
+
+.checkboxCard[type='checkbox'] {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 1px solid #979797;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.checkboxCard[type='checkbox']:after {
+  content: '';
+  display: block;
+  width: 70%;
+  height: 40%;
+  background-color: transparente;
+  border-bottom: 35px solid white;
+  border-left: 35px solid white;
+  transform: rotate(-45deg) translate(7%, -5%);
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.checkboxCard[type='checkbox']:checked {
+  background-color: #e65555;
+  border-color: #a13a3a;
+}
+
+.checkboxCard[type='checkbox']:checked:after {
+  border-bottom: 4px solid white;
+  border-left: 4px solid white;
+}
+
+.checkboxCard[type='checkbox']:focus {
+  outline: none;
+}
+
+.checkboxCard[type='checkbox']:disabled {
+  background-color: #eee;
+  border-color: transparent;
+}
+
+.checkboxCard[type='checkbox']:disabled:after {
+  border-color: #aaa;
+}
+
+.checkboxCard[type='checkbox']:hover {
+  box-shadow:
+    0px 0px 2px 0px #021b38,
+    0px 0px 2px 0px #00000000;
+}
+
+.checked img {
+  filter: none;
+}

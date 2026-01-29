@@ -1,0 +1,10 @@
+.mainContent {
+  display: flex;
+  justify-content: center;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: calc(100vh - 100px);
+  position: relative;
+  gap: 20px;
+}
